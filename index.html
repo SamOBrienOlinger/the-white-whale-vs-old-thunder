@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#080b4f">
-  <meta name="description" content="Play as Moby Dick. Find and strike the Pequod five times before Captain Ahab finds you.">
+  <meta name="description" content="Guide the White Whale through a five-strike hunt for Ahab's Pequod. Miss once and Old Thunder has his vengeance.">
   <title>The White Whale versus Old Thunder</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="game-shell">
     <header class="masthead">
-      <p class="eyebrow">A whale's-eye sea battle</p>
+      <p class="eyebrow">A coordinate hunt of vengeance and fate</p>
       <h1>The White Whale<br><span>versus Old Thunder</span></h1>
-      <p class="briefing">You are the white whale. The Pequod is hidden in the fog. Strike all five sections of its hull to sink it. Miss once and Ahab wins.</p>
+      <p class="briefing">Ahab—<em>Old Thunder</em>—has bent the Pequod’s voyage to revenge. You are the White Whale. Find five hidden lengths of hull and break the ship; miss once, and his harpoon has you.</p>
     </header>
 
-    <section class="scene" aria-label="Moby Dick faces the Pequod">
+    <section class="scene" aria-label="The White Whale faces Ahab's Pequod">
       <div class="clouds" aria-hidden="true"></div>
       <div class="pequod" data-ship-state="intact" aria-hidden="true">
         <span class="ship-hull"></span>
@@ -39,11 +39,12 @@
     <section class="command-panel" aria-labelledby="orders-title">
       <div class="status-row">
         <div>
-          <p class="label" id="orders-title">Ahab's log</p>
-          <p id="status" class="status" aria-live="polite">Choose your first coordinate.</p>
+          <p class="label" id="orders-title">The quarter-deck</p>
+          <p id="status" class="status" aria-live="polite">The Pequod keeps to the fog. Choose a quarter of the sea.</p>
+          <p id="prompt" class="prompt" aria-live="polite">Five true breaches sink the ship. One empty strike gives Old Thunder his vengeance.</p>
         </div>
         <div class="hit-counter" aria-label="Pequod damage">
-          <span class="label">Hull hits</span>
+          <span class="label">Pequod’s wounds</span>
           <strong><span id="hit-count">0</span> / 5</strong>
         </div>
       </div>
@@ -52,20 +53,25 @@
         <span></span><span></span><span></span><span></span><span></span>
       </div>
 
+      <div class="board-heading">
+        <p class="label">The sea-chart</p>
+        <p>Choose a letter and number to direct the White Whale’s next breach.</p>
+      </div>
+
       <div class="board-wrap">
         <div class="coordinate-board" id="board" aria-label="Pequod search grid"></div>
       </div>
 
       <div class="legend" aria-label="Grid legend">
         <span><i class="legend-hit"></i> Hull struck</span>
-        <span><i class="legend-selected"></i> Selected</span>
+        <span><i class="legend-miss"></i> Empty water</span>
       </div>
 
-      <button class="reset-button" id="reset" type="button">Begin a new hunt</button>
+      <button class="reset-button" id="reset" type="button">Call up a new chase</button>
     </section>
 
     <footer>
-      <p>Five hits sink the Pequod. One miss ends the hunt.</p>
+      <p>Five wounds to the Pequod prevail. One useless breach leaves the White Whale to Ahab.</p>
     </footer>
   </main>
 
@@ -73,7 +79,7 @@
     <p class="dialog-kicker" id="dialog-kicker"></p>
     <h2 id="dialog-title"></h2>
     <p id="dialog-message"></p>
-    <button id="play-again" type="button">Hunt again</button>
+    <button id="play-again" type="button">Take up the chase again</button>
   </dialog>
 
   <script type="module" src="script.js"></script>

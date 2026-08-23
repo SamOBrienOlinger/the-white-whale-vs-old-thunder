@@ -2,6 +2,7 @@ import { GRID_SIZE, REQUIRED_HITS, ROWS, createGame, strike } from "./game-engin
 
 const board = document.querySelector("#board");
 const status = document.querySelector("#status");
+const prompt = document.querySelector("#prompt");
 const hitCount = document.querySelector("#hit-count");
 const resetButton = document.querySelector("#reset");
 const playAgainButton = document.querySelector("#play-again");
@@ -12,6 +13,13 @@ const dialogMessage = document.querySelector("#dialog-message");
 const ship = document.querySelector(".pequod");
 const whale = document.querySelector(".whale");
 const damageSegments = [...document.querySelectorAll(".damage-track span")];
+
+const hitPrompts = [
+  "A splintered plank! The White Whale has found timber; four lengths remain.",
+  "The Pequod shudders beneath Old Thunder’s feet. Three lengths remain.",
+  "A third breach opens in the hull. The chase has turned against Ahab.",
+  "Only one unbroken length remains. Read the sea, then strike true."
+];
 
 let game = createGame();
 
@@ -47,7 +55,7 @@ function buildBoard() {
       cell.type = "button";
       cell.className = "coord-cell";
       cell.dataset.coordinate = coordinate;
-      cell.setAttribute("aria-label", `Strike coordinate ${coordinate}`);
+      cell.setAttribute("aria-label", `Direct the White Whale to coordinate ${coordinate}`);
       cell.addEventListener("click", () => chooseCoordinate(cell, coordinate));
       board.append(cell);
     }
@@ -76,21 +84,24 @@ function render() {
   damageSegments.forEach((segment, index) => segment.classList.toggle("active", index < game.hits.length));
 
   if (game.status === "won") {
-    status.textContent = "The fifth blow lands. The Pequod is sinking.";
+    status.textContent = "The fifth blow lands. The Pequod founders.";
+    prompt.textContent = "Ahab’s chase is ended: the ship turns into its wooden hearse beneath the sea.";
     ship.dataset.shipState = "sunk";
     endGame(true);
     return;
   }
 
   if (game.status === "lost") {
-    status.textContent = `${game.miss} is empty water. Ahab's harpoon finds you.`;
+    status.textContent = `${game.miss} is empty water. Old Thunder’s harpoon finds the White Whale.`;
+    prompt.textContent = "Moby Dick is slain; the Pequod, untouched, sails on.";
     ship.dataset.shipState = "intact";
     endGame(false);
     return;
   }
 
   if (game.hits.length > 0) {
-    status.textContent = `Direct hit. ${REQUIRED_HITS - game.hits.length} section${REQUIRED_HITS - game.hits.length === 1 ? "" : "s"} of the Pequod remain.`;
+    status.textContent = `Hull struck. ${REQUIRED_HITS - game.hits.length} length${REQUIRED_HITS - game.hits.length === 1 ? "" : "s"} of the Pequod remain.`;
+    prompt.textContent = hitPrompts[game.hits.length - 1];
     ship.dataset.shipState = "damaged";
     window.setTimeout(() => {
       if (game.status === "playing") ship.dataset.shipState = "intact";
@@ -100,11 +111,11 @@ function render() {
 
 function endGame(won) {
   board.querySelectorAll("button").forEach((cell) => { cell.disabled = true; });
-  dialogKicker.textContent = won ? "The prophecy is fulfilled" : "Ahab has his vengeance";
-  dialogTitle.textContent = won ? "The Pequod sinks" : "Moby Dick is slain";
+  dialogKicker.textContent = won ? "The last chase" : "Old Thunder’s vengeance";
+  dialogTitle.textContent = won ? "The Pequod founders" : "The White Whale falls";
   dialogMessage.textContent = won
-    ? "Five true strikes tear through the hull. The Pequod becomes a wreck beneath the waves."
-    : `Your strike at ${game.miss} missed. Ahab kills the white whale, and the Pequod sails on undamaged.`;
+    ? "Five true breaches tear through the hull. Ahab’s ship becomes the wreck that his chase foretold."
+    : `Your breach at ${game.miss} found only water. Ahab kills the White Whale, and the Pequod sails on unbroken.`;
   window.setTimeout(() => dialog.showModal(), 650);
 }
 
@@ -112,7 +123,8 @@ function resetGame() {
   game = createGame();
   ship.dataset.shipState = "intact";
   whale.dataset.whaleState = "ready";
-  status.textContent = "Choose your first coordinate.";
+  status.textContent = "The Pequod keeps to the fog. Choose a quarter of the sea.";
+  prompt.textContent = "Five true breaches sink the ship. One empty strike gives Old Thunder his vengeance.";
   hitCount.textContent = "0";
   damageSegments.forEach((segment) => segment.classList.remove("active"));
   if (dialog.open) dialog.close();

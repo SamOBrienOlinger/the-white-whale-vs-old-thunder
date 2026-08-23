@@ -236,6 +236,7 @@ h1 span { color: #d8d9ff; }
 
 .status-row { display: flex; justify-content: space-between; align-items: end; gap: 1rem; max-width: 760px; margin: 0 auto 1rem; }
 .status { min-height: 2.6em; margin: 0; color: #fff; font-family: system-ui, sans-serif; font-weight: 700; line-height: 1.35; }
+.prompt { max-width: 590px; margin: .45rem 0 0; color: #c5d1ff; font-family: system-ui, sans-serif; font-size: .88rem; line-height: 1.45; }
 .hit-counter { flex: 0 0 auto; text-align: right; }
 .hit-counter strong { display: block; color: var(--foam); font-size: 1.7rem; line-height: 1; }
 
@@ -243,6 +244,9 @@ h1 span { color: #d8d9ff; }
 .damage-track span { height: 8px; background: #282b79; border: 1px solid #5862bb; }
 .damage-track span.active { background: var(--coral); border-color: #ff9e97; box-shadow: 0 0 12px rgba(255,90,111,.7); }
 
+.board-heading { width: min(100%, 760px); margin: 1.55rem auto .7rem; }
+.board-heading .label { margin-bottom: .2rem; }
+.board-heading p:last-child { margin: 0; color: var(--muted); font-family: system-ui, sans-serif; font-size: .82rem; line-height: 1.4; }
 .board-wrap { width: min(100%, 760px); margin: auto; overflow: auto; padding: 3px; }
 .coordinate-board { display: grid; grid-template-columns: 30px repeat(10, minmax(27px, 1fr)); min-width: 340px; aspect-ratio: 11 / 10; background: #060a48; border: 3px solid #776ef0; box-shadow: 7px 7px 0 #020426; }
 .coord-label { display: grid; place-items: center; color: var(--muted); font-size: .72rem; font-weight: 900; }
@@ -257,7 +261,7 @@ h1 span { color: #d8d9ff; }
 .legend { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 1.25rem auto; color: var(--muted); font-size: .74rem; text-transform: uppercase; }
 .legend i { display: inline-block; width: 12px; height: 12px; margin-right: 5px; vertical-align: -2px; }
 .legend-hit { background: var(--foam); border: 2px solid var(--coral); }
-.legend-selected { background: #361d57; border: 1px solid #fff; }
+.legend-miss { background: #361d57; border: 1px solid #fff; }
 
 .reset-button, .result-dialog button { display: block; width: min(100%, 380px); margin: 1rem auto 0; padding: .95rem 1rem; color: #101342; font-weight: 900; text-transform: uppercase; cursor: pointer; border: 0; background: var(--gold); box-shadow: 0 6px 0 #ad6b37; }
 .reset-button:hover, .result-dialog button:hover { background: #ffe19a; }

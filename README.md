@@ -2,7 +2,9 @@
 
 A mobile-first, Battleship-inspired browser game built in plain HTML, CSS and JavaScript.
 
-You play as Moby Dick. The five-cell Pequod is hidden on a 10×10 coordinate grid. Strike all five occupied coordinates to sink the ship. A single miss allows Captain Ahab to kill the whale, and the intact Pequod survives.
+You play as Moby Dick. The five-cell Pequod is hidden on a 10×10 coordinate grid. Strike all five occupied coordinates to sink the ship. A single miss allows Captain Ahab—"Old Thunder"—to kill the whale, and the intact Pequod survives.
+
+The game’s updated prompts draw on the supplied summaries of [Captain Ahab](https://en.wikipedia.org/wiki/Captain_Ahab), [*Moby-Dick*](https://en.wikipedia.org/wiki/Moby-Dick), and [Moby Dick as a white sperm whale](https://en.wikipedia.org/wiki/Moby_Dick_(whale)).
 
 ## Run locally
 
