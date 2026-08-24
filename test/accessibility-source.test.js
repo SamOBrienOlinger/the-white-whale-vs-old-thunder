@@ -35,3 +35,11 @@ test("gameplay keeps the illustrated scene visible and supports keyboard plottin
   assert.match(script, /ArrowUp: \[-1, 0\]/);
   assert.match(script, /board\.addEventListener\("keydown", handleBoardKeydown\)/);
 });
+
+test("the coordinate grid uses the supplied Pequod voyage map without losing its labels", () => {
+  assert.match(html, /<figure class="board-wrap">/);
+  assert.match(html, /The voyage of the <em>Pequod<\/em>/);
+  assert.match(html, /aria-label="Search chart with seven rows and seven columns"/);
+  assert.match(css, /background-image: url\("assets\/pequod-voyage-map\.webp"\)/);
+  assert.match(css, /\.coord-label \{[\s\S]*background: rgba\(243, 234, 214, \.86\)/);
+});

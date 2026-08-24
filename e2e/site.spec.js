@@ -40,6 +40,17 @@ test('Captain Ahab selection enters the correct role', async ({ page }) => {
   await expect(page.locator('#damage-label')).toHaveText('Moby Dick’s wounds');
 });
 
+test('the sea chart displays the Pequod voyage map behind a usable grid', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' }).click();
+  await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).click();
+
+  await expect(page.getByText('The voyage of the Pequod')).toBeVisible();
+  await expect(page.getByLabel('Search chart with seven rows and seven columns')).toBeVisible();
+  await expect(page.locator('.board-wrap')).toHaveCSS('background-image', /pequod-voyage-map\.webp/);
+  await expect(page.locator('.coord-cell[data-coordinate="A1"]')).toBeVisible();
+});
+
 test('the landing screen is responsive on a mobile viewport', async ({ page }) => {
   await page.goto('/');
   const landing = page.locator('#landing');
