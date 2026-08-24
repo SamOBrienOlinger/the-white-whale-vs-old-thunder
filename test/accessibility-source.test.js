@@ -16,6 +16,8 @@ test("mobile users receive visible, named role and information controls", () => 
 test("status and result content expose accessible relationships", () => {
   assert.match(html, /id="status"[^>]*aria-live="polite"[^>]*aria-atomic="true"[^>]*aria-describedby="prompt"/);
   assert.match(html, /id="result-dialog"[^>]*aria-labelledby="dialog-title"[^>]*aria-describedby="dialog-message"/);
+  assert.match(html, /class="damage-track"[^>]*role="progressbar"[^>]*aria-labelledby="damage-label"/);
+  assert.match(html, /id="board"[^>]*aria-describedby="board-instruction board-keyboard-help"/);
   assert.match(html, /id="change-role"[^>]*>Change side \/ return to title<\/button>/);
 });
 
@@ -24,4 +26,12 @@ test("mobile grid targets and visible result states meet the intended minimum", 
   assert.match(css, /\.coord-cell \{ min-height: 44px/);
   assert.match(script, /cell\.textContent = game\.lastWasHit \? "Hit" : "Miss"/);
   assert.match(script, /cell\.setAttribute\("aria-label", `\$\{coordinate\}: \$\{game\.lastWasHit/);
+});
+
+test("gameplay keeps the illustrated scene visible and supports keyboard plotting", () => {
+  assert.match(html, /class="ahab-harpoon-overlay"[^>]*src="assets\/ahab-harpoon-overlay\.webp"/);
+  assert.match(css, /\.ahab-harpoon-overlay \{[\s\S]*height: clamp\(32px, 4vw, 48px\)/);
+  assert.doesNotMatch(script, /commandPanel\.scrollIntoView/);
+  assert.match(script, /ArrowUp: \[-1, 0\]/);
+  assert.match(script, /board\.addEventListener\("keydown", handleBoardKeydown\)/);
 });

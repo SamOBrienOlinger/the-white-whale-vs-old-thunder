@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#e8dfc7">
   <meta name="description" content="Choose Moby Dick or Captain Ahab and take five chances to win the last chase.">
   <title>The White Whale versus Old Thunder</title>
-  <link rel="stylesheet" href="styles.css?v=20260824-9">
+  <link rel="stylesheet" href="styles.css?v=20260824-10">
 </head>
 <body class="landing-active">
   <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
@@ -72,15 +72,17 @@
     </header>
 
     <section class="scene" aria-label="The White Whale faces Ahab's Pequod">
+      <img class="ahab-harpoon-overlay" src="assets/ahab-harpoon-overlay.webp" alt="" aria-hidden="true">
       <div class="pequod" data-ship-state="intact" aria-hidden="true"></div>
       <div class="whale" data-whale-state="ready" aria-hidden="true"></div>
     </section>
 
     <section class="command-panel" aria-labelledby="orders-title">
       <div class="status-row"><div><p class="label" id="orders-title">The quarter-deck</p><p id="status" class="status" tabindex="-1" aria-live="polite" aria-atomic="true" aria-describedby="prompt">Choose Moby Dick or Captain Ahab to begin the chase.</p><p id="prompt" class="prompt">Each commander has five chances. Two true strikes win.</p></div><div class="hit-counter" aria-label="Enemy damage"><span class="label" id="damage-label">Enemy wounds</span><strong><span id="hit-count">0</span> / <span id="required-hits">2</span></strong><span class="attempts-left"><span id="attempt-count">5</span> chances left</span></div></div>
-      <div class="damage-track" aria-hidden="true"><span></span><span></span></div>
+      <div class="damage-track" role="progressbar" aria-labelledby="damage-label" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" aria-valuetext="No wounds landed"><span aria-hidden="true"></span><span aria-hidden="true"></span></div>
       <div class="board-heading"><p class="label">The sea-chart</p><p id="board-instruction">Choose a commander before plotting the first coordinate.</p></div>
-      <div class="board-wrap"><div class="coordinate-board" id="board" aria-label="Search grid"></div></div>
+      <p class="visually-hidden" id="board-keyboard-help">Use the arrow keys to move between untried coordinates. Press Enter or Space to strike.</p>
+      <div class="board-wrap"><div class="coordinate-board" id="board" aria-label="Search grid" aria-describedby="board-instruction board-keyboard-help"></div></div>
       <div class="legend" aria-label="Grid legend"><span><i class="legend-hit"></i> Quarry struck</span><span><i class="legend-miss"></i> Empty water</span></div>
       <div class="game-actions">
         <button class="reset-button" id="reset" type="button" disabled>Call up a new chase</button>
@@ -96,7 +98,7 @@
     <button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button>
   </dialog>
 
-  <script src="landing.js?v=20260824-1"></script>
-  <script type="module" src="script.js?v=20260824-1"></script>
+  <script src="landing.js?v=20260824-2"></script>
+  <script type="module" src="script.js?v=20260824-2"></script>
 </body>
 </html>

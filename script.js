@@ -20,7 +20,7 @@ const dialogTitle = document.querySelector("#dialog-title");
 const dialogMessage = document.querySelector("#dialog-message");
 const ship = document.querySelector(".pequod");
 const whale = document.querySelector(".whale");
-const commandPanel = document.querySelector(".command-panel");
+const damageTrack = document.querySelector(".damage-track");
 const damageSegments = [...document.querySelectorAll(".damage-track span")];
 
 const roleCopy = {
@@ -29,7 +29,7 @@ const roleCopy = {
     targetShort: "Pequod",
     damage: "Pequod’s wounds",
     briefing: "You are Moby Dick. Ahab—Old Thunder—has bent the Pequod’s voyage to revenge. Find the ship, ram its hull, and leave its chase beneath the waves.",
-    instruction: "Choose a letter and number to direct the White Whale’s next breach.",
+    instruction: "Tap a coordinate—or use the arrow keys and Enter—to direct the White Whale’s next breach.",
     startStatus: "The Pequod keeps to the fog. Choose a quarter of the sea.",
     startPrompt: "Two true breaches within five chances sink the ship. Empty water reveals the quarry’s bearing.",
     hitPrompts: [
@@ -55,7 +55,7 @@ const roleCopy = {
     targetShort: "Moby Dick",
     damage: "Moby Dick’s wounds",
     briefing: "You are Captain Ahab—Old Thunder. The White Whale moves beneath the charted sea. Read the water, cast true, and take your vengeance before he escapes.",
-    instruction: "Choose a letter and number to cast Ahab’s next harpoon.",
+    instruction: "Tap a coordinate—or use the arrow keys and Enter—to cast Ahab’s next harpoon.",
     startStatus: "The White Whale slips beneath the fog. Choose a quarter of the sea.",
     startPrompt: "Two true harpoons within five chances bring Moby Dick down. Empty water reveals the quarry’s bearing.",
     hitPrompts: [
@@ -116,6 +116,8 @@ function buildBoard() {
       cell.type = "button";
       cell.className = "coord-cell";
       cell.dataset.coordinate = coordinate;
+      cell.dataset.row = row;
+      cell.dataset.column = column;
       cell.disabled = !game || game.status !== "playing";
       cell.setAttribute("aria-label", game
         ? `${game.role === "moby" ? "Direct the White Whale" : "Cast Ahab’s harpoon"} to coordinate ${coordinate}, untried`
@@ -138,6 +140,44 @@ function chooseCoordinate(cell, coordinate) {
   cell.setAttribute("aria-label", `${coordinate}: ${game.lastWasHit ? `${activeCopy().targetShort} struck` : "empty water"}`);
   animateAttempt(game.lastWasHit);
   render();
+
+  if (game.status === "playing") {
+    const cells = [...board.querySelectorAll(".coord-cell")];
+    const currentIndex = cells.indexOf(cell);
+    const nextCell = [...cells.slice(currentIndex + 1), ...cells.slice(0, currentIndex)]
+      .find((candidate) => !candidate.disabled);
+    nextCell?.focus({ preventScroll: true });
+  }
+}
+
+function moveBoardFocus(cell, rowStep, columnStep) {
+  let row = Number(cell.dataset.row) + rowStep;
+  let column = Number(cell.dataset.column) + columnStep;
+
+  while (row >= 0 && row < GRID_SIZE && column >= 0 && column < GRID_SIZE) {
+    const candidate = board.querySelector(`[data-row="${row}"][data-column="${column}"]`);
+    if (candidate && !candidate.disabled) {
+      candidate.focus({ preventScroll: true });
+      return;
+    }
+    row += rowStep;
+    column += columnStep;
+  }
+}
+
+function handleBoardKeydown(event) {
+  const cell = event.target.closest(".coord-cell");
+  if (!cell) return;
+  const movement = {
+    ArrowUp: [-1, 0],
+    ArrowDown: [1, 0],
+    ArrowLeft: [0, -1],
+    ArrowRight: [0, 1]
+  }[event.key];
+
+  if (!movement) return;
+  event.preventDefault();
+  moveBoardFocus(cell, ...movement);
 }
 
 function animateAttempt(hit) {
@@ -168,6 +208,8 @@ function render() {
   hitCount.textContent = game.hits.length;
   requiredHits.textContent = REQUIRED_HITS;
   attemptCount.textContent = chancesLeft;
+  damageTrack.setAttribute("aria-valuenow", game.hits.length);
+  damageTrack.setAttribute("aria-valuetext", `${game.hits.length} of ${REQUIRED_HITS} wounds landed`);
   damageSegments.forEach((segment, index) => segment.classList.toggle("active", index < game.hits.length));
 
   if (game.status === "won") {
@@ -227,10 +269,11 @@ function startGame(role) {
   requiredHits.textContent = REQUIRED_HITS;
   attemptCount.textContent = MAX_ATTEMPTS;
   damageSegments.forEach((segment) => segment.classList.remove("active"));
+  damageTrack.setAttribute("aria-valuenow", "0");
+  damageTrack.setAttribute("aria-valuetext", "No wounds landed");
   if (dialog.open) dialog.close();
   buildBoard();
   window.setTimeout(() => {
-    commandPanel.scrollIntoView({ behavior: "instant", block: "start" });
     status.focus({ preventScroll: true });
   }, 0);
 }
@@ -254,6 +297,8 @@ function chooseRole() {
   requiredHits.textContent = REQUIRED_HITS;
   attemptCount.textContent = MAX_ATTEMPTS;
   damageSegments.forEach((segment) => segment.classList.remove("active"));
+  damageTrack.setAttribute("aria-valuenow", "0");
+  damageTrack.setAttribute("aria-valuetext", "No wounds landed");
   if (dialog.open) dialog.close();
   buildBoard();
   document.dispatchEvent(new Event("whitewhale:return"));
@@ -272,6 +317,7 @@ resetButton.addEventListener("click", resetGame);
 changeRoleButton.addEventListener("click", chooseRole);
 playAgainButton.addEventListener("click", resetGame);
 chooseRoleButton.addEventListener("click", chooseRole);
+board.addEventListener("keydown", handleBoardKeydown);
 
 buildBoard();
 
