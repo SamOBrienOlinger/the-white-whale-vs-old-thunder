@@ -8,6 +8,11 @@ const aboutButton = document.getElementById('about-tale');
 const howDialog = document.getElementById('how-dialog');
 const aboutDialog = document.getElementById('about-dialog');
 
+const canonicalPath = '/the-white-whale-vs-old-thunder/';
+if (window.location.pathname.endsWith('/index.html')) {
+  window.history.replaceState(null, '', `${canonicalPath}${window.location.search}${window.location.hash}`);
+}
+
 const interactionStyle = document.createElement('style');
 interactionStyle.textContent = `
   .landing-action { background: rgba(255,255,255,.055) !important; box-shadow: inset 0 0 0 1px rgba(75,52,40,.28); }
