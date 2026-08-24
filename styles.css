@@ -70,6 +70,39 @@ h1 {
 
 h1 span { color: #efdfbd; }
 
+.role-select {
+  padding: clamp(1.3rem, 4vw, 2.4rem);
+  text-align: center;
+  background:
+    repeating-linear-gradient(16deg, rgba(96,61,35,.03) 0 1px, transparent 1px 8px),
+    #efe5cf;
+  border-bottom: 6px double #8e6b4d;
+}
+
+.role-select h2 {
+  margin: 0;
+  color: #3c251b;
+  font-size: clamp(1.6rem, 5vw, 2.65rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.role-select > p:not(.label) {
+  max-width: 590px;
+  margin: .7rem auto 1.2rem;
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.45;
+}
+
+.role-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; width: min(100%, 660px); margin: auto; }
+.role-choice { display: grid; gap: .28rem; min-height: 142px; padding: 1rem; color: #f1e3c6; text-align: left; cursor: pointer; border: 2px solid #3d281d; background: linear-gradient(145deg, #3d5962, #253840); box-shadow: 4px 4px 0 #9b7954; }
+.role-choice[data-role="ahab"] { background: linear-gradient(145deg, #78513a, #42291f); }
+.role-choice:hover, .role-choice:focus-visible { transform: translate(-2px, -2px); outline: 3px solid var(--gold); outline-offset: 2px; box-shadow: 6px 6px 0 #9b7954; }
+.role-kicker { color: #e3bf72; font-size: .67rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.role-choice strong { font-size: clamp(1.2rem, 4vw, 1.7rem); line-height: 1; text-transform: uppercase; }
+.role-choice small { color: #eadcc0; font-size: .82rem; line-height: 1.3; }
+
 .briefing {
   max-width: 720px;
   margin: 1.25rem auto 0;
@@ -251,9 +284,11 @@ h1 span { color: #efdfbd; }
 .whale-tail-bottom { clip-path: polygon(8% 0, 100% 25%, 100% 54%, 0 100%); transform: rotate(17deg); }
 
 .whale[data-whale-state="strike"] { animation: whale-charge .38s steps(4); }
+.whale[data-whale-state="wounded"] { animation: whale-wound .35s steps(2); filter: sepia(.5) saturate(.75); }
 .whale[data-whale-state="dead"] { transform: translate(-25%, 34px) rotate(12deg); filter: grayscale(.65) brightness(.7); }
 
 @keyframes whale-charge { 50% { transform: translate(-34%, -10px); } }
+@keyframes whale-wound { 30% { transform: translate(-18%, 3px) rotate(-4deg); } 75% { transform: translate(-29%, 8px) rotate(3deg); } }
 
 .reef {
   position: absolute;
@@ -282,8 +317,9 @@ h1 span { color: #efdfbd; }
 .prompt { max-width: 590px; margin: .45rem 0 0; color: #68533e; font-family: Georgia, "Times New Roman", serif; font-size: .88rem; line-height: 1.45; }
 .hit-counter { flex: 0 0 auto; text-align: right; }
 .hit-counter strong { display: block; color: #4c3021; font-size: 1.7rem; line-height: 1; }
+.attempts-left { display: block; margin-top: .35rem; color: #68533e; font-family: "Courier New", Courier, monospace; font-size: .67rem; font-weight: 700; text-transform: uppercase; }
 
-.damage-track { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 760px; margin: 0 auto 1.25rem; }
+.damage-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 760px; margin: 0 auto 1.25rem; }
 .damage-track span { height: 8px; background: #b9ab8d; border: 1px solid #7b6248; }
 .damage-track span.active { background: var(--coral); border-color: #5d281f; box-shadow: 0 0 8px rgba(102,40,29,.42); }
 
@@ -309,6 +345,9 @@ h1 span { color: #efdfbd; }
 .reset-button, .result-dialog button { display: block; width: min(100%, 380px); margin: 1rem auto 0; padding: .95rem 1rem; color: #f3e6c9; font-weight: 900; text-transform: uppercase; cursor: pointer; border: 1px solid #2d1b13; background: linear-gradient(#79513a, #4b2d20); box-shadow: 0 6px 0 #23140e; }
 .reset-button:hover, .result-dialog button:hover { background: linear-gradient(#936744, #593523); }
 .reset-button:active, .result-dialog button:active { transform: translateY(4px); box-shadow: 0 2px 0 #23140e; }
+.reset-button:disabled { cursor: not-allowed; opacity: .5; }
+.result-dialog .secondary-dialog-button { margin-top: .75rem; color: #4b2d20; background: transparent; box-shadow: none; }
+.result-dialog .secondary-dialog-button:hover { color: #1e1712; background: #d8c9aa; }
 
 footer { padding: 1rem; text-align: center; color: #d9c8a8; font-size: .72rem; background: #1d2b30; }
 
@@ -319,6 +358,8 @@ footer { padding: 1rem; text-align: center; color: #d9c8a8; font-size: .72rem; b
 
 @media (max-width: 520px) {
   .masthead { text-align: left; }
+  .role-options { grid-template-columns: 1fr; }
+  .role-choice { min-height: 118px; }
   .status-row { align-items: start; }
   .pequod { left: 2%; width: 34%; }
   .whale { width: 46%; left: 47%; }

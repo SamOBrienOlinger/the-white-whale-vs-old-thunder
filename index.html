@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#080b4f">
-  <meta name="description" content="Guide the White Whale through a five-strike hunt for Ahab's Pequod. Miss once and Old Thunder has his vengeance.">
+  <meta name="description" content="Choose Moby Dick or Captain Ahab and take five chances to win the last chase.">
   <title>The White Whale versus Old Thunder</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,9 +13,27 @@
     <header class="masthead">
       <p class="eyebrow">A coordinate hunt of vengeance and fate</p>
       <h1>The White Whale<br><span>versus Old Thunder</span></h1>
-      <p class="briefing">Ahab—<em>Old Thunder</em>—has bent the Pequod’s voyage to revenge. You are the White Whale. Find five hidden lengths of hull and break the ship; miss once, and his harpoon has you.</p>
+      <p class="briefing" id="briefing">Choose which side of the last chase you command. Whether you are Moby Dick or Captain Ahab, you have five chances to decide the sea.</p>
       <p class="voyage-line"><span>Nantucket harbour</span><span>Christmas Day</span><span>Whale ship <em>Pequod</em></span></p>
     </header>
+
+    <section class="role-select" id="role-select" aria-labelledby="role-title">
+      <p class="label">Choose your command</p>
+      <h2 id="role-title">Whom will you be?</h2>
+      <p>Three true strikes within five chances win the chase. The quarry has been made easier to find.</p>
+      <div class="role-options">
+        <button class="role-choice" type="button" data-role="moby">
+          <span class="role-kicker">The White Whale</span>
+          <strong>Moby Dick</strong>
+          <small>Break the Pequod beneath the waves.</small>
+        </button>
+        <button class="role-choice" type="button" data-role="ahab">
+          <span class="role-kicker">Old Thunder</span>
+          <strong>Captain Ahab</strong>
+          <small>Find and harpoon the White Whale.</small>
+        </button>
+      </div>
+    </section>
 
     <section class="scene" aria-label="The White Whale faces Ahab's Pequod">
       <div class="clouds" aria-hidden="true"></div>
@@ -42,38 +60,39 @@
       <div class="status-row">
         <div>
           <p class="label" id="orders-title">The quarter-deck</p>
-          <p id="status" class="status" aria-live="polite">The Pequod keeps to the fog. Choose a quarter of the sea.</p>
-          <p id="prompt" class="prompt" aria-live="polite">Five true breaches sink the ship. One empty strike gives Old Thunder his vengeance.</p>
+          <p id="status" class="status" aria-live="polite">Choose Moby Dick or Captain Ahab to begin the chase.</p>
+          <p id="prompt" class="prompt" aria-live="polite">Each commander has five chances. Three true strikes win.</p>
         </div>
-        <div class="hit-counter" aria-label="Pequod damage">
-          <span class="label">Pequod’s wounds</span>
-          <strong><span id="hit-count">0</span> / 5</strong>
+        <div class="hit-counter" aria-label="Enemy damage">
+          <span class="label" id="damage-label">Enemy wounds</span>
+          <strong><span id="hit-count">0</span> / <span id="required-hits">3</span></strong>
+          <span class="attempts-left"><span id="attempt-count">5</span> chances left</span>
         </div>
       </div>
 
       <div class="damage-track" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span>
       </div>
 
       <div class="board-heading">
         <p class="label">The sea-chart</p>
-        <p>Choose a letter and number to direct the White Whale’s next breach.</p>
+        <p id="board-instruction">Choose a commander before plotting the first coordinate.</p>
       </div>
 
       <div class="board-wrap">
-        <div class="coordinate-board" id="board" aria-label="Pequod search grid"></div>
+        <div class="coordinate-board" id="board" aria-label="Search grid"></div>
       </div>
 
       <div class="legend" aria-label="Grid legend">
-        <span><i class="legend-hit"></i> Hull struck</span>
+        <span><i class="legend-hit"></i> Quarry struck</span>
         <span><i class="legend-miss"></i> Empty water</span>
       </div>
 
-      <button class="reset-button" id="reset" type="button">Call up a new chase</button>
+      <button class="reset-button" id="reset" type="button" disabled>Call up a new chase</button>
     </section>
 
     <footer>
-      <p>Five wounds to the Pequod prevail. One useless breach leaves the White Whale to Ahab.</p>
+      <p id="footer-rule">Choose a commander. Three true strikes in five chances decide the chase.</p>
     </footer>
   </main>
 
@@ -82,6 +101,7 @@
     <h2 id="dialog-title"></h2>
     <p id="dialog-message"></p>
     <button id="play-again" type="button">Take up the chase again</button>
+    <button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button>
   </dialog>
 
   <script type="module" src="script.js"></script>

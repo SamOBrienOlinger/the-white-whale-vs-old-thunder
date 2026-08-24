@@ -1,34 +1,41 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { REQUIRED_HITS, createGame, createPequod, strike } from "../game-engine.js";
+import { MAX_ATTEMPTS, REQUIRED_HITS, TARGET_LENGTH, createGame, createPequod, strike } from "../game-engine.js";
 
-test("the Pequod always occupies five unique contiguous cells", () => {
+test("the quarry occupies a larger, contiguous run of cells", () => {
   const horizontal = createPequod(() => 0);
   const vertical = createPequod(() => 0.9);
-  assert.equal(horizontal.length, REQUIRED_HITS);
-  assert.equal(new Set(horizontal).size, REQUIRED_HITS);
-  assert.deepEqual(horizontal, ["A1", "A2", "A3", "A4", "A5"]);
-  assert.deepEqual(vertical, ["F10", "G10", "H10", "I10", "J10"]);
+  assert.equal(horizontal.length, TARGET_LENGTH);
+  assert.equal(new Set(horizontal).size, TARGET_LENGTH);
+  assert.deepEqual(horizontal, ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"]);
+  assert.deepEqual(vertical, ["C10", "D10", "E10", "F10", "G10", "H10", "I10", "J10"]);
 });
 
-test("five hits sink the Pequod", () => {
+test("three true strikes win within five chances", () => {
   let game = createGame(() => 0);
-  for (const coordinate of game.pequod) game = strike(game, coordinate);
-  assert.equal(game.hits.length, 5);
+  for (const coordinate of game.target.slice(0, REQUIRED_HITS)) game = strike(game, coordinate);
+  assert.equal(game.hits.length, REQUIRED_HITS);
+  assert.equal(game.attempts.length, REQUIRED_HITS);
   assert.equal(game.status, "won");
 });
 
-test("one miss immediately kills Moby Dick and leaves the game lost", () => {
-  const game = strike(createGame(() => 0), "J10");
+test("a player gets all five chances before losing", () => {
+  let game = createGame(() => 0);
+  for (const coordinate of ["J10", "J9", "J8", "J7"]) game = strike(game, coordinate);
+  assert.equal(game.status, "playing");
+  game = strike(game, "J6");
   assert.equal(game.status, "lost");
   assert.equal(game.hits.length, 0);
-  assert.equal(game.miss, "J10");
+  assert.equal(game.attempts.length, MAX_ATTEMPTS);
+  assert.deepEqual(game.misses, ["J10", "J9", "J8", "J7", "J6"]);
 });
 
-test("repeating an already-hit coordinate does not count twice", () => {
-  let game = createGame(() => 0);
+test("repeating a coordinate does not consume a chance", () => {
+  let game = createGame("ahab", () => 0);
+  assert.equal(game.role, "ahab");
   game = strike(game, "A1");
   const repeated = strike(game, "A1");
   assert.equal(repeated.hits.length, 1);
+  assert.equal(repeated.attempts.length, 1);
   assert.equal(repeated, game);
 });

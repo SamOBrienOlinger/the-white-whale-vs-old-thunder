@@ -2,7 +2,12 @@
 
 A mobile-first, Battleship-inspired browser game built in plain HTML, CSS and JavaScript.
 
-You play as Moby Dick. The five-cell Pequod is hidden on a 10×10 coordinate grid. Strike all five occupied coordinates to sink the ship. A single miss allows Captain Ahab—"Old Thunder"—to kill the whale, and the intact Pequod survives.
+At the start of each chase, choose to command either Moby Dick or Captain Ahab—"Old Thunder". Your quarry occupies a more generous eight-cell run on the 10×10 coordinate grid, and you have five coordinate choices to land three decisive strikes.
+
+- As **Moby Dick**, three breaches sink the Pequod.
+- As **Captain Ahab**, three harpoons bring down Moby Dick.
+
+This replaces the earlier one-miss ending and makes the chase substantially more forgiving while keeping the hidden-coordinate game intact.
 
 The game’s updated prompts draw on the supplied summaries of [Captain Ahab](https://en.wikipedia.org/wiki/Captain_Ahab), [*Moby-Dick*](https://en.wikipedia.org/wiki/Moby-Dick), and [Moby Dick as a white sperm whale](https://en.wikipedia.org/wiki/Moby_Dick_(whale)).
 
