@@ -11,21 +11,48 @@
     body.landing-active { margin: 0; overflow: hidden; background: #e8dfc7; }
     .landing { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #e8dfc7; transition: opacity .28s ease, visibility .28s ease; }
     .landing--hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .landing-art { position: relative; width: min(100vw, 100vh); height: min(100vw, 100vh); max-width: 100%; touch-action: manipulation; }
-    .landing-art img { display: block; width: 100%; height: 100%; object-fit: contain; user-select: none; -webkit-user-drag: none; }
-    .landing-action { position: absolute; border: 0; border-radius: 5px; background: transparent; cursor: pointer; color: transparent; font-size: 0; -webkit-tap-highlight-color: transparent; transition: background .12s ease, box-shadow .12s ease, transform .06s ease; }
-    .landing-action:hover { background: rgba(255,255,255,.10); box-shadow: inset 0 0 0 2px rgba(91,48,31,.35); }
-    .landing-action:active { transform: translateY(1px); background: rgba(65,36,27,.16); }
-    .landing-action:focus-visible { outline: 3px solid #7b281f; outline-offset: 3px; background: rgba(255,255,255,.12); }
-    .side-choice[aria-pressed="true"] { background: rgba(92,133,143,.16); box-shadow: inset 0 0 0 3px rgba(40,76,86,.75), 0 0 0 2px rgba(232,223,199,.75); }
+    .landing-art {
+      position: relative;
+      width: min(100vw, calc(100vh * 1.257142857));
+      aspect-ratio: 1408 / 1120;
+      max-width: 100%;
+      max-height: 100vh;
+      touch-action: manipulation;
+    }
+    .landing-art img { display: block; width: 100%; height: 100%; object-fit: fill; user-select: none; -webkit-user-drag: none; }
+    .landing-action { position: absolute; border: 0; border-radius: 4px; background: transparent; cursor: pointer; color: transparent; font-size: 0; -webkit-tap-highlight-color: transparent; transition: background .12s ease, box-shadow .12s ease, transform .06s ease; }
+    .landing-action:hover { background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 2px rgba(91,48,31,.34); }
+    .landing-action:active { transform: translateY(1px); background: rgba(65,36,27,.12); }
+    .landing-action:focus-visible { outline: 3px solid #7b281f; outline-offset: 2px; background: rgba(255,255,255,.10); }
+    .side-choice[aria-pressed="true"] { background: rgba(92,133,143,.15); box-shadow: inset 0 0 0 3px rgba(40,76,86,.78), 0 0 0 2px rgba(232,223,199,.72); }
     .side-choice.attention { animation: sidePulse .75s ease 2; }
-    @keyframes sidePulse { 50% { background: rgba(123,40,31,.20); box-shadow: inset 0 0 0 3px rgba(123,40,31,.8); } }
-    .choose-moby { left: 8.2%; top: 30.1%; width: 22.5%; height: 8.7%; }
-    .choose-ahab { left: 69.4%; top: 30.1%; width: 22.5%; height: 8.7%; }
-    .enter-hunt { left: 33.4%; top: 77.0%; width: 33.2%; height: 7.7%; }
-    .how-to-play { left: 17.6%; top: 89.8%; width: 21.2%; height: 5.9%; }
-    .about-tale { left: 61.3%; top: 89.8%; width: 21.2%; height: 5.9%; }
-    .landing-status { position: absolute; left: 50%; top: 73.2%; transform: translateX(-50%); width: 64%; margin: 0; text-align: center; color: #3d2d25; font: 600 clamp(10px,1.25vw,14px)/1.2 Georgia,serif; text-shadow: 0 1px rgba(255,255,255,.45); pointer-events: none; opacity: 0; transition: opacity .15s ease; }
+    @keyframes sidePulse { 50% { background: rgba(123,40,31,.18); box-shadow: inset 0 0 0 3px rgba(123,40,31,.75); } }
+
+    /* Hotspots are mapped directly to the approved 1408×1120 landing artwork. */
+    .choose-moby { left: 3.34%; top: 9.38%; width: 17.05%; height: 6.70%; }
+    .choose-ahab { left: 3.34%; top: 17.32%; width: 17.05%; height: 6.70%; }
+    .enter-hunt { left: 33.66%; top: 80.36%; width: 30.61%; height: 11.61%; }
+    .how-to-play { left: 3.27%; top: 87.59%; width: 15.20%; height: 5.00%; }
+    .about-tale { left: 77.20%; top: 87.59%; width: 17.68%; height: 5.00%; }
+
+    .landing-status {
+      position: absolute;
+      left: 50%;
+      top: 75.9%;
+      transform: translateX(-50%);
+      width: 44%;
+      margin: 0;
+      padding: .3em .6em;
+      text-align: center;
+      color: #3d2d25;
+      background: rgba(232,223,199,.88);
+      border: 1px solid rgba(91,58,43,.28);
+      border-radius: 3px;
+      font: 600 clamp(10px,1.15vw,14px)/1.2 Georgia,serif;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .15s ease;
+    }
     .landing-status.show { opacity: 1; }
     .landing-dialog { border: 2px solid #5b3a2b; border-radius: 4px; width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 48px); overflow: auto; padding: 0; color: #2c251f; background: #e8dfc7; box-shadow: 0 18px 60px rgba(24,21,18,.38); }
     .landing-dialog::backdrop { background: rgba(12,19,24,.58); backdrop-filter: blur(2px); }
@@ -35,8 +62,9 @@
     .landing-dialog ol { padding-left: 22px; }
     .landing-dialog button { min-height: 44px; padding: 10px 18px; border: 1px solid #5b3a2b; border-radius: 3px; background: #efe5cc; color: #2c251f; font: 700 15px Georgia,serif; cursor: pointer; }
     .landing-dialog button:hover { background: #ded0ae; }
-    @media (max-aspect-ratio: 1/1) { .landing-art { width: 100vw; height: 100vw; } }
-    @media (min-aspect-ratio: 1/1) { .landing-art { width: 100vh; height: 100vh; } }
+    @media (max-width: 700px) {
+      .landing-status { width: 58%; top: 75.3%; font-size: clamp(9px,2.2vw,12px); }
+    }
     @media (prefers-reduced-motion: reduce) { .landing, .landing-action, .landing-status { transition: none; } .side-choice.attention { animation: none; } }
   </style>
 </head>
