@@ -1,8 +1,8 @@
-export const GRID_SIZE = 10;
+export const GRID_SIZE = 7;
 export const REQUIRED_HITS = 3;
 export const MAX_ATTEMPTS = 5;
-export const TARGET_LENGTH = 8;
-export const ROWS = "ABCDEFGHIJ".split("");
+export const TARGET_LENGTH = 5;
+export const ROWS = "ABCDEFG".split("");
 
 export function createTarget(random = Math.random) {
   const horizontal = random() < 0.5;
