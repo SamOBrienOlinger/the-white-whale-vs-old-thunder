@@ -252,7 +252,7 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
   overflow: hidden;
   border: 2px solid var(--line);
   border-radius: 3px;
-  background: url("assets/gameplay-banner-v6.webp") center 54% / cover no-repeat;
+  background: url("assets/gameplay-banner-v8.webp") center 54% / cover no-repeat;
   box-shadow: 5px 5px 0 rgba(91, 58, 43, .2);
   transition: filter .3s ease;
 }
