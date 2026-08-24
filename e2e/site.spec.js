@@ -20,12 +20,15 @@ test('Moby Dick selection enters a playable five-chance G7 game', async ({ page 
   await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).click();
   await expect(page.locator('#game')).toBeVisible();
   await expect(page.locator('#attempt-count')).toHaveText('5');
+  await expect(page.locator('#required-hits')).toHaveText('2');
   await expect(page.locator('.coord-cell')).toHaveCount(49);
   await expect(page.locator('.coord-cell[data-coordinate="G7"]')).toHaveCount(1);
   await expect(page.locator('.coord-cell[data-coordinate="H1"]')).toHaveCount(0);
 
-  await page.locator('.coord-cell').first().click();
+  await page.locator('.coord-cell[data-coordinate="G7"]').click();
   await expect(page.locator('#attempt-count')).toHaveText('4');
+  await expect(page.locator('#prompt')).toContainText('Steer');
+  await expect(page.locator('.coord-cell[data-coordinate="G7"]')).toHaveAttribute('aria-label', 'G7: empty water');
 });
 
 test('Captain Ahab selection enters the correct role', async ({ page }) => {
@@ -42,12 +45,52 @@ test('the landing screen is responsive on a mobile viewport', async ({ page }) =
   const landing = page.locator('#landing');
   await expect(landing).toBeVisible();
 
-  const box = await page.locator('.landing-art').boundingBox();
-  expect(box).not.toBeNull();
-  expect(box.width).toBeLessThanOrEqual(await page.evaluate(() => window.innerWidth));
+  await expect(page.locator('.mobile-landing-controls')).toBeVisible();
+  await expect(page.locator('#choose-moby')).toBeHidden();
 
-  await page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' }).tap();
-  await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).tap();
+  const mobileChoices = page.locator('.mobile-role-button');
+  await expect(mobileChoices).toHaveCount(2);
+  const mobileChoiceBox = await mobileChoices.first().boundingBox();
+  expect(mobileChoiceBox.height).toBeGreaterThanOrEqual(44);
+
+  await page.getByRole('button', { name: /Moby Dick/ }).tap();
+  await page.getByRole('button', { name: 'Prepare for the Hunt', exact: true }).tap();
   await expect(page.locator('#game')).toBeVisible();
   await expect(page.locator('.coord-cell')).toHaveCount(49);
+
+  const cellBox = await page.locator('.coord-cell').first().boundingBox();
+  expect(cellBox.width).toBeGreaterThanOrEqual(44);
+  expect(cellBox.height).toBeGreaterThanOrEqual(44);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(await page.evaluate(() => window.innerWidth));
+});
+
+test('completed game can return to the landing role selector', async ({ page }) => {
+  await page.addInitScript(() => { Math.random = () => 0; });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' }).click();
+  await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).click();
+
+  await page.locator('.coord-cell[data-coordinate="A1"]').click();
+  await page.locator('.coord-cell[data-coordinate="A2"]').click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.getByRole('button', { name: 'Choose another commander' }).click();
+
+  await expect(page.locator('#landing')).toBeVisible();
+  await expect(page.locator('#game')).toBeHidden();
+  await expect(page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' })).toBeFocused();
+});
+
+test('Ahab loss copy consistently describes the destruction of the Pequod', async ({ page }) => {
+  await page.addInitScript(() => { Math.random = () => 0; });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Choose Captain Ahab, Old Thunder' }).click();
+  await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).click();
+
+  for (const coordinate of ['G7', 'G6', 'G5', 'G4', 'G3']) {
+    await page.locator(`.coord-cell[data-coordinate="${coordinate}"]`).click();
+  }
+
+  await expect(page.getByRole('heading', { name: 'The Pequod is smashed' })).toBeVisible();
+  await expect(page.locator('#dialog-message')).toHaveText('The Pequod is smashed into smithereens and The White Whale drags Old Thunder to the bottom of the sea.');
+  await expect(page.locator('#prompt')).toContainText('breaks the ship');
 });

@@ -1,10 +1,9 @@
 const landing = document.getElementById('landing');
-const enterButton = document.getElementById('enter-hunt');
+const enterButtons = [...document.querySelectorAll('[data-enter-hunt]')];
 const game = document.getElementById('game');
 const sideChoices = [...document.querySelectorAll('.side-choice')];
-const landingStatus = document.getElementById('landing-status');
-const howButton = document.getElementById('how-to-play');
-const aboutButton = document.getElementById('about-tale');
+const landingStatuses = [...document.querySelectorAll('.desktop-landing-status, .mobile-landing-status')];
+const dialogButtons = [...document.querySelectorAll('[data-dialog]')];
 const howDialog = document.getElementById('how-dialog');
 const aboutDialog = document.getElementById('about-dialog');
 
@@ -13,25 +12,18 @@ if (window.location.hostname.endsWith('github.io') && window.location.pathname.e
   window.history.replaceState(null, '', `${canonicalPath}${window.location.search}${window.location.hash}`);
 }
 
-// Load the game-page visual layer after the base stylesheet so the game
-// inherits the same paper, ink, maritime artwork and button treatment as the landing page.
-if (!document.querySelector('link[data-game-theme]')) {
-  const gameTheme = document.createElement('link');
-  gameTheme.rel = 'stylesheet';
-  gameTheme.href = 'game-theme.css';
-  gameTheme.dataset.gameTheme = 'true';
-  document.head.appendChild(gameTheme);
-}
-
 let selectedRole = null;
 
 function announce(message, temporary = false) {
-  if (!landingStatus) return;
-  landingStatus.textContent = message;
-  landingStatus.classList.add('show');
+  landingStatuses.forEach((status) => {
+    status.textContent = message;
+    status.classList.add('show');
+  });
   if (temporary) {
     window.clearTimeout(announce.timer);
-    announce.timer = window.setTimeout(() => landingStatus.classList.remove('show'), 2200);
+    announce.timer = window.setTimeout(() => {
+      document.querySelector('.desktop-landing-status')?.classList.remove('show');
+    }, 2200);
   }
 }
 
@@ -54,7 +46,8 @@ function enterGame() {
   if (!selectedRole) {
     announce('Choose Moby Dick or Captain Ahab first.', true);
     sideChoices.forEach((button) => button.classList.add('attention'));
-    sideChoices[0]?.focus({ preventScroll: true });
+    const firstVisibleChoice = sideChoices.find((button) => button.getClientRects().length > 0);
+    firstVisibleChoice?.focus({ preventScroll: true });
     return;
   }
 
@@ -64,6 +57,24 @@ function enterGame() {
   window.scrollTo({ top: 0, behavior: 'instant' });
   requestGameStart(selectedRole);
   window.setTimeout(() => landing.setAttribute('aria-hidden', 'true'), 300);
+}
+
+function returnToLanding() {
+  selectedRole = null;
+  sideChoices.forEach((button) => {
+    button.setAttribute('aria-pressed', 'false');
+    button.classList.remove('attention');
+  });
+  game.setAttribute('hidden', '');
+  landing.removeAttribute('aria-hidden');
+  landing.classList.remove('landing--hidden');
+  document.body.classList.add('landing-active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  announce('Choose your side, then prepare for the hunt.');
+  window.setTimeout(() => {
+    const firstVisibleChoice = sideChoices.find((button) => button.getClientRects().length > 0);
+    firstVisibleChoice?.focus({ preventScroll: true });
+  }, 50);
 }
 
 function openDialog(dialog) {
@@ -79,9 +90,11 @@ function closeDialog(dialog) {
 }
 
 sideChoices.forEach((button) => button.addEventListener('click', () => selectRole(button.dataset.role)));
-enterButton?.addEventListener('click', enterGame);
-howButton?.addEventListener('click', () => openDialog(howDialog));
-aboutButton?.addEventListener('click', () => openDialog(aboutDialog));
+enterButtons.forEach((button) => button.addEventListener('click', enterGame));
+dialogButtons.forEach((button) => {
+  const target = button.dataset.dialog === 'how-dialog' ? howDialog : aboutDialog;
+  button.addEventListener('click', () => openDialog(target));
+});
 
 document.querySelectorAll('[data-close-dialog]').forEach((button) => {
   button.addEventListener('click', () => closeDialog(button.closest('dialog')));
@@ -93,6 +106,8 @@ document.querySelectorAll('[data-close-dialog]').forEach((button) => {
   });
 });
 
+document.addEventListener('whitewhale:return', returnToLanding);
+
 window.addEventListener('pageshow', () => {
-  if (!selectedRole) announce('Choose your side, then tap Prepare for the Hunt.');
+  if (!selectedRole) announce('Choose your side, then prepare for the hunt.');
 });

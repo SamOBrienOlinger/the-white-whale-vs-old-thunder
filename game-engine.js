@@ -1,5 +1,5 @@
 export const GRID_SIZE = 7;
-export const REQUIRED_HITS = 3;
+export const REQUIRED_HITS = 2;
 export const MAX_ATTEMPTS = 5;
 export const TARGET_LENGTH = 5;
 export const ROWS = "ABCDEFG".split("");
@@ -39,6 +39,46 @@ export function createGame(roleOrRandom = "moby", maybeRandom = Math.random) {
     hits: [],
     misses: [],
     status: "playing"
+  };
+}
+
+function coordinateParts(coordinate) {
+  const row = ROWS.indexOf(coordinate.slice(0, 1));
+  const column = Number(coordinate.slice(1)) - 1;
+  return { row, column };
+}
+
+function bearing(rowDelta, columnDelta) {
+  const vertical = rowDelta < 0 ? "north" : rowDelta > 0 ? "south" : "";
+  const horizontal = columnDelta < 0 ? "west" : columnDelta > 0 ? "east" : "";
+  return `${vertical}${vertical && horizontal ? "-" : ""}${horizontal}` || "here";
+}
+
+export function getSearchHint(game, coordinate) {
+  const origin = coordinateParts(coordinate);
+  const nearest = game.target
+    .map((targetCoordinate) => {
+      const target = coordinateParts(targetCoordinate);
+      const rowDelta = target.row - origin.row;
+      const columnDelta = target.column - origin.column;
+      return {
+        distance: Math.abs(rowDelta) + Math.abs(columnDelta),
+        direction: bearing(rowDelta, columnDelta)
+      };
+    })
+    .sort((a, b) => a.distance - b.distance)[0];
+
+  if (!nearest) {
+    return { distance: null, direction: "unknown", proximity: "unknown", message: "The fog gives no bearing. Read the sea again." };
+  }
+
+  const proximity = nearest.distance <= 1 ? "very close" : nearest.distance <= 3 ? "nearby" : "distant";
+  const lead = proximity === "very close" ? "The quarry’s wake is very close" : proximity === "nearby" ? "The quarry’s wake is nearby" : "The quarry is still distant";
+
+  return {
+    ...nearest,
+    proximity,
+    message: `${lead}. Steer ${nearest.direction} from ${coordinate}.`
   };
 }
 

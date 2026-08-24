@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { GRID_SIZE, MAX_ATTEMPTS, REQUIRED_HITS, ROWS, TARGET_LENGTH, createGame, createPequod, strike } from "../game-engine.js";
+import { GRID_SIZE, MAX_ATTEMPTS, REQUIRED_HITS, ROWS, TARGET_LENGTH, createGame, createPequod, getSearchHint, strike } from "../game-engine.js";
 
 test("the board is seven by seven from A1 to G7", () => {
   assert.equal(GRID_SIZE, 7);
@@ -16,12 +16,24 @@ test("the quarry occupies a contiguous five-cell run", () => {
   assert.deepEqual(vertical, ["C7", "D7", "E7", "F7", "G7"]);
 });
 
-test("three true strikes win within five chances", () => {
+test("two true strikes win within five chances", () => {
   let game = createGame(() => 0);
   for (const coordinate of game.target.slice(0, REQUIRED_HITS)) game = strike(game, coordinate);
   assert.equal(game.hits.length, REQUIRED_HITS);
   assert.equal(game.attempts.length, REQUIRED_HITS);
   assert.equal(game.status, "won");
+});
+
+test("empty water gives a directional proximity hint", () => {
+  const game = createGame(() => 0);
+  const close = getSearchHint(game, "B1");
+  const distant = getSearchHint(game, "G7");
+
+  assert.equal(close.proximity, "very close");
+  assert.equal(close.direction, "north");
+  assert.match(close.message, /Steer north from B1/);
+  assert.equal(distant.proximity, "distant");
+  assert.equal(distant.direction, "north-west");
 });
 
 test("a player gets all five chances before losing", () => {

@@ -1,4 +1,4 @@
-import { GRID_SIZE, MAX_ATTEMPTS, REQUIRED_HITS, ROWS, createGame, strike } from "./game-engine.js";
+import { GRID_SIZE, MAX_ATTEMPTS, REQUIRED_HITS, ROWS, createGame, getSearchHint, strike } from "./game-engine.js";
 
 const board = document.querySelector("#board");
 const status = document.querySelector("#status");
@@ -11,16 +11,16 @@ const hitCount = document.querySelector("#hit-count");
 const requiredHits = document.querySelector("#required-hits");
 const attemptCount = document.querySelector("#attempt-count");
 const resetButton = document.querySelector("#reset");
+const changeRoleButton = document.querySelector("#change-role");
 const playAgainButton = document.querySelector("#play-again");
 const chooseRoleButton = document.querySelector("#choose-role");
-const roleSelect = document.querySelector("#role-select");
-const roleChoices = [...document.querySelectorAll(".role-choice")];
 const dialog = document.querySelector("#result-dialog");
 const dialogKicker = document.querySelector("#dialog-kicker");
 const dialogTitle = document.querySelector("#dialog-title");
 const dialogMessage = document.querySelector("#dialog-message");
 const ship = document.querySelector(".pequod");
 const whale = document.querySelector(".whale");
+const commandPanel = document.querySelector(".command-panel");
 const damageSegments = [...document.querySelectorAll(".damage-track span")];
 
 const roleCopy = {
@@ -31,17 +31,16 @@ const roleCopy = {
     briefing: "You are Moby Dick. Ahab—Old Thunder—has bent the Pequod’s voyage to revenge. Find the ship, ram its hull, and leave its chase beneath the waves.",
     instruction: "Choose a letter and number to direct the White Whale’s next breach.",
     startStatus: "The Pequod keeps to the fog. Choose a quarter of the sea.",
-    startPrompt: "Three true breaches within five chances sink the ship.",
+    startPrompt: "Two true breaches within five chances sink the ship. Empty water reveals the quarry’s bearing.",
     hitPrompts: [
-      "A splintered plank! The White Whale has found timber; two decisive blows remain.",
-      "The Pequod shudders beneath Old Thunder’s feet. One decisive blow remains."
+      "A splintered plank! The White Whale has found timber; one decisive blow remains."
     ],
     win: {
       kicker: "The last chase",
       title: "The Pequod founders",
-      status: "The third blow lands. The Pequod founders.",
+      status: "The second blow lands. The Pequod founders.",
       prompt: "Ahab’s chase is ended: the ship turns into its wooden hearse beneath the sea.",
-      message: "Three true breaches tear through the hull. The Pequod becomes the wreck that Ahab’s chase foretold."
+      message: "Two true breaches tear through the hull. The Pequod becomes the wreck that Ahab’s chase foretold."
     },
     loss: {
       kicker: "Old Thunder’s vengeance",
@@ -58,23 +57,22 @@ const roleCopy = {
     briefing: "You are Captain Ahab—Old Thunder. The White Whale moves beneath the charted sea. Read the water, cast true, and take your vengeance before he escapes.",
     instruction: "Choose a letter and number to cast Ahab’s next harpoon.",
     startStatus: "The White Whale slips beneath the fog. Choose a quarter of the sea.",
-    startPrompt: "Three true harpoons within five chances bring Moby Dick down.",
+    startPrompt: "Two true harpoons within five chances bring Moby Dick down. Empty water reveals the quarry’s bearing.",
     hitPrompts: [
-      "A harpoon bites white flesh. Two decisive blows remain.",
-      "The White Whale rolls in the dark water. One decisive blow remains."
+      "A harpoon bites white flesh. One decisive blow remains."
     ],
     win: {
       kicker: "Old Thunder’s vengeance",
       title: "Moby Dick falls",
-      status: "The third harpoon lands. The White Whale falls.",
+      status: "The second harpoon lands. The White Whale falls.",
       prompt: "Ahab’s vengeance has found its mark; the Pequod rides on above the dark water.",
-      message: "Three true harpoons find the White Whale. Ahab has won the last chase."
+      message: "Two true harpoons find the White Whale. Ahab has won the last chase."
     },
     loss: {
       kicker: "The White Whale",
-      title: "Moby Dick escapes",
-      status: "Your five chances are spent. The White Whale disappears into the sea.",
-      prompt: "The Pequod remains afloat, but Old Thunder’s vengeance is denied.",
+      title: "The Pequod is smashed",
+      status: "Your five chances are spent. Moby Dick turns upon the Pequod.",
+      prompt: "The White Whale breaks the ship and drags Old Thunder beneath the sea.",
       message: "The Pequod is smashed into smithereens and The White Whale drags Old Thunder to the bottom of the sea."
     }
   }
@@ -120,7 +118,7 @@ function buildBoard() {
       cell.dataset.coordinate = coordinate;
       cell.disabled = !game || game.status !== "playing";
       cell.setAttribute("aria-label", game
-        ? `${game.role === "moby" ? "Direct the White Whale" : "Cast Ahab’s harpoon"} to coordinate ${coordinate}`
+        ? `${game.role === "moby" ? "Direct the White Whale" : "Cast Ahab’s harpoon"} to coordinate ${coordinate}, untried`
         : `Choose a commander before selecting coordinate ${coordinate}`);
       cell.addEventListener("click", () => chooseCoordinate(cell, coordinate));
       board.append(cell);
@@ -135,7 +133,9 @@ function chooseCoordinate(cell, coordinate) {
   if (game === previous) return;
 
   cell.classList.add(game.lastWasHit ? "hit" : "miss");
+  cell.textContent = game.lastWasHit ? "Hit" : "Miss";
   cell.disabled = true;
+  cell.setAttribute("aria-label", `${coordinate}: ${game.lastWasHit ? `${activeCopy().targetShort} struck` : "empty water"}`);
   animateAttempt(game.lastWasHit);
   render();
 }
@@ -183,7 +183,7 @@ function render() {
     status.textContent = copy.loss.status;
     prompt.textContent = copy.loss.prompt;
     if (game.role === "moby") whale.dataset.whaleState = "dead";
-    else ship.dataset.shipState = "intact";
+    else ship.dataset.shipState = "sunk";
     endGame(false);
     return;
   }
@@ -192,8 +192,9 @@ function render() {
     status.textContent = `${copy.targetShort} struck. ${REQUIRED_HITS - game.hits.length} decisive blow${REQUIRED_HITS - game.hits.length === 1 ? "" : "s"} remain.`;
     prompt.textContent = copy.hitPrompts[game.hits.length - 1];
   } else if (game.lastAttempt) {
-    status.textContent = `${game.lastAttempt} is empty water. ${chancesLeft} chance${chancesLeft === 1 ? "" : "s"} remain.`;
-    prompt.textContent = "Read the sea again: three true strikes win the chase before your fifth chance is gone.";
+    const hint = getSearchHint(game, game.lastAttempt);
+    status.textContent = `${game.lastAttempt} is empty water. ${chancesLeft} chance${chancesLeft === 1 ? "" : "s"} remain. ${hint.message}`;
+    prompt.textContent = hint.message;
   }
 }
 
@@ -212,13 +213,12 @@ function startGame(role) {
   if (!roleCopy[role]) return;
   game = createGame(role);
   const copy = activeCopy();
-  roleSelect.hidden = true;
   resetButton.disabled = false;
   ship.dataset.shipState = "intact";
   whale.dataset.whaleState = "ready";
   briefing.textContent = copy.briefing;
   boardInstruction.textContent = copy.instruction;
-  footerRule.textContent = `You command ${role === "moby" ? "Moby Dick" : "Captain Ahab"}. Three true strikes in five chances decide the chase.`;
+  footerRule.textContent = `You command ${role === "moby" ? "Moby Dick" : "Captain Ahab"}. Two true strikes in five chances decide the chase.`;
   damageLabel.textContent = copy.damage;
   board.setAttribute("aria-label", `${copy.target} search grid`);
   status.textContent = copy.startStatus;
@@ -229,6 +229,10 @@ function startGame(role) {
   damageSegments.forEach((segment) => segment.classList.remove("active"));
   if (dialog.open) dialog.close();
   buildBoard();
+  window.setTimeout(() => {
+    commandPanel.scrollIntoView({ behavior: "instant", block: "start" });
+    status.focus({ preventScroll: true });
+  }, 0);
 }
 
 function resetGame() {
@@ -237,23 +241,22 @@ function resetGame() {
 
 function chooseRole() {
   game = null;
-  roleSelect.hidden = false;
   resetButton.disabled = true;
   ship.dataset.shipState = "intact";
   whale.dataset.whaleState = "ready";
   briefing.textContent = "Choose which side of the last chase you command. Whether you are Moby Dick or Captain Ahab, you have five chances to decide the sea.";
   boardInstruction.textContent = "Choose a commander before plotting the first coordinate.";
-  footerRule.textContent = "Choose a commander. Three true strikes in five chances decide the chase.";
+  footerRule.textContent = "Choose a commander. Two true strikes in five chances decide the chase.";
   damageLabel.textContent = "Enemy wounds";
   status.textContent = "Choose Moby Dick or Captain Ahab to begin the chase.";
-  prompt.textContent = "Each commander has five chances. Three true strikes win.";
+  prompt.textContent = "Each commander has five chances. Two true strikes win.";
   hitCount.textContent = "0";
   requiredHits.textContent = REQUIRED_HITS;
   attemptCount.textContent = MAX_ATTEMPTS;
   damageSegments.forEach((segment) => segment.classList.remove("active"));
   if (dialog.open) dialog.close();
   buildBoard();
-  roleSelect.scrollIntoView({ behavior: "smooth", block: "center" });
+  document.dispatchEvent(new Event("whitewhale:return"));
 }
 
 function handleLandingStart(event) {
@@ -265,10 +268,8 @@ function handleLandingStart(event) {
 
 document.addEventListener("whitewhale:start", handleLandingStart);
 
-roleChoices.forEach((choice) => {
-  choice.addEventListener("click", () => startGame(choice.dataset.role));
-});
 resetButton.addEventListener("click", resetGame);
+changeRoleButton.addEventListener("click", chooseRole);
 playAgainButton.addEventListener("click", resetGame);
 chooseRoleButton.addEventListener("click", chooseRole);
 
