@@ -1,14 +1,19 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { MAX_ATTEMPTS, REQUIRED_HITS, TARGET_LENGTH, createGame, createPequod, strike } from "../game-engine.js";
+import { GRID_SIZE, MAX_ATTEMPTS, REQUIRED_HITS, ROWS, TARGET_LENGTH, createGame, createPequod, strike } from "../game-engine.js";
 
-test("the quarry occupies a larger, contiguous run of cells", () => {
+test("the board is seven by seven from A1 to G7", () => {
+  assert.equal(GRID_SIZE, 7);
+  assert.deepEqual(ROWS, ["A", "B", "C", "D", "E", "F", "G"]);
+});
+
+test("the quarry occupies a contiguous five-cell run", () => {
   const horizontal = createPequod(() => 0);
   const vertical = createPequod(() => 0.9);
   assert.equal(horizontal.length, TARGET_LENGTH);
   assert.equal(new Set(horizontal).size, TARGET_LENGTH);
-  assert.deepEqual(horizontal, ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"]);
-  assert.deepEqual(vertical, ["C10", "D10", "E10", "F10", "G10", "H10", "I10", "J10"]);
+  assert.deepEqual(horizontal, ["A1", "A2", "A3", "A4", "A5"]);
+  assert.deepEqual(vertical, ["C7", "D7", "E7", "F7", "G7"]);
 });
 
 test("three true strikes win within five chances", () => {
@@ -21,13 +26,13 @@ test("three true strikes win within five chances", () => {
 
 test("a player gets all five chances before losing", () => {
   let game = createGame(() => 0);
-  for (const coordinate of ["J10", "J9", "J8", "J7"]) game = strike(game, coordinate);
+  for (const coordinate of ["G7", "G6", "G5", "G4"]) game = strike(game, coordinate);
   assert.equal(game.status, "playing");
-  game = strike(game, "J6");
+  game = strike(game, "G3");
   assert.equal(game.status, "lost");
   assert.equal(game.hits.length, 0);
   assert.equal(game.attempts.length, MAX_ATTEMPTS);
-  assert.deepEqual(game.misses, ["J10", "J9", "J8", "J7", "J6"]);
+  assert.deepEqual(game.misses, ["G7", "G6", "G5", "G4", "G3"]);
 });
 
 test("repeating a coordinate does not consume a chance", () => {
