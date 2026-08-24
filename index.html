@@ -3,13 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080b4f">
+  <meta name="theme-color" content="#e8dfc7">
   <meta name="description" content="Choose Moby Dick or Captain Ahab and take five chances to win the last chase.">
   <title>The White Whale versus Old Thunder</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body.landing-active { margin: 0; overflow: hidden; background: #e8dfc7; }
+    .landing { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #e8dfc7; transition: opacity .28s ease, visibility .28s ease; }
+    .landing--hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .landing-art { position: relative; width: min(100vw, 100vh); height: min(100vw, 100vh); max-width: 100%; }
+    .landing-art img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .enter-hunt { position: absolute; left: 34.5%; top: 77.2%; width: 31%; height: 7.2%; border: 0; border-radius: 2px; background: transparent; cursor: pointer; font-size: 0; }
+    .enter-hunt:focus-visible { outline: 3px solid #7b281f; outline-offset: 3px; background: rgba(255,255,255,.08); }
+    @media (max-aspect-ratio: 1/1) {
+      .landing-art { width: 100vw; height: 100vw; }
+    }
+    @media (min-aspect-ratio: 1/1) {
+      .landing-art { width: 100vh; height: 100vh; }
+    }
+  </style>
 </head>
-<body>
-  <main class="game-shell">
+<body class="landing-active">
+  <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
+    <div class="landing-art">
+      <img src="IMG_0904.jpeg" alt="Vintage illustrated title screen for The White Whale versus Old Thunder, showing Captain Ahab aboard the Pequod above Moby Dick beneath the sea.">
+      <button class="enter-hunt" id="enter-hunt" type="button" aria-label="Prepare for the hunt and enter the game">Prepare for the hunt</button>
+    </div>
+  </section>
+
+  <main class="game-shell" id="game" hidden>
     <header class="masthead">
       <p class="eyebrow">A coordinate hunt of vengeance and fate</p>
       <h1>The White Whale<br><span>versus Old Thunder</span></h1>
@@ -104,6 +126,7 @@
     <button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button>
   </dialog>
 
+  <script src="landing.js"></script>
   <script type="module" src="script.js"></script>
 </body>
 </html>
