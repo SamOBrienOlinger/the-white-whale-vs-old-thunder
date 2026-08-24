@@ -1,4 +1,4 @@
-import { GRID_SIZE, MAX_ATTEMPTS, REQUIRED_HITS, ROWS, createGame, getSearchHint, strike } from "./game-engine.js";
+import { GRID_SIZE, MAX_ATTEMPTS, REQUIRED_HITS, ROWS, createGame, getSearchHint, strike } from "./game-engine.js?v=20260824-1";
 
 const board = document.querySelector("#board");
 const status = document.querySelector("#status");
