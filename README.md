@@ -8,12 +8,12 @@
 
 A mobile-first, Battleship-inspired browser game built in plain HTML, CSS and JavaScript.
 
-At the start of each chase, choose to command either Moby Dick or Captain Ahab—"Old Thunder". Your quarry occupies a more generous eight-cell run on the 10×10 coordinate grid, and you have five coordinate choices to land three decisive strikes.
+At the start of each chase, choose to command either Moby Dick or Captain Ahab—"Old Thunder". Your quarry occupies a five-cell run on the 7×7 coordinate grid (A–G and 1–7), and you have five coordinate choices to land three decisive strikes.
 
 - As **Moby Dick**, three breaches sink the Pequod.
 - As **Captain Ahab**, three harpoons bring down Moby Dick.
 
-This replaces the earlier one-miss ending and makes the chase substantially more forgiving while keeping the hidden-coordinate game intact.
+The game page now uses the same illustrated maritime visual language and approved Ahab/Moby artwork as the landing page so the experience remains visually consistent from entry through gameplay.
 
 The game’s updated prompts draw on the supplied summaries of [Captain Ahab](https://en.wikipedia.org/wiki/Captain_Ahab), [*Moby-Dick*](https://en.wikipedia.org/wiki/Moby-Dick), and [Moby Dick as a white sperm whale](https://en.wikipedia.org/wiki/Moby_Dick_(whale)).
 
@@ -36,6 +36,7 @@ Then visit `http://localhost:8000`.
 
 ```bash
 npm test
+npm run test:e2e
 ```
 
-No third-party dependencies are required.
+The browser tests use Playwright as a development dependency.
