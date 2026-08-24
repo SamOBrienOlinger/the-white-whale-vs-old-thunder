@@ -1,8 +1,8 @@
-# [The White Whale versus Old Thunder](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/index.html)
+# [The White Whale versus Old Thunder](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/)
 
-## [▶ Play the live interactive game](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/index.html)
+## [▶ Play the live interactive game](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/)
 
-<a href="https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/index.html">
+<a href="https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/">
   <img src="IMG_0904.jpeg" alt="The White Whale versus Old Thunder interactive landing page">
 </a>
 
