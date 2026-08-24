@@ -1,4 +1,4 @@
-# The White Whale versus Old Thunder
+# [The White Whale versus Old Thunder](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/)
 
 A mobile-first, Battleship-inspired browser game built in plain HTML, CSS and JavaScript.
 
