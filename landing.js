@@ -13,6 +13,16 @@ if (window.location.hostname.endsWith('github.io') && window.location.pathname.e
   window.history.replaceState(null, '', `${canonicalPath}${window.location.search}${window.location.hash}`);
 }
 
+// Load the game-page visual layer after the base stylesheet so the game
+// inherits the same paper, ink, maritime artwork and button treatment as the landing page.
+if (!document.querySelector('link[data-game-theme]')) {
+  const gameTheme = document.createElement('link');
+  gameTheme.rel = 'stylesheet';
+  gameTheme.href = 'game-theme.css';
+  gameTheme.dataset.gameTheme = 'true';
+  document.head.appendChild(gameTheme);
+}
+
 let selectedRole = null;
 
 function announce(message, temporary = false) {
