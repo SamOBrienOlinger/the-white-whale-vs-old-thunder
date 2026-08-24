@@ -75,7 +75,7 @@ const roleCopy = {
       title: "Moby Dick escapes",
       status: "Your five chances are spent. The White Whale disappears into the sea.",
       prompt: "The Pequod remains afloat, but Old Thunder’s vengeance is denied.",
-      message: "The last cast found empty water. Moby Dick escapes, leaving Ahab and the Pequod to the open sea."
+      message: "The Pequod is smashed into smithereens and The White Whale drags Old Thunder to the bottom of the sea."
     }
   }
 };
