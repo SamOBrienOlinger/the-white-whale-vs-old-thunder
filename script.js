@@ -209,6 +209,7 @@ function endGame(won) {
 }
 
 function startGame(role) {
+  if (!roleCopy[role]) return;
   game = createGame(role);
   const copy = activeCopy();
   roleSelect.hidden = true;
@@ -255,6 +256,15 @@ function chooseRole() {
   roleSelect.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+function handleLandingStart(event) {
+  const role = event?.detail?.role ?? window.__whiteWhalePendingRole;
+  if (!roleCopy[role]) return;
+  window.__whiteWhalePendingRole = null;
+  startGame(role);
+}
+
+document.addEventListener("whitewhale:start", handleLandingStart);
+
 roleChoices.forEach((choice) => {
   choice.addEventListener("click", () => startGame(choice.dataset.role));
 });
@@ -263,3 +273,9 @@ playAgainButton.addEventListener("click", resetGame);
 chooseRoleButton.addEventListener("click", chooseRole);
 
 buildBoard();
+
+if (window.__whiteWhalePendingRole) {
+  handleLandingStart({ detail: { role: window.__whiteWhalePendingRole } });
+}
+
+document.dispatchEvent(new Event("whitewhale:ready"));
