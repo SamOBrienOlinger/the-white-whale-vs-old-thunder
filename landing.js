@@ -8,6 +8,20 @@ const aboutButton = document.getElementById('about-tale');
 const howDialog = document.getElementById('how-dialog');
 const aboutDialog = document.getElementById('about-dialog');
 
+const interactionStyle = document.createElement('style');
+interactionStyle.textContent = `
+  .landing-action { background: rgba(255,255,255,.055) !important; box-shadow: inset 0 0 0 1px rgba(75,52,40,.28); }
+  .side-choice, .enter-hunt { animation: landingHint 1.5s ease-in-out 2; }
+  .side-choice[aria-pressed="true"] { animation: none; background: rgba(92,133,143,.18) !important; box-shadow: inset 0 0 0 3px rgba(40,76,86,.82), 0 0 0 2px rgba(232,223,199,.8) !important; }
+  .enter-hunt { background: rgba(123,40,31,.06) !important; }
+  @keyframes landingHint { 50% { box-shadow: inset 0 0 0 3px rgba(123,40,31,.55), 0 0 0 1px rgba(255,255,255,.5); background: rgba(255,255,255,.11); } }
+  @media (hover: none) {
+    .landing-action { box-shadow: inset 0 0 0 2px rgba(75,52,40,.30); }
+  }
+  @media (prefers-reduced-motion: reduce) { .side-choice, .enter-hunt { animation: none; } }
+`;
+document.head.appendChild(interactionStyle);
+
 let selectedRole = null;
 
 function announce(message, temporary = false) {
@@ -27,7 +41,8 @@ function selectRole(role) {
     button.setAttribute('aria-pressed', String(active));
     button.classList.remove('attention');
   });
-  announce(role === 'moby' ? 'Moby Dick selected — prepare for the hunt.' : 'Captain Ahab selected — prepare for the hunt.');
+  enterButton?.classList.add('attention');
+  announce(role === 'moby' ? 'Moby Dick selected — tap Prepare for the Hunt.' : 'Captain Ahab selected — tap Prepare for the Hunt.');
 }
 
 function enterGame() {
@@ -43,8 +58,6 @@ function enterGame() {
   document.body.classList.remove('landing-active');
   window.scrollTo({ top: 0, behavior: 'instant' });
 
-  // Use the game’s existing role-selection path so all established state,
-  // copy, counters and board behaviour stay in sync with the landing UI.
   const matchingRoleButton = document.querySelector(`.role-choice[data-role="${selectedRole}"]`);
   matchingRoleButton?.click();
 
@@ -76,4 +89,8 @@ document.querySelectorAll('[data-close-dialog]').forEach((button) => {
   dialog?.addEventListener('click', (event) => {
     if (event.target === dialog) closeDialog(dialog);
   });
+});
+
+window.addEventListener('pageshow', () => {
+  if (!selectedRole) announce('Choose Moby Dick or Captain Ahab, then tap Prepare for the Hunt.');
 });
