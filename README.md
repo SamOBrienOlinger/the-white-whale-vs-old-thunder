@@ -1,5 +1,7 @@
 # [The White Whale versus Old Thunder](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/)
 
+[!placeholder]
+
 A mobile-first, Battleship-inspired browser game built in plain HTML, CSS and JavaScript.
 
 At the start of each chase, choose to command either Moby Dick or Captain Ahab—"Old Thunder". Your quarry occupies a more generous eight-cell run on the 10×10 coordinate grid, and you have five coordinate choices to land three decisive strikes.
