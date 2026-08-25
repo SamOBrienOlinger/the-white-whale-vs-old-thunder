@@ -10,13 +10,24 @@ const landingScript = await readFile(new URL("../landing.js", import.meta.url), 
 test("mobile users receive visible, named role and information controls", () => {
   assert.match(html, /class="mobile-landing-controls"/);
   assert.match(html, /class="mobile-role-button side-choice"/);
+  assert.match(html, /aria-label="Choose Moby Dick, the White Whale"/);
+  assert.match(html, /aria-label="Choose Captain Ahab, Old Thunder"/);
   assert.match(html, /class="mobile-role-icon" src="assets\/role-icon-moby\.png" alt="" aria-hidden="true"/);
   assert.match(html, /class="mobile-role-icon" src="assets\/role-icon-ahab\.png" alt="" aria-hidden="true"/);
   assert.match(html, /<span class="mobile-role-kicker">The White Whale<\/span>[\s\S]*<strong>Moby Dick<\/strong>/);
   assert.match(html, /<span class="mobile-role-kicker">Old Thunder<\/span>[\s\S]*<strong>Captain Ahab<\/strong>/);
   assert.match(html, />Begin the Hunt<\/button>/);
-  assert.match(css, /@media \(max-width: 700px\)[\s\S]*\.mobile-landing-controls \{[\s\S]*display: block/);
+  assert.match(css, /\.mobile-landing-controls \{[\s\S]*display: block/);
   assert.match(css, /\.mobile-role-button \{[\s\S]*grid-template-columns: 46px minmax\(0, 1fr\)/);
+});
+
+test("the highlighted duplicate controls are removed from the landing page", () => {
+  assert.match(html, /IMG_0904-clean-art-v2\.webp/);
+  assert.doesNotMatch(html, /class="landing-action/);
+  assert.doesNotMatch(html, /mobile-secondary-actions/);
+  assert.doesNotMatch(html, /data-dialog=/);
+  assert.doesNotMatch(html, />How to play<\/button>/);
+  assert.doesNotMatch(html, />About the tale<\/button>/);
 });
 
 test("status and result content expose accessible relationships", () => {

@@ -1,15 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-test('landing page controls open information dialogs', async ({ page }) => {
+test('landing page presents only role and hunt controls', async ({ page }) => {
   await page.goto('/index.html');
 
-  await page.getByRole('button', { name: 'How to play' }).click();
-  await expect(page.getByRole('heading', { name: 'How to play' })).toBeVisible();
-  await page.getByRole('button', { name: 'Return to the chart' }).click();
-
-  await page.getByRole('button', { name: 'About the tale' }).click();
-  await expect(page.getByRole('heading', { name: 'About the tale' })).toBeVisible();
-  await page.getByRole('button', { name: 'Return to the chart' }).click();
+  await expect(page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Choose Captain Ahab, Old Thunder' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Begin the hunt and start the game' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'How to play' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'About the tale' })).toHaveCount(0);
 });
 
 test('Moby Dick selection enters a playable five-chance G7 game', async ({ page }) => {
@@ -57,7 +55,7 @@ test('the landing screen is responsive on a mobile viewport', async ({ page }) =
   await expect(landing).toBeVisible();
 
   await expect(page.locator('.mobile-landing-controls')).toBeVisible();
-  await expect(page.locator('#choose-moby')).toBeHidden();
+  await expect(page.locator('#choose-moby')).toHaveCount(0);
 
   const mobileChoices = page.locator('.mobile-role-button');
   await expect(mobileChoices).toHaveCount(2);

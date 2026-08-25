@@ -6,32 +6,26 @@
   <meta name="theme-color" content="#e8dfc7">
   <meta name="description" content="Choose Moby Dick or Captain Ahab and take five chances to win the last chase.">
   <title>The White Whale versus Old Thunder</title>
-  <link rel="stylesheet" href="styles.css?v=20260825-12">
+  <link rel="stylesheet" href="styles.css?v=20260825-14">
 </head>
 <body class="landing-active">
   <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
     <div class="landing-art">
-      <img src="IMG_0904-begin-hunt.webp" alt="Vintage illustrated title screen for The White Whale versus Old Thunder, showing Captain Ahab aboard the Pequod above Moby Dick beneath the sea.">
-      <button class="landing-action side-choice choose-moby" id="choose-moby" type="button" data-role="moby" aria-pressed="false" aria-label="Choose Moby Dick, the White Whale"></button>
-      <button class="landing-action side-choice choose-ahab" id="choose-ahab" type="button" data-role="ahab" aria-pressed="false" aria-label="Choose Captain Ahab, Old Thunder"></button>
-      <p class="landing-status desktop-landing-status" id="landing-status" aria-live="polite" aria-atomic="true"></p>
-      <button class="landing-action enter-hunt" id="enter-hunt" type="button" data-enter-hunt aria-label="Begin the hunt and start the game"></button>
-      <button class="landing-action how-to-play" id="how-to-play" type="button" data-dialog="how-dialog" aria-label="How to play"></button>
-      <button class="landing-action about-tale" id="about-tale" type="button" data-dialog="about-dialog" aria-label="About the tale"></button>
+      <img src="IMG_0904-clean-art-v2.webp" alt="Vintage illustration for The White Whale versus Old Thunder, showing Captain Ahab aboard the Pequod above Moby Dick beneath the sea.">
     </div>
 
     <div class="mobile-landing-controls" aria-labelledby="mobile-role-title">
       <p class="eyebrow">The last chase</p>
       <h1 id="mobile-role-title">Choose your side</h1>
       <div class="mobile-role-options">
-        <button class="mobile-role-button side-choice" type="button" data-role="moby" aria-pressed="false">
+        <button class="mobile-role-button side-choice" type="button" data-role="moby" aria-pressed="false" aria-label="Choose Moby Dick, the White Whale">
           <img class="mobile-role-icon" src="assets/role-icon-moby.png" alt="" aria-hidden="true">
           <span class="mobile-role-copy">
             <span class="mobile-role-kicker">The White Whale</span>
             <strong>Moby Dick</strong>
           </span>
         </button>
-        <button class="mobile-role-button side-choice" type="button" data-role="ahab" aria-pressed="false">
+        <button class="mobile-role-button side-choice" type="button" data-role="ahab" aria-pressed="false" aria-label="Choose Captain Ahab, Old Thunder">
           <img class="mobile-role-icon" src="assets/role-icon-ahab.png" alt="" aria-hidden="true">
           <span class="mobile-role-copy">
             <span class="mobile-role-kicker">Old Thunder</span>
@@ -40,36 +34,9 @@
         </button>
       </div>
       <p class="mobile-landing-status" aria-live="polite" aria-atomic="true">Choose your side, then begin the hunt.</p>
-      <button class="mobile-primary-button" type="button" data-enter-hunt>Begin the Hunt</button>
-      <div class="mobile-secondary-actions">
-        <button type="button" data-dialog="how-dialog">How to play</button>
-        <button type="button" data-dialog="about-dialog">About the tale</button>
-      </div>
+      <button class="mobile-primary-button" type="button" data-enter-hunt aria-label="Begin the hunt and start the game">Begin the Hunt</button>
     </div>
   </section>
-
-  <dialog class="landing-dialog" id="how-dialog" aria-labelledby="how-title">
-    <div class="landing-dialog-inner">
-      <h2 id="how-title">How to play</h2>
-      <ol>
-        <li>Choose your side: Moby Dick or Captain Ahab.</li>
-        <li>Select <strong>Begin the Hunt</strong>.</li>
-        <li>On the sea-chart, choose coordinates to strike your hidden quarry.</li>
-        <li>You have five chances. Land two true strikes to win the chase.</li>
-      </ol>
-      <p>Moby Dick breaches against the Pequod. Ahab casts harpoons at the White Whale.</p>
-      <button type="button" data-close-dialog>Return to the chart</button>
-    </div>
-  </dialog>
-
-  <dialog class="landing-dialog" id="about-dialog" aria-labelledby="about-title">
-    <div class="landing-dialog-inner">
-      <h2 id="about-title">About the tale</h2>
-      <p><em>The White Whale versus Old Thunder</em> is a Battleship-inspired interpretation of the final chase in Herman Melville’s <em>Moby-Dick</em>. You may command either Moby Dick or Captain Ahab—“Old Thunder”—and decide the encounter through a hidden-coordinate hunt.</p>
-      <p>The visual treatment draws on nineteenth-century maritime illustration and whaling-chart aesthetics.</p>
-      <button type="button" data-close-dialog>Return to the chart</button>
-    </div>
-  </dialog>
 
   <main class="game-shell" id="game" tabindex="-1" hidden>
     <header class="masthead">
@@ -112,7 +79,7 @@
     <button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button>
   </dialog>
 
-  <script src="landing.js?v=20260825-1"></script>
+  <script src="landing.js?v=20260825-2"></script>
   <script type="module" src="script.js?v=20260824-2"></script>
 </body>
 </html>

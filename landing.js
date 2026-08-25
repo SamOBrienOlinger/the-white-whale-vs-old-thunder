@@ -2,10 +2,7 @@ const landing = document.getElementById('landing');
 const enterButtons = [...document.querySelectorAll('[data-enter-hunt]')];
 const game = document.getElementById('game');
 const sideChoices = [...document.querySelectorAll('.side-choice')];
-const landingStatuses = [...document.querySelectorAll('.desktop-landing-status, .mobile-landing-status')];
-const dialogButtons = [...document.querySelectorAll('[data-dialog]')];
-const howDialog = document.getElementById('how-dialog');
-const aboutDialog = document.getElementById('about-dialog');
+const landingStatuses = [...document.querySelectorAll('.mobile-landing-status')];
 
 const canonicalPath = '/the-white-whale-vs-old-thunder/';
 if (window.location.hostname.endsWith('github.io') && window.location.pathname.endsWith('/index.html')) {
@@ -21,9 +18,7 @@ function announce(message, temporary = false) {
   });
   if (temporary) {
     window.clearTimeout(announce.timer);
-    announce.timer = window.setTimeout(() => {
-      document.querySelector('.desktop-landing-status')?.classList.remove('show');
-    }, 2200);
+    announce.timer = window.setTimeout(() => announce('Choose your side, then begin the hunt.'), 2200);
   }
 }
 
@@ -79,34 +74,8 @@ function returnToLanding() {
   }, 50);
 }
 
-function openDialog(dialog) {
-  if (!dialog) return;
-  if (typeof dialog.showModal === 'function') dialog.showModal();
-  else dialog.setAttribute('open', '');
-}
-
-function closeDialog(dialog) {
-  if (!dialog) return;
-  if (typeof dialog.close === 'function') dialog.close();
-  else dialog.removeAttribute('open');
-}
-
 sideChoices.forEach((button) => button.addEventListener('click', () => selectRole(button.dataset.role)));
 enterButtons.forEach((button) => button.addEventListener('click', enterGame));
-dialogButtons.forEach((button) => {
-  const target = button.dataset.dialog === 'how-dialog' ? howDialog : aboutDialog;
-  button.addEventListener('click', () => openDialog(target));
-});
-
-document.querySelectorAll('[data-close-dialog]').forEach((button) => {
-  button.addEventListener('click', () => closeDialog(button.closest('dialog')));
-});
-
-[howDialog, aboutDialog].forEach((dialog) => {
-  dialog?.addEventListener('click', (event) => {
-    if (event.target === dialog) closeDialog(dialog);
-  });
-});
 
 document.addEventListener('whitewhale:return', returnToLanding);
 
