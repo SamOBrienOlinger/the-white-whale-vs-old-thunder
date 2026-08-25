@@ -6,8 +6,16 @@ test('landing page presents only role and hunt controls', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Choose Captain Ahab, Old Thunder' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Begin the hunt and start the game' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'The Hunt' })).toBeVisible();
+  await expect(page.getByText('5 chances to outwit your opponent.')).toBeVisible();
   await expect(page.getByRole('button', { name: 'How to play' })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'About the tale' })).toHaveCount(0);
+
+  const roleTitleBox = await page.getByRole('heading', { name: 'Choose your side' }).boundingBox();
+  const huntNoticeBox = await page.locator('.hunt-notice').boundingBox();
+  const roleOptionsBox = await page.locator('.mobile-role-options').boundingBox();
+  expect(huntNoticeBox.y).toBeGreaterThan(roleTitleBox.y);
+  expect(huntNoticeBox.y).toBeLessThan(roleOptionsBox.y);
 });
 
 test('Moby Dick selection enters a playable five-chance G7 game', async ({ page }) => {

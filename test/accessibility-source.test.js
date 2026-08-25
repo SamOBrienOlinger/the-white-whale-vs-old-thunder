@@ -22,12 +22,19 @@ test("mobile users receive visible, named role and information controls", () => 
 });
 
 test("the highlighted duplicate controls are removed from the landing page", () => {
-  assert.match(html, /IMG_0904-clean-art-v2\.webp/);
+  assert.match(html, /IMG_0904-hunt-relocated-v3\.webp/);
   assert.doesNotMatch(html, /class="landing-action/);
   assert.doesNotMatch(html, /mobile-secondary-actions/);
   assert.doesNotMatch(html, /data-dialog=/);
   assert.doesNotMatch(html, />How to play<\/button>/);
   assert.doesNotMatch(html, />About the tale<\/button>/);
+});
+
+test("the hunt notice is repositioned beneath the role heading", () => {
+  assert.match(html, /<h1 id="mobile-role-title">Choose your side<\/h1>[\s\S]*<section class="hunt-notice" aria-labelledby="hunt-notice-title">/);
+  assert.match(html, /<h2 id="hunt-notice-title">The Hunt<\/h2>/);
+  assert.match(html, /5 chances to outwit your opponent\.<br>Sink or be sunk\.<br>May the sea judge your course\./);
+  assert.match(css, /\.hunt-notice \{[\s\S]*width: min\(100%, 340px\)/);
 });
 
 test("status and result content expose accessible relationships", () => {

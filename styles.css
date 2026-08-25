@@ -115,6 +115,39 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
   text-transform: uppercase;
 }
 
+.hunt-notice {
+  width: min(100%, 340px);
+  margin: 0 auto .9rem;
+  padding: .7rem 1rem .55rem;
+  color: var(--ink);
+  border: 3px double rgba(91, 58, 43, .72);
+  border-radius: 2px;
+  background:
+    repeating-linear-gradient(0deg, rgba(91, 58, 43, .025) 0 1px, transparent 1px 6px),
+    #eadfc5;
+  box-shadow: inset 0 0 0 2px rgba(243, 234, 214, .8);
+}
+
+.hunt-notice h2 {
+  margin: 0 0 .35rem;
+  font-size: 1rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.hunt-notice p {
+  margin: 0;
+  font-size: .9rem;
+  line-height: 1.45;
+}
+
+.hunt-notice-ornament {
+  display: block;
+  margin-top: .25rem;
+  color: var(--line);
+  font-size: .55rem;
+}
+
 .mobile-role-options { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
 
 .mobile-role-button {
