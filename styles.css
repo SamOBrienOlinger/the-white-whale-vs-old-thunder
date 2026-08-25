@@ -584,34 +584,72 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
 
   .mobile-role-button {
     display: grid;
-    min-height: 68px;
-    padding: .65rem;
-    color: var(--ink);
+    grid-template-columns: 46px minmax(0, 1fr);
+    align-items: center;
+    gap: .65rem;
+    min-height: 78px;
+    padding: .55rem .7rem;
+    color: #f6e5bd;
+    text-align: left;
     cursor: pointer;
-    border: 2px solid var(--line);
-    border-radius: 3px;
-    background: #e8dcc2;
+    border: 2px solid #d1b67b;
+    border-radius: 4px;
+    background: #173f51;
+    box-shadow:
+      inset 0 0 0 3px rgba(18, 45, 58, .9),
+      inset 0 0 0 4px rgba(218, 190, 130, .45),
+      3px 3px 0 rgba(91, 58, 43, .22);
+    transition: filter 140ms ease, transform 140ms ease;
   }
 
-  .mobile-role-button[data-role="ahab"] { background: #dfc9ac; }
+  .mobile-role-button[data-role="ahab"] {
+    background: #6c2f26;
+    box-shadow:
+      inset 0 0 0 3px rgba(85, 31, 26, .9),
+      inset 0 0 0 4px rgba(218, 190, 130, .45),
+      3px 3px 0 rgba(91, 58, 43, .22);
+  }
 
-  .mobile-role-button span {
-    color: var(--red);
+  .mobile-role-icon {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+  }
+
+  .mobile-role-copy {
+    display: grid;
+    gap: .15rem;
+    min-width: 0;
+  }
+
+  .mobile-role-kicker {
+    color: #d9bd7f;
     font-size: .66rem;
     font-weight: 900;
     letter-spacing: .08em;
     text-transform: uppercase;
   }
 
-  .mobile-role-button strong { align-self: end; font-size: .95rem; text-transform: uppercase; }
-
-  .mobile-role-button[aria-pressed="true"] {
-    color: #fff8e8;
-    background: var(--sea-dark);
-    box-shadow: inset 0 0 0 3px #fff8e8;
+  .mobile-role-button strong {
+    color: #f6e5bd;
+    font-size: .95rem;
+    line-height: 1.05;
+    text-transform: uppercase;
   }
 
-  .mobile-role-button[aria-pressed="true"] span { color: #f0dba8; }
+  .mobile-role-button:hover { filter: brightness(1.1); }
+
+  .mobile-role-button:active { transform: translateY(1px); }
+
+  .mobile-role-button[aria-pressed="true"] {
+    outline: 3px solid #fff8e8;
+    outline-offset: -6px;
+    transform: translateY(-1px);
+  }
+
+  .mobile-role-button[data-role="moby"][aria-pressed="true"] { background: #24596c; }
+  .mobile-role-button[data-role="ahab"][aria-pressed="true"] { background: #8a4035; }
+  .mobile-role-button[aria-pressed="true"] .mobile-role-kicker { color: #f0dba8; }
 
   .mobile-landing-status {
     min-height: 2.8em;

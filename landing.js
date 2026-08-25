@@ -34,7 +34,7 @@ function selectRole(role) {
     button.setAttribute('aria-pressed', String(active));
     button.classList.remove('attention');
   });
-  announce(role === 'moby' ? 'Moby Dick selected — tap Prepare for the Hunt.' : 'Captain Ahab selected — tap Prepare for the Hunt.');
+  announce(role === 'moby' ? 'Moby Dick selected — tap Begin the Hunt.' : 'Captain Ahab selected — tap Begin the Hunt.');
 }
 
 function requestGameStart(role) {
@@ -72,7 +72,7 @@ function returnToLanding() {
   landing.classList.remove('landing--hidden');
   document.body.classList.add('landing-active');
   window.scrollTo({ top: 0, behavior: 'instant' });
-  announce('Choose your side, then prepare for the hunt.');
+  announce('Choose your side, then begin the hunt.');
   window.setTimeout(() => {
     const firstVisibleChoice = sideChoices.find((button) => button.getClientRects().length > 0);
     firstVisibleChoice?.focus({ preventScroll: true });
@@ -111,5 +111,5 @@ document.querySelectorAll('[data-close-dialog]').forEach((button) => {
 document.addEventListener('whitewhale:return', returnToLanding);
 
 window.addEventListener('pageshow', () => {
-  if (!selectedRole) announce('Choose your side, then prepare for the hunt.');
+  if (!selectedRole) announce('Choose your side, then begin the hunt.');
 });

@@ -17,7 +17,7 @@ test('Moby Dick selection enters a playable five-chance G7 game', async ({ page 
   await page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' }).click();
   await expect(page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' })).toHaveAttribute('aria-pressed', 'true');
 
-  await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).click();
+  await page.getByRole('button', { name: 'Begin the hunt and start the game' }).click();
   await expect(page.locator('#game')).toBeVisible();
   await expect(page.locator('#attempt-count')).toHaveText('5');
   await expect(page.locator('#required-hits')).toHaveText('2');
@@ -34,7 +34,7 @@ test('Moby Dick selection enters a playable five-chance G7 game', async ({ page 
 test('Captain Ahab selection enters the correct role', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Choose Captain Ahab, Old Thunder' }).click();
-  await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).click();
+  await page.getByRole('button', { name: 'Begin the hunt and start the game' }).click();
 
   await expect(page.locator('#briefing')).toContainText('Captain Ahab');
   await expect(page.locator('#damage-label')).toHaveText('Moby Dick’s wounds');
@@ -43,7 +43,7 @@ test('Captain Ahab selection enters the correct role', async ({ page }) => {
 test('the sea chart displays the Pequod voyage map behind a usable grid', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' }).click();
-  await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).click();
+  await page.getByRole('button', { name: 'Begin the hunt and start the game' }).click();
 
   await expect(page.getByText('The voyage of the Pequod')).toBeVisible();
   await expect(page.getByLabel('Search chart with seven rows and seven columns')).toBeVisible();
@@ -61,11 +61,14 @@ test('the landing screen is responsive on a mobile viewport', async ({ page }) =
 
   const mobileChoices = page.locator('.mobile-role-button');
   await expect(mobileChoices).toHaveCount(2);
+  await expect(page.locator('.mobile-role-icon')).toHaveCount(2);
+  await expect(mobileChoices.first().getByText('The White Whale')).toBeVisible();
+  await expect(mobileChoices.first().getByText('Moby Dick')).toBeVisible();
   const mobileChoiceBox = await mobileChoices.first().boundingBox();
   expect(mobileChoiceBox.height).toBeGreaterThanOrEqual(44);
 
   await page.getByRole('button', { name: /Moby Dick/ }).tap();
-  await page.getByRole('button', { name: 'Prepare for the Hunt', exact: true }).tap();
+  await page.getByRole('button', { name: 'Begin the Hunt', exact: true }).tap();
   await expect(page.locator('#game')).toBeVisible();
   await expect(page.locator('#landing')).toHaveAttribute('hidden', '');
   await expect(page.locator('.coord-cell')).toHaveCount(49);
@@ -83,7 +86,7 @@ test('completed game can return to the landing role selector', async ({ page }) 
   await page.addInitScript(() => { Math.random = () => 0; });
   await page.goto('/');
   await page.getByRole('button', { name: 'Choose Moby Dick, the White Whale' }).click();
-  await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).click();
+  await page.getByRole('button', { name: 'Begin the hunt and start the game' }).click();
 
   await page.locator('.coord-cell[data-coordinate="A1"]').click();
   await page.locator('.coord-cell[data-coordinate="A2"]').click();
@@ -99,7 +102,7 @@ test('Ahab loss copy consistently describes the destruction of the Pequod', asyn
   await page.addInitScript(() => { Math.random = () => 0; });
   await page.goto('/');
   await page.getByRole('button', { name: 'Choose Captain Ahab, Old Thunder' }).click();
-  await page.getByRole('button', { name: 'Prepare for the hunt and begin the game' }).click();
+  await page.getByRole('button', { name: 'Begin the hunt and start the game' }).click();
 
   for (const coordinate of ['G7', 'G6', 'G5', 'G4', 'G3']) {
     await page.locator(`.coord-cell[data-coordinate="${coordinate}"]`).click();

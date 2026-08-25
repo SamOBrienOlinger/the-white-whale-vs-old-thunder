@@ -6,16 +6,16 @@
   <meta name="theme-color" content="#e8dfc7">
   <meta name="description" content="Choose Moby Dick or Captain Ahab and take five chances to win the last chase.">
   <title>The White Whale versus Old Thunder</title>
-  <link rel="stylesheet" href="styles.css?v=20260824-11">
+  <link rel="stylesheet" href="styles.css?v=20260825-12">
 </head>
 <body class="landing-active">
   <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
     <div class="landing-art">
-      <img src="IMG_0904.jpeg" alt="Vintage illustrated title screen for The White Whale versus Old Thunder, showing Captain Ahab aboard the Pequod above Moby Dick beneath the sea.">
+      <img src="IMG_0904-begin-hunt.webp" alt="Vintage illustrated title screen for The White Whale versus Old Thunder, showing Captain Ahab aboard the Pequod above Moby Dick beneath the sea.">
       <button class="landing-action side-choice choose-moby" id="choose-moby" type="button" data-role="moby" aria-pressed="false" aria-label="Choose Moby Dick, the White Whale"></button>
       <button class="landing-action side-choice choose-ahab" id="choose-ahab" type="button" data-role="ahab" aria-pressed="false" aria-label="Choose Captain Ahab, Old Thunder"></button>
       <p class="landing-status desktop-landing-status" id="landing-status" aria-live="polite" aria-atomic="true"></p>
-      <button class="landing-action enter-hunt" id="enter-hunt" type="button" data-enter-hunt aria-label="Prepare for the hunt and begin the game"></button>
+      <button class="landing-action enter-hunt" id="enter-hunt" type="button" data-enter-hunt aria-label="Begin the hunt and start the game"></button>
       <button class="landing-action how-to-play" id="how-to-play" type="button" data-dialog="how-dialog" aria-label="How to play"></button>
       <button class="landing-action about-tale" id="about-tale" type="button" data-dialog="about-dialog" aria-label="About the tale"></button>
     </div>
@@ -25,14 +25,22 @@
       <h1 id="mobile-role-title">Choose your side</h1>
       <div class="mobile-role-options">
         <button class="mobile-role-button side-choice" type="button" data-role="moby" aria-pressed="false">
-          <span>The White Whale</span><strong>Moby Dick</strong>
+          <img class="mobile-role-icon" src="assets/role-icon-moby.png" alt="" aria-hidden="true">
+          <span class="mobile-role-copy">
+            <span class="mobile-role-kicker">The White Whale</span>
+            <strong>Moby Dick</strong>
+          </span>
         </button>
         <button class="mobile-role-button side-choice" type="button" data-role="ahab" aria-pressed="false">
-          <span>Old Thunder</span><strong>Captain Ahab</strong>
+          <img class="mobile-role-icon" src="assets/role-icon-ahab.png" alt="" aria-hidden="true">
+          <span class="mobile-role-copy">
+            <span class="mobile-role-kicker">Old Thunder</span>
+            <strong>Captain Ahab</strong>
+          </span>
         </button>
       </div>
-      <p class="mobile-landing-status" aria-live="polite" aria-atomic="true">Choose your side, then prepare for the hunt.</p>
-      <button class="mobile-primary-button" type="button" data-enter-hunt>Prepare for the Hunt</button>
+      <p class="mobile-landing-status" aria-live="polite" aria-atomic="true">Choose your side, then begin the hunt.</p>
+      <button class="mobile-primary-button" type="button" data-enter-hunt>Begin the Hunt</button>
       <div class="mobile-secondary-actions">
         <button type="button" data-dialog="how-dialog">How to play</button>
         <button type="button" data-dialog="about-dialog">About the tale</button>
@@ -45,7 +53,7 @@
       <h2 id="how-title">How to play</h2>
       <ol>
         <li>Choose your side: Moby Dick or Captain Ahab.</li>
-        <li>Select <strong>Prepare for the Hunt</strong>.</li>
+        <li>Select <strong>Begin the Hunt</strong>.</li>
         <li>On the sea-chart, choose coordinates to strike your hidden quarry.</li>
         <li>You have five chances. Land two true strikes to win the chase.</li>
       </ol>
