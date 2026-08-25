@@ -52,11 +52,12 @@ function enterGame() {
   }
 
   landing.classList.add('landing--hidden');
+  landing.setAttribute('aria-hidden', 'true');
+  landing.setAttribute('hidden', '');
   game.removeAttribute('hidden');
   document.body.classList.remove('landing-active');
   window.scrollTo({ top: 0, behavior: 'instant' });
   requestGameStart(selectedRole);
-  window.setTimeout(() => landing.setAttribute('aria-hidden', 'true'), 300);
 }
 
 function returnToLanding() {
@@ -66,6 +67,7 @@ function returnToLanding() {
     button.classList.remove('attention');
   });
   game.setAttribute('hidden', '');
+  landing.removeAttribute('hidden');
   landing.removeAttribute('aria-hidden');
   landing.classList.remove('landing--hidden');
   document.body.classList.add('landing-active');

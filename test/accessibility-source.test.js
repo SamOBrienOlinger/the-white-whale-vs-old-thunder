@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const css = await readFile(new URL("../styles.css", import.meta.url), "utf8");
 const script = await readFile(new URL("../script.js", import.meta.url), "utf8");
+const landingScript = await readFile(new URL("../landing.js", import.meta.url), "utf8");
 
 test("mobile users receive visible, named role and information controls", () => {
   assert.match(html, /class="mobile-landing-controls"/);
@@ -42,4 +43,10 @@ test("the coordinate grid uses the supplied Pequod voyage map without losing its
   assert.match(html, /aria-label="Search chart with seven rows and seven columns"/);
   assert.match(css, /background-image: url\("assets\/pequod-voyage-map\.webp"\)/);
   assert.match(css, /\.coord-label \{[\s\S]*background: rgba\(243, 234, 214, \.86\)/);
+});
+
+test("the mobile landing screen leaves the document flow when gameplay begins", () => {
+  assert.match(landingScript, /landing\.setAttribute\('hidden', ''\)/);
+  assert.match(landingScript, /landing\.removeAttribute\('hidden'\)/);
+  assert.doesNotMatch(landingScript, /setTimeout\(\(\) => landing\.setAttribute\('aria-hidden'/);
 });

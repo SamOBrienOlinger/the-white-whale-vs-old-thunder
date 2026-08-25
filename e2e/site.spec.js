@@ -67,7 +67,11 @@ test('the landing screen is responsive on a mobile viewport', async ({ page }) =
   await page.getByRole('button', { name: /Moby Dick/ }).tap();
   await page.getByRole('button', { name: 'Prepare for the Hunt', exact: true }).tap();
   await expect(page.locator('#game')).toBeVisible();
+  await expect(page.locator('#landing')).toHaveAttribute('hidden', '');
   await expect(page.locator('.coord-cell')).toHaveCount(49);
+
+  const gameBox = await page.locator('#game').boundingBox();
+  expect(gameBox.y).toBeLessThanOrEqual(1);
 
   const cellBox = await page.locator('.coord-cell').first().boundingBox();
   expect(cellBox.width).toBeGreaterThanOrEqual(44);
