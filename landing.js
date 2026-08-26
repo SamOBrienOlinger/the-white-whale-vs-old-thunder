@@ -15,27 +15,36 @@ if (window.location.hostname.endsWith('github.io') && window.location.pathname.e
 
 let selectedRole = null;
 
-function announce(message, temporary = false) {
+function setEnterEnabled(enabled) {
+  enterButtons.forEach((button) => {
+    button.disabled = !enabled;
+    button.setAttribute('aria-disabled', String(!enabled));
+  });
+}
+
+function announce(message, temporary = true) {
   landingStatuses.forEach((status) => {
     status.textContent = message;
     status.classList.add('show');
   });
+  window.clearTimeout(announce.timer);
   if (temporary) {
-    window.clearTimeout(announce.timer);
     announce.timer = window.setTimeout(() => {
       landingStatuses.forEach((status) => status.classList.remove('show'));
-    }, 2200);
+    }, 1800);
   }
 }
 
 function selectRole(role) {
+  if (!['moby', 'ahab'].includes(role)) return;
   selectedRole = role;
   sideChoices.forEach((button) => {
     const active = button.dataset.role === role;
     button.setAttribute('aria-pressed', String(active));
     button.classList.remove('attention');
   });
-  announce(role === 'moby' ? 'Moby Dick selected — prepare for the hunt.' : 'Captain Ahab selected — prepare for the hunt.');
+  setEnterEnabled(true);
+  announce(role === 'moby' ? 'Moby Dick selected. Prepare for the hunt.' : 'Captain Ahab selected. Prepare for the hunt.');
 }
 
 function requestGameStart(role) {
@@ -45,7 +54,7 @@ function requestGameStart(role) {
 
 function enterGame() {
   if (!selectedRole) {
-    announce('Choose Moby Dick or Captain Ahab first.', true);
+    announce('Choose Moby Dick or Captain Ahab first.');
     sideChoices.forEach((button) => button.classList.add('attention'));
     sideChoices[0]?.focus({ preventScroll: true });
     return;
@@ -62,6 +71,7 @@ function enterGame() {
 
 function returnToLanding() {
   selectedRole = null;
+  setEnterEnabled(false);
   sideChoices.forEach((button) => {
     button.setAttribute('aria-pressed', 'false');
     button.classList.remove('attention');
@@ -93,5 +103,9 @@ enterButtons.forEach((button) => button.addEventListener('click', enterGame));
 howButton?.addEventListener('click', () => openDialog(howDialog));
 aboutButton?.addEventListener('click', () => openDialog(aboutDialog));
 document.querySelectorAll('[data-close-landing-dialog]').forEach((button) => button.addEventListener('click', () => closeDialog(button.closest('dialog'))));
-[howDialog, aboutDialog].forEach((dialog) => dialog?.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(dialog); }));
+[howDialog, aboutDialog].forEach((dialog) => dialog?.addEventListener('click', (event) => {
+  if (event.target === dialog) closeDialog(dialog);
+}));
 document.addEventListener('whitewhale:return', returnToLanding);
+
+setEnterEnabled(false);
