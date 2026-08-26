@@ -3,43 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#e8dfc7">
+  <meta name="theme-color" content="#171819">
   <meta name="description" content="Choose Moby Dick or Captain Ahab and take five chances to win the last chase.">
   <title>The White Whale versus Old Thunder</title>
-  <link rel="stylesheet" href="styles.css?v=20260825-15">
+  <link rel="stylesheet" href="styles.css?v=20260827-1">
+  <style>
+    body.landing-active{background:#111;overflow:auto}
+    .landing{padding:0;background:#111;display:grid;place-items:start center;min-height:100dvh}
+    .landing-stage{position:relative;width:min(100vw,760px);aspect-ratio:2/3;overflow:hidden;background:#151617;border:clamp(5px,1.2vw,10px) ridge #6d4a2d;box-shadow:0 0 0 2px #17120f,0 18px 60px #000}
+    .landing-stage>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:sepia(.2) contrast(1.08) brightness(.83)}
+    .landing-stage:after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 55px 15px rgba(0,0,0,.55);border:2px solid #b38a54}
+    .landing-control{position:absolute;z-index:3;font-family:Georgia,"Times New Roman",serif;font-weight:800;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;color:#211712;background:rgba(231,214,177,.94);border:3px double #6d4a2d;box-shadow:0 4px 0 rgba(0,0,0,.4),inset 0 0 0 2px rgba(255,245,215,.5);text-shadow:0 1px rgba(255,255,255,.35);transition:filter .12s ease,transform .12s ease,box-shadow .12s ease}
+    .landing-control:hover,.landing-control:focus-visible{filter:brightness(1.12);outline:3px solid #f0d69a;outline-offset:2px}
+    .landing-control:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.4),inset 0 0 0 2px rgba(255,245,215,.5)}
+    .landing-control[aria-pressed="true"]{outline:4px solid #f1d79a;outline-offset:2px;filter:brightness(1.14)}
+    .landing-role{left:4.5%;width:37%;height:12.5%;font-size:clamp(.72rem,3.1vw,1.45rem);line-height:1.05;padding:.4rem .6rem .4rem 26%;text-align:left}
+    .landing-role:before{content:"";position:absolute;left:3%;top:9%;width:22%;aspect-ratio:1;border-radius:50%;background-size:contain;background-position:center;background-repeat:no-repeat;border:2px solid #9f7a49}
+    .landing-role[data-role="moby"]{top:4%;color:#e9d5a3;background:rgba(28,61,74,.94)}
+    .landing-role[data-role="moby"]:before{background-image:url('assets/images/role-icon-moby.png')}
+    .landing-role[data-role="ahab"]{top:17.5%;color:#eed9aa;background:rgba(104,45,37,.95)}
+    .landing-role[data-role="ahab"]:before{background-image:url('assets/images/role-icon-ahab.png')}
+    .landing-role small{display:block;font-size:.55em;letter-spacing:.08em;margin-bottom:.12em}
+    .landing-how,.landing-about{bottom:3.2%;width:24%;height:12.5%;font-size:clamp(.68rem,2.7vw,1.25rem);line-height:1.05;padding:.35rem}
+    .landing-how{left:3%}.landing-about{right:3%}
+    .landing-begin{bottom:2.5%;left:29%;width:42%;height:15.5%;font-size:clamp(.9rem,3.5vw,1.7rem);line-height:1.05;padding:.5rem}
+    .landing-status{position:absolute;z-index:4;left:50%;bottom:19.2%;transform:translateX(-50%);width:70%;margin:0;padding:.3rem .55rem;text-align:center;color:#f4e2bd;background:rgba(20,18,16,.74);font-size:clamp(.62rem,2vw,.9rem);border-radius:2px;opacity:0;transition:opacity .15s ease;pointer-events:none}
+    .landing-status.show{opacity:1}
+    .landing-dialog{width:min(560px,calc(100vw - 32px));color:#2d211b;background:#e8dfc7;border:3px double #5b3a2b;padding:1.25rem;text-align:center}
+    .landing-dialog::backdrop{background:rgba(0,0,0,.72)}
+    .landing-dialog h2{margin:.1rem 0 .7rem;text-transform:uppercase}.landing-dialog p{line-height:1.5}
+    .landing-dialog button{min-height:46px;padding:.65rem 1rem;border:1px solid #5b3a2b;background:#f3ead6;font-weight:800;cursor:pointer}
+    @media(max-width:520px){.landing-stage{width:100vw;border-width:4px}.landing-role{font-size:clamp(.66rem,4vw,1rem)}.landing-how,.landing-about{font-size:clamp(.62rem,3.4vw,.9rem)}.landing-begin{font-size:clamp(.78rem,4.4vw,1.1rem)}}
+  </style>
 </head>
 <body class="landing-active">
   <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
-    <div class="landing-art">
-      <img src="assets/images/IMG_0954.jpeg" alt="Dramatic black-and-white illustration of the Pequod under lightning with Moby Dick beneath the sea.">
-    </div>
-
-    <div class="mobile-landing-controls" aria-labelledby="mobile-role-title">
-      <p class="eyebrow">The last chase</p>
-      <h1 id="mobile-role-title">Choose your side</h1>
-      <section class="hunt-notice" aria-labelledby="hunt-notice-title">
-        <h2 id="hunt-notice-title">The Hunt</h2>
-        <p>5 chances to outwit your opponent.<br>Sink or be sunk.<br>May the sea judge your course.</p>
-        <span class="hunt-notice-ornament" aria-hidden="true">◆</span>
-      </section>
-      <div class="mobile-role-options">
-        <button class="mobile-role-button side-choice" type="button" data-role="moby" aria-pressed="false" aria-label="Choose Moby Dick, the White Whale">
-          <img class="mobile-role-icon" src="assets/images/role-icon-moby.png" alt="" aria-hidden="true">
-          <span class="mobile-role-copy">
-            <span class="mobile-role-kicker">The White Whale</span>
-            <strong>Moby Dick</strong>
-          </span>
-        </button>
-        <button class="mobile-role-button side-choice" type="button" data-role="ahab" aria-pressed="false" aria-label="Choose Captain Ahab, Old Thunder">
-          <img class="mobile-role-icon" src="assets/images/role-icon-ahab.png" alt="" aria-hidden="true">
-          <span class="mobile-role-copy">
-            <span class="mobile-role-kicker">Old Thunder</span>
-            <strong>Captain Ahab</strong>
-          </span>
-        </button>
-      </div>
-      <p class="mobile-landing-status" aria-live="polite" aria-atomic="true">Choose your side, then begin the hunt.</p>
-      <button class="mobile-primary-button" type="button" data-enter-hunt aria-label="Begin the hunt and start the game">Begin the Hunt</button>
+    <div class="landing-stage">
+      <img src="assets/images/IMG_0954.jpeg" alt="The Pequod sailing through lightning above Moby Dick beneath the sea.">
+      <button class="landing-control landing-role side-choice" type="button" data-role="moby" aria-pressed="false" aria-label="Choose Moby Dick, the White Whale"><small>Play as</small>Moby Dick</button>
+      <button class="landing-control landing-role side-choice" type="button" data-role="ahab" aria-pressed="false" aria-label="Choose Captain Ahab, Old Thunder"><small>Play as</small>Captain Ahab</button>
+      <button class="landing-control landing-how" id="how-to-play" type="button">How to Play</button>
+      <button class="landing-control landing-begin" type="button" data-enter-hunt>Prepare for<br>the Hunt</button>
+      <button class="landing-control landing-about" id="about-tale" type="button">About<br>the Tale</button>
+      <p class="landing-status mobile-landing-status" aria-live="polite" aria-atomic="true">Choose your side, then prepare for the hunt.</p>
     </div>
   </section>
 
@@ -50,41 +56,27 @@
       <p class="briefing" id="briefing">Choose which side of the last chase you command. Whether you are Moby Dick or Captain Ahab, you have five chances to decide the sea.</p>
       <p class="voyage-line"><span>Nantucket harbour</span><span>Christmas Day</span><span>Whale ship <em>Pequod</em></span></p>
     </header>
-
     <section class="scene" aria-label="The White Whale faces Ahab's Pequod">
       <img class="ahab-harpoon-overlay" src="assets/images/ahab-harpoon-overlay.webp" alt="" aria-hidden="true">
-      <div class="pequod" data-ship-state="intact" aria-hidden="true"></div>
-      <div class="whale" data-whale-state="ready" aria-hidden="true"></div>
+      <div class="pequod" data-ship-state="intact" aria-hidden="true"></div><div class="whale" data-whale-state="ready" aria-hidden="true"></div>
     </section>
-
     <section class="command-panel" aria-labelledby="orders-title">
       <div class="status-row"><div><p class="label" id="orders-title">The quarter-deck</p><p id="status" class="status" tabindex="-1" aria-live="polite" aria-atomic="true" aria-describedby="prompt">Choose Moby Dick or Captain Ahab to begin the chase.</p><p id="prompt" class="prompt">Each commander has five chances. Two true strikes win.</p></div><div class="hit-counter" aria-label="Enemy damage"><span class="label" id="damage-label">Enemy wounds</span><strong><span id="hit-count">0</span> / <span id="required-hits">2</span></strong><span class="attempts-left"><span id="attempt-count">5</span> chances left</span></div></div>
       <div class="damage-track" role="progressbar" aria-labelledby="damage-label" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" aria-valuetext="No wounds landed"><span aria-hidden="true"></span><span aria-hidden="true"></span></div>
-      <div class="board-heading">
-        <div><p class="label">The sea-chart</p><p id="board-instruction">Choose a commander before plotting the first coordinate.</p></div>
-        <p class="chart-size" aria-label="Search chart with seven rows and seven columns"><span>Chart</span><strong>G × 7</strong></p>
-      </div>
+      <div class="board-heading"><div><p class="label">The sea-chart</p><p id="board-instruction">Choose a commander before plotting the first coordinate.</p></div><p class="chart-size" aria-label="Search chart with seven rows and seven columns"><span>Chart</span><strong>G × 7</strong></p></div>
       <p class="visually-hidden" id="board-keyboard-help">Use the arrow keys to move between untried coordinates. Press Enter or Space to strike.</p>
-      <figure class="board-wrap">
-        <figcaption class="chart-caption"><span>The voyage of the <em>Pequod</em></span><span>Choose one square</span></figcaption>
-        <div class="coordinate-board" id="board" aria-label="Search grid" aria-describedby="board-instruction board-keyboard-help"></div>
-      </figure>
+      <figure class="board-wrap"><figcaption class="chart-caption"><span>The voyage of the <em>Pequod</em></span><span>Choose one square</span></figcaption><div class="coordinate-board" id="board" aria-label="Search grid" aria-describedby="board-instruction board-keyboard-help"></div></figure>
       <div class="legend" aria-label="Grid legend"><span><i class="legend-hit"></i> Quarry struck</span><span><i class="legend-miss"></i> Empty water</span></div>
-      <div class="game-actions">
-        <button class="reset-button" id="reset" type="button" disabled>Call up a new chase</button>
-        <button class="change-role-button" id="change-role" type="button">Change side / return to title</button>
-      </div>
+      <div class="game-actions"><button class="reset-button" id="reset" type="button" disabled>Call up a new chase</button><button class="change-role-button" id="change-role" type="button">Change side / return to title</button></div>
     </section>
-
     <footer><p id="footer-rule">Choose a commander. Two true strikes in five chances decide the chase.</p></footer>
   </main>
 
-  <dialog id="result-dialog" class="result-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message">
-    <p class="dialog-kicker" id="dialog-kicker"></p><h2 id="dialog-title"></h2><p id="dialog-message"></p>
-    <button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button>
-  </dialog>
+  <dialog id="how-dialog" class="landing-dialog"><h2>How to Play</h2><p>Choose Moby Dick or Captain Ahab. You have five chances on the G × 7 sea chart. Two true strikes decide the chase; empty water gives you a bearing toward your quarry.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
+  <dialog id="about-dialog" class="landing-dialog"><h2>About the Tale</h2><p>Moby Dick and Captain Ahab meet in the final chase of Herman Melville’s <em>Moby-Dick</em>. This game turns that confrontation into a short coordinate hunt of vengeance, survival and fate.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
+  <dialog id="result-dialog" class="result-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message"><p class="dialog-kicker" id="dialog-kicker"></p><h2 id="dialog-title"></h2><p id="dialog-message"></p><button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button></dialog>
 
-  <script src="landing.js?v=20260825-2"></script>
+  <script src="landing.js?v=20260827-1"></script>
   <script type="module" src="script.js?v=20260824-2"></script>
 </body>
 </html>
