@@ -335,7 +335,7 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
   overflow: hidden;
   border: 2px solid var(--line);
   border-radius: 3px;
-  background: url("assets/gameplay-banner-v10.webp") center 54% / cover no-repeat;
+  background: url("assets/images/gameplay-banner-v10.webp") center 54% / cover no-repeat;
   box-shadow: 5px 5px 0 rgba(91, 58, 43, .2);
   transition: filter .3s ease;
 }
@@ -468,7 +468,7 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
   border: 2px solid var(--line);
   border-radius: 3px;
   background-color: #c9aa62;
-  background-image: url("assets/pequod-voyage-map.webp");
+  background-image: url("assets/images/pequod-voyage-map.webp");
   background-position: center;
   background-size: cover;
   box-shadow: 7px 7px 0 rgba(91, 58, 43, .24);
