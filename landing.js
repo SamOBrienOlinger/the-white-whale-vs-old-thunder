@@ -1,3 +1,8 @@
+const blueprintStylesheet = document.createElement('link');
+blueprintStylesheet.rel = 'stylesheet';
+blueprintStylesheet.href = 'blueprint.css?v=20260827-1';
+document.head.appendChild(blueprintStylesheet);
+
 const landing = document.getElementById('landing');
 const enterButtons = [...document.querySelectorAll('[data-enter-hunt]')];
 const game = document.getElementById('game');
@@ -15,36 +20,36 @@ if (window.location.hostname.endsWith('github.io') && window.location.pathname.e
 
 let selectedRole = null;
 
-function setEnterEnabled(enabled) {
+function setBeginState() {
   enterButtons.forEach((button) => {
-    button.disabled = !enabled;
-    button.setAttribute('aria-disabled', String(!enabled));
+    button.disabled = !selectedRole;
+    button.setAttribute('aria-disabled', String(!selectedRole));
   });
 }
 
-function announce(message, temporary = true) {
+function announce(message, temporary = false) {
   landingStatuses.forEach((status) => {
     status.textContent = message;
     status.classList.add('show');
   });
+
   window.clearTimeout(announce.timer);
   if (temporary) {
     announce.timer = window.setTimeout(() => {
       landingStatuses.forEach((status) => status.classList.remove('show'));
-    }, 1800);
+    }, 2200);
   }
 }
 
 function selectRole(role) {
-  if (!['moby', 'ahab'].includes(role)) return;
   selectedRole = role;
   sideChoices.forEach((button) => {
     const active = button.dataset.role === role;
     button.setAttribute('aria-pressed', String(active));
     button.classList.remove('attention');
   });
-  setEnterEnabled(true);
-  announce(role === 'moby' ? 'Moby Dick selected. Prepare for the hunt.' : 'Captain Ahab selected. Prepare for the hunt.');
+  setBeginState();
+  announce(role === 'moby' ? 'Moby Dick selected — prepare for the hunt.' : 'Captain Ahab selected — prepare for the hunt.', true);
 }
 
 function requestGameStart(role) {
@@ -54,7 +59,7 @@ function requestGameStart(role) {
 
 function enterGame() {
   if (!selectedRole) {
-    announce('Choose Moby Dick or Captain Ahab first.');
+    announce('Choose Moby Dick or Captain Ahab first.', true);
     sideChoices.forEach((button) => button.classList.add('attention'));
     sideChoices[0]?.focus({ preventScroll: true });
     return;
@@ -67,15 +72,16 @@ function enterGame() {
   document.body.classList.remove('landing-active');
   window.scrollTo({ top: 0, behavior: 'instant' });
   requestGameStart(selectedRole);
+  window.requestAnimationFrame(() => game.focus({ preventScroll: true }));
 }
 
 function returnToLanding() {
   selectedRole = null;
-  setEnterEnabled(false);
   sideChoices.forEach((button) => {
     button.setAttribute('aria-pressed', 'false');
     button.classList.remove('attention');
   });
+  setBeginState();
   game.setAttribute('hidden', '');
   landing.removeAttribute('hidden');
   landing.removeAttribute('aria-hidden');
@@ -108,4 +114,4 @@ document.querySelectorAll('[data-close-landing-dialog]').forEach((button) => but
 }));
 document.addEventListener('whitewhale:return', returnToLanding);
 
-setEnterEnabled(false);
+setBeginState();
