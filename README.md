@@ -22,6 +22,9 @@ The game’s updated prompts draw on the supplied summaries of [Captain Ahab](ht
 The design of the Pequod was inspired by this ship artwork by Lars Platoon on Instagram:
 https://www.instagram.com/p/DSiOfq8jwdM/?igsi=cGFmcmR4bmg3MHBk
 
+Additional Moby Dick and Pequod visual reference:
+https://www.storenvy.com/products/17731562-moby-dick-large
+
 ## Run locally
 
 Open `index.html` through a local web server. For example:
