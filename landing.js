@@ -3,6 +3,10 @@ const enterButtons = [...document.querySelectorAll('[data-enter-hunt]')];
 const game = document.getElementById('game');
 const sideChoices = [...document.querySelectorAll('.side-choice')];
 const landingStatuses = [...document.querySelectorAll('.mobile-landing-status')];
+const howButton = document.getElementById('how-to-play');
+const aboutButton = document.getElementById('about-tale');
+const howDialog = document.getElementById('how-dialog');
+const aboutDialog = document.getElementById('about-dialog');
 
 const canonicalPath = '/the-white-whale-vs-old-thunder/';
 if (window.location.hostname.endsWith('github.io') && window.location.pathname.endsWith('/index.html')) {
@@ -18,7 +22,9 @@ function announce(message, temporary = false) {
   });
   if (temporary) {
     window.clearTimeout(announce.timer);
-    announce.timer = window.setTimeout(() => announce('Choose your side, then begin the hunt.'), 2200);
+    announce.timer = window.setTimeout(() => {
+      landingStatuses.forEach((status) => status.classList.remove('show'));
+    }, 2200);
   }
 }
 
@@ -29,7 +35,7 @@ function selectRole(role) {
     button.setAttribute('aria-pressed', String(active));
     button.classList.remove('attention');
   });
-  announce(role === 'moby' ? 'Moby Dick selected — tap Begin the Hunt.' : 'Captain Ahab selected — tap Begin the Hunt.');
+  announce(role === 'moby' ? 'Moby Dick selected — prepare for the hunt.' : 'Captain Ahab selected — prepare for the hunt.');
 }
 
 function requestGameStart(role) {
@@ -41,8 +47,7 @@ function enterGame() {
   if (!selectedRole) {
     announce('Choose Moby Dick or Captain Ahab first.', true);
     sideChoices.forEach((button) => button.classList.add('attention'));
-    const firstVisibleChoice = sideChoices.find((button) => button.getClientRects().length > 0);
-    firstVisibleChoice?.focus({ preventScroll: true });
+    sideChoices[0]?.focus({ preventScroll: true });
     return;
   }
 
@@ -67,18 +72,26 @@ function returnToLanding() {
   landing.classList.remove('landing--hidden');
   document.body.classList.add('landing-active');
   window.scrollTo({ top: 0, behavior: 'instant' });
-  announce('Choose your side, then begin the hunt.');
-  window.setTimeout(() => {
-    const firstVisibleChoice = sideChoices.find((button) => button.getClientRects().length > 0);
-    firstVisibleChoice?.focus({ preventScroll: true });
-  }, 50);
+  landingStatuses.forEach((status) => status.classList.remove('show'));
+  window.setTimeout(() => sideChoices[0]?.focus({ preventScroll: true }), 50);
+}
+
+function openDialog(dialog) {
+  if (!dialog) return;
+  if (typeof dialog.showModal === 'function') dialog.showModal();
+  else dialog.setAttribute('open', '');
+}
+
+function closeDialog(dialog) {
+  if (!dialog) return;
+  if (typeof dialog.close === 'function') dialog.close();
+  else dialog.removeAttribute('open');
 }
 
 sideChoices.forEach((button) => button.addEventListener('click', () => selectRole(button.dataset.role)));
 enterButtons.forEach((button) => button.addEventListener('click', enterGame));
-
+howButton?.addEventListener('click', () => openDialog(howDialog));
+aboutButton?.addEventListener('click', () => openDialog(aboutDialog));
+document.querySelectorAll('[data-close-landing-dialog]').forEach((button) => button.addEventListener('click', () => closeDialog(button.closest('dialog'))));
+[howDialog, aboutDialog].forEach((dialog) => dialog?.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(dialog); }));
 document.addEventListener('whitewhale:return', returnToLanding);
-
-window.addEventListener('pageshow', () => {
-  if (!selectedRole) announce('Choose your side, then begin the hunt.');
-});
