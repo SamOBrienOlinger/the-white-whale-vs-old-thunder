@@ -3,7 +3,7 @@
 ## [▶ Play the live interactive game](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/)
 
 <a href="https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/">
-  <img src="IMG_0904.jpeg" alt="The White Whale versus Old Thunder interactive landing page">
+  <img src="assets/images/IMG_0904.jpeg" alt="The White Whale versus Old Thunder interactive landing page">
 </a>
 
 A mobile-first, Battleship-inspired browser game built in plain HTML, CSS and JavaScript.
