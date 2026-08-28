@@ -7,8 +7,8 @@ test('landing page presents integrated controls over the artwork', async ({ page
   await expect(page.locator('.landing-stage > img')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Play as Moby Dick, the White Whale' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Play as Captain Ahab, Old Thunder' })).toBeVisible();
-  await expect(page.getByRole('button', { name: /Prepare for the Hunt/i })).toBeVisible();
-  await expect(page.getByRole('button', { name: /Prepare for the Hunt/i })).toBeDisabled();
+  await expect(page.getByRole('button', { name: /Begin the Hunt/i })).toBeVisible();
+  await expect(page.getByRole('button', { name: /Begin the Hunt/i })).toBeDisabled();
   await expect(page.getByRole('button', { name: /How to Play/i })).toBeVisible();
   await expect(page.getByRole('button', { name: /About the Tale/i })).toBeVisible();
 });
@@ -27,7 +27,7 @@ test('landing information panels open and close as dialogs', async ({ page }) =>
 test('Moby Dick selection enables the hunt and enters a playable five-chance G7 game', async ({ page }) => {
   await page.goto('/');
   const moby = page.getByRole('button', { name: 'Play as Moby Dick, the White Whale' });
-  const begin = page.getByRole('button', { name: /Prepare for the Hunt/i });
+  const begin = page.getByRole('button', { name: /Begin the Hunt/i });
 
   await moby.click();
   await expect(moby).toHaveAttribute('aria-pressed', 'true');
@@ -45,7 +45,7 @@ test('Moby Dick selection enables the hunt and enters a playable five-chance G7 
 test('Captain Ahab selection enters the correct role', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Play as Captain Ahab, Old Thunder' }).click();
-  await page.getByRole('button', { name: /Prepare for the Hunt/i }).click();
+  await page.getByRole('button', { name: /Begin the Hunt/i }).click();
 
   await expect(page.locator('#briefing')).toContainText('Captain Ahab');
   await expect(page.locator('#damage-label')).toHaveText('Moby Dick’s wounds');
@@ -54,7 +54,7 @@ test('Captain Ahab selection enters the correct role', async ({ page }) => {
 test('the sea chart displays the Pequod voyage map behind a usable grid', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Play as Moby Dick, the White Whale' }).click();
-  await page.getByRole('button', { name: /Prepare for the Hunt/i }).click();
+  await page.getByRole('button', { name: /Begin the Hunt/i }).click();
 
   await expect(page.getByText('The voyage of the Pequod')).toBeVisible();
   await expect(page.getByLabel('Search chart with seven rows and seven columns')).toBeVisible();
@@ -81,7 +81,7 @@ test('the integrated landing screen is responsive on a mobile viewport', async (
   }
 
   await page.getByRole('button', { name: /Moby Dick/ }).tap();
-  await page.getByRole('button', { name: /Prepare for the Hunt/i }).tap();
+  await page.getByRole('button', { name: /Begin the Hunt/i }).tap();
   await expect(page.locator('#game')).toBeVisible();
   await expect(page.locator('#landing')).toHaveAttribute('hidden', '');
   await expect(page.locator('.coord-cell')).toHaveCount(49);
@@ -92,7 +92,7 @@ test('completed game can return to the landing role selector', async ({ page }) 
   await page.addInitScript(() => { Math.random = () => 0; });
   await page.goto('/');
   await page.getByRole('button', { name: 'Play as Moby Dick, the White Whale' }).click();
-  await page.getByRole('button', { name: /Prepare for the Hunt/i }).click();
+  await page.getByRole('button', { name: /Begin the Hunt/i }).click();
 
   await page.locator('.coord-cell[data-coordinate="A1"]').click();
   await page.locator('.coord-cell[data-coordinate="A2"]').click();
@@ -102,14 +102,14 @@ test('completed game can return to the landing role selector', async ({ page }) 
   await expect(page.locator('#landing')).toBeVisible();
   await expect(page.locator('#game')).toBeHidden();
   await expect(page.getByRole('button', { name: 'Play as Moby Dick, the White Whale' })).toBeFocused();
-  await expect(page.getByRole('button', { name: /Prepare for the Hunt/i })).toBeDisabled();
+  await expect(page.getByRole('button', { name: /Begin the Hunt/i })).toBeDisabled();
 });
 
 test('Ahab loss copy consistently describes the destruction of the Pequod', async ({ page }) => {
   await page.addInitScript(() => { Math.random = () => 0; });
   await page.goto('/');
   await page.getByRole('button', { name: 'Play as Captain Ahab, Old Thunder' }).click();
-  await page.getByRole('button', { name: /Prepare for the Hunt/i }).click();
+  await page.getByRole('button', { name: /Begin the Hunt/i }).click();
 
   for (const coordinate of ['G7', 'G6', 'G5', 'G4', 'G3']) {
     await page.locator(`.coord-cell[data-coordinate="${coordinate}"]`).click();

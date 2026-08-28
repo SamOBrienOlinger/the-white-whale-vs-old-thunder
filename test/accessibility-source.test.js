@@ -4,37 +4,35 @@ import { readFile } from "node:fs/promises";
 
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const css = await readFile(new URL("../styles.css", import.meta.url), "utf8");
+const blueprintCss = await readFile(new URL("../blueprint.css", import.meta.url), "utf8");
 const script = await readFile(new URL("../script.js", import.meta.url), "utf8");
 const landingScript = await readFile(new URL("../landing.js", import.meta.url), "utf8");
 
-test("mobile users receive visible, named role and information controls", () => {
-  assert.match(html, /class="mobile-landing-controls"/);
-  assert.match(html, /class="mobile-role-button side-choice"/);
-  assert.match(html, /aria-label="Choose Moby Dick, the White Whale"/);
-  assert.match(html, /aria-label="Choose Captain Ahab, Old Thunder"/);
-  assert.match(html, /class="mobile-role-icon" src="assets\/role-icon-moby\.png" alt="" aria-hidden="true"/);
-  assert.match(html, /class="mobile-role-icon" src="assets\/role-icon-ahab\.png" alt="" aria-hidden="true"/);
-  assert.match(html, /<span class="mobile-role-kicker">The White Whale<\/span>[\s\S]*<strong>Moby Dick<\/strong>/);
-  assert.match(html, /<span class="mobile-role-kicker">Old Thunder<\/span>[\s\S]*<strong>Captain Ahab<\/strong>/);
-  assert.match(html, />Begin the Hunt<\/button>/);
-  assert.match(css, /\.mobile-landing-controls \{[\s\S]*display: block/);
-  assert.match(css, /\.mobile-role-button \{[\s\S]*grid-template-columns: 46px minmax\(0, 1fr\)/);
+test("landing controls match the integrated artwork and game states", () => {
+  assert.match(html, /class="landing-stage"/);
+  assert.match(html, /class="landing-control landing-role side-choice"[^>]*data-role="moby"[^>]*aria-pressed="false"/);
+  assert.match(html, /class="landing-control landing-role side-choice"[^>]*data-role="ahab"[^>]*aria-pressed="false"/);
+  assert.match(html, /class="landing-control landing-begin"[^>]*data-enter-hunt disabled/);
+  assert.match(html, />Begin<br>the Hunt<\/button>/);
+  assert.match(html, /href="blueprint\.css\?v=20260828-1"/);
+  assert.doesNotMatch(landingScript, /document\.createElement\('link'\)/);
+  assert.match(landingScript, /button\.disabled = !selectedRole/);
 });
 
-test("the highlighted duplicate controls are removed from the landing page", () => {
-  assert.match(html, /IMG_0904-hunt-relocated-v3\.webp/);
-  assert.doesNotMatch(html, /class="landing-action/);
-  assert.doesNotMatch(html, /mobile-secondary-actions/);
-  assert.doesNotMatch(html, /data-dialog=/);
-  assert.doesNotMatch(html, />How to play<\/button>/);
-  assert.doesNotMatch(html, />About the tale<\/button>/);
+test("landing information controls map to accessible dialogs", () => {
+  assert.match(html, /id="how-to-play"[^>]*aria-haspopup="dialog"/);
+  assert.match(html, /id="about-tale"[^>]*aria-haspopup="dialog"/);
+  assert.match(html, /id="how-dialog"[^>]*aria-labelledby="how-dialog-title"/);
+  assert.match(html, /id="about-dialog"[^>]*aria-labelledby="about-dialog-title"/);
+  assert.match(landingScript, /howButton\?\.addEventListener\('click'/);
+  assert.match(landingScript, /aboutButton\?\.addEventListener\('click'/);
 });
 
-test("the hunt notice is repositioned beneath the role heading", () => {
-  assert.match(html, /<h1 id="mobile-role-title">Choose your side<\/h1>[\s\S]*<section class="hunt-notice" aria-labelledby="hunt-notice-title">/);
-  assert.match(html, /<h2 id="hunt-notice-title">The Hunt<\/h2>/);
-  assert.match(html, /5 chances to outwit your opponent\.<br>Sink or be sunk\.<br>May the sea judge your course\./);
-  assert.match(css, /\.hunt-notice \{[\s\S]*width: min\(100%, 340px\)/);
+test("disabled and selected controls have truthful visual states", () => {
+  assert.match(html, /\.landing-control:not\(:disabled\):hover/);
+  assert.match(html, /\.landing-control\[aria-pressed="true"\]/);
+  assert.match(html, /\.landing-begin:disabled/);
+  assert.match(blueprintCss, /\.reset-button:not\(:disabled\):hover/);
 });
 
 test("status and result content expose accessible relationships", () => {
@@ -53,8 +51,8 @@ test("mobile grid targets and visible result states meet the intended minimum", 
 });
 
 test("gameplay keeps the illustrated scene visible and supports keyboard plotting", () => {
-  assert.match(html, /class="ahab-harpoon-overlay"[^>]*src="assets\/ahab-harpoon-overlay\.webp"/);
-  assert.match(css, /\.ahab-harpoon-overlay \{[\s\S]*height: clamp\(32px, 4vw, 48px\)/);
+  assert.match(html, /class="ahab-harpoon-overlay"[^>]*src="assets\/images\/ahab-harpoon-overlay\.webp"/);
+  assert.match(blueprintCss, /\.ahab-harpoon-overlay \{[\s\S]*height: clamp\(14px, 1\.85vw, 22px\)/);
   assert.doesNotMatch(script, /commandPanel\.scrollIntoView/);
   assert.match(script, /ArrowUp: \[-1, 0\]/);
   assert.match(script, /board\.addEventListener\("keydown", handleBoardKeydown\)/);
@@ -64,7 +62,7 @@ test("the coordinate grid uses the supplied Pequod voyage map without losing its
   assert.match(html, /<figure class="board-wrap">/);
   assert.match(html, /The voyage of the <em>Pequod<\/em>/);
   assert.match(html, /aria-label="Search chart with seven rows and seven columns"/);
-  assert.match(css, /background-image: url\("assets\/pequod-voyage-map\.webp"\)/);
+  assert.match(css, /background-image: url\("assets\/images\/pequod-voyage-map\.webp"\)/);
   assert.match(css, /\.coord-label \{[\s\S]*background: rgba\(243, 234, 214, \.86\)/);
 });
 

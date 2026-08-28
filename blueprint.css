@@ -210,10 +210,10 @@ body:not(.landing-active) {
     inset 0 0 0 1px rgba(255, 248, 225, .55);
 }
 
-.result-dialog button:hover,
-.landing-dialog button:hover,
-.reset-button:hover,
-.change-role-button:hover {
+.result-dialog button:not(:disabled):hover,
+.landing-dialog button:not(:disabled):hover,
+.reset-button:not(:disabled):hover,
+.change-role-button:not(:disabled):hover {
   background: linear-gradient(#f1e5cb, #decca9);
 }
 

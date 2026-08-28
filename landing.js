@@ -1,8 +1,3 @@
-const blueprintStylesheet = document.createElement('link');
-blueprintStylesheet.rel = 'stylesheet';
-blueprintStylesheet.href = 'blueprint.css?v=20260827-1';
-document.head.appendChild(blueprintStylesheet);
-
 const landing = document.getElementById('landing');
 const enterButtons = [...document.querySelectorAll('[data-enter-hunt]')];
 const game = document.getElementById('game');
@@ -49,7 +44,7 @@ function selectRole(role) {
     button.classList.remove('attention');
   });
   setBeginState();
-  announce(role === 'moby' ? 'Moby Dick selected — prepare for the hunt.' : 'Captain Ahab selected — prepare for the hunt.', true);
+  announce(role === 'moby' ? 'Moby Dick selected — begin the hunt.' : 'Captain Ahab selected — begin the hunt.', true);
 }
 
 function requestGameStart(role) {

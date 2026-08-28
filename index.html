@@ -6,7 +6,8 @@
   <meta name="theme-color" content="#11100f">
   <meta name="description" content="Choose Moby Dick or Captain Ahab and take five chances to win the last chase.">
   <title>The White Whale versus Old Thunder</title>
-  <link rel="stylesheet" href="styles.css?v=20260827-2">
+  <link rel="stylesheet" href="styles.css?v=20260828-1">
+  <link rel="stylesheet" href="blueprint.css?v=20260828-1">
   <style>
     body.landing-active{background:#0f0f0f;overflow:auto}
     .landing{min-height:100dvh;padding:max(env(safe-area-inset-top),8px) max(env(safe-area-inset-right),8px) max(env(safe-area-inset-bottom),8px) max(env(safe-area-inset-left),8px);display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,#252321 0,#111 68%,#080808 100%)}
@@ -15,9 +16,9 @@
     .landing-stage::before{content:"";position:absolute;z-index:1;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(28,20,14,.18),transparent 17%,transparent 76%,rgba(12,9,7,.28)),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.34) 100%);box-shadow:inset 0 0 0 2px #9b7044,inset 0 0 28px rgba(0,0,0,.5)}
     .landing-stage::after{content:"";position:absolute;z-index:2;inset:1.15%;pointer-events:none;border:2px solid rgba(177,129,76,.7);box-shadow:inset 0 0 0 2px rgba(28,18,12,.9)}
     .landing-control{position:absolute;z-index:5;margin:0;font-family:Georgia,"Times New Roman",serif;font-weight:800;text-transform:uppercase;letter-spacing:.01em;cursor:pointer;color:#211712;background:linear-gradient(#e9ddc3,#d7c6a5);border:2px solid #2a1a12;box-shadow:0 0 0 2px #9b7044,0 0 0 4px #25170f,0 5px 8px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,248,226,.6);text-shadow:0 1px rgba(255,255,255,.4);transition:transform .12s ease,filter .12s ease,box-shadow .12s ease}
-    .landing-control:hover{filter:brightness(1.08)}
+    .landing-control:not(:disabled):hover{filter:brightness(1.08)}
     .landing-control:focus-visible{outline:3px solid #f0d597;outline-offset:4px;filter:brightness(1.1)}
-    .landing-control:active{transform:translateY(2px);box-shadow:0 0 0 2px #9b7044,0 0 0 4px #25170f,0 2px 5px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,248,226,.6)}
+    .landing-control:not(:disabled):active{transform:translateY(2px);box-shadow:0 0 0 2px #9b7044,0 0 0 4px #25170f,0 2px 5px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,248,226,.6)}
     .landing-control[aria-pressed="true"]{filter:brightness(1.16) saturate(1.15);outline:3px solid #f0d597;outline-offset:3px}
     .landing-role{left:4.2%;width:36.5%;height:11.6%;padding:.55em .45em .45em 28%;text-align:left;font-size:clamp(.72rem,2.6vw,1.42rem);line-height:.96;border-radius:2px}
     .landing-role::before{content:"";position:absolute;left:4%;top:8%;width:22%;aspect-ratio:1;border-radius:50%;background-position:center;background-size:contain;background-repeat:no-repeat;border:2px solid #a77b49;box-shadow:0 0 0 2px #24160f,inset 0 0 12px rgba(0,0,0,.35)}
@@ -50,7 +51,7 @@
       <button class="landing-control landing-role side-choice" type="button" data-role="moby" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Moby Dick, the White Whale"><small>Play as</small>Moby Dick</button>
       <button class="landing-control landing-role side-choice" type="button" data-role="ahab" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Captain Ahab, Old Thunder"><small>Play as</small>Captain Ahab</button>
       <button class="landing-control landing-how" id="how-to-play" type="button" aria-haspopup="dialog">How to<br>Play</button>
-      <button class="landing-control landing-begin" type="button" data-enter-hunt disabled aria-describedby="landing-status">Prepare for<br>the Hunt</button>
+      <button class="landing-control landing-begin" type="button" data-enter-hunt disabled aria-describedby="landing-status">Begin<br>the Hunt</button>
       <button class="landing-control landing-about" id="about-tale" type="button" aria-haspopup="dialog">About<br>the Tale</button>
       <p id="landing-status" class="landing-status mobile-landing-status" aria-live="polite" aria-atomic="true">Choose Moby Dick or Captain Ahab.</p>
     </div>
@@ -83,7 +84,7 @@
   <dialog id="about-dialog" class="landing-dialog" aria-labelledby="about-dialog-title"><h2 id="about-dialog-title">About the Tale</h2><p>Moby Dick and Captain Ahab meet in the final chase of Herman Melville’s <em>Moby-Dick</em>. This game turns that confrontation into a short coordinate hunt of vengeance, survival and fate.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
   <dialog id="result-dialog" class="result-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message"><p class="dialog-kicker" id="dialog-kicker"></p><h2 id="dialog-title"></h2><p id="dialog-message"></p><button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button></dialog>
 
-  <script src="landing.js?v=20260827-2"></script>
+  <script src="landing.js?v=20260828-1"></script>
   <script type="module" src="script.js?v=20260824-2"></script>
 </body>
 </html>
