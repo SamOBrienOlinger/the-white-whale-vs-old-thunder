@@ -12,11 +12,15 @@ test("landing controls match the integrated artwork and game states", () => {
   assert.match(html, /class="landing-stage"/);
   assert.match(html, /class="landing-control landing-role side-choice"[^>]*data-role="moby"[^>]*aria-pressed="false"/);
   assert.match(html, /class="landing-control landing-role side-choice"[^>]*data-role="ahab"[^>]*aria-pressed="false"/);
+  assert.match(html, /class="role-name">Moby<br>Dick<\/span>/);
+  assert.match(html, /class="role-name">Captain<br>Ahab<\/span>/);
   assert.match(html, /class="landing-control landing-begin"[^>]*data-enter-hunt disabled/);
   assert.match(html, />Begin<br>the Hunt<\/button>/);
   assert.match(html, /href="blueprint\.css\?v=20260828-1"/);
   assert.doesNotMatch(landingScript, /document\.createElement\('link'\)/);
   assert.match(landingScript, /button\.disabled = !selectedRole/);
+  assert.match(html, /container-type:inline-size/);
+  assert.match(html, /font-size:clamp\(\.68rem,3\.25cqi,1\.25rem\)/);
 });
 
 test("landing information controls map to accessible dialogs", () => {
