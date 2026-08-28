@@ -1,55 +1,63 @@
-# Design QA — Pequod voyage map game board
+**Source visual truth**
 
-## Evidence
+- Path: `/workspace/scratch/6cf2716ff9a7/upload/IMG_0973.jpeg`
+- Source pixels: 1125 × 1756.
+- State: mobile landing page with the former upper-left role controls circled in red and the requested lower-left/lower-right target regions circled in yellow.
 
-- Source visual truth: `/workspace/scratch/6cf2716ff9a7/white-whale-current/IMG_0910.jpeg`
-- Browser-rendered implementation: `/workspace/scratch/6cf2716ff9a7/white-whale-current/design-qa-implementation-desktop.jpg`
-- Focused board crop: `/workspace/scratch/6cf2716ff9a7/white-whale-current/design-qa-implementation-board.jpg`
-- Side-by-side comparison: `/workspace/scratch/6cf2716ff9a7/white-whale-current/design-qa-comparison.jpg`
-- Browser viewport: 1363 × 936 CSS px at device pixel ratio 1
-- Saved browser image: 1348 × 926 px; browser chrome and scrollbars are excluded by the capture surface
-- Source dimensions: 1000 × 692 px
-- Focused implementation dimensions: 780 × 535 px
-- Density normalization: the source was proportionally resized to 773 × 535 px and appended beside the 780 × 535 px board crop
-- State: desktop gameplay, Moby Dick selected, chart ready before the first strike
+**Implementation evidence**
 
-## Full-view comparison evidence
+- Browser-rendered screenshot: inline Cloud Browser capture from `http://terminal.local:4173/` in the current Work Mode session.
+- Browser viewport: 1363 × 936 CSS px at device pixel ratio 1.
+- Landing-stage bounds: 622.375 × 920 CSS px.
+- Rendered control bounds: both controls measure 180.219 × 78.813 CSS px.
+- State: landing page before role selection.
 
-The browser-rendered gameplay view shows the command status, damage track, sea-chart heading, complete G × 7 grid, legend, and both game actions without horizontal viewport overflow. The new chart remains within the existing 980 px game shell and keeps the period-paper visual system.
+**Full-view comparison evidence**
 
-## Focused comparison evidence
+- The former stacked upper-left controls have been removed from the ship area.
+- Moby Dick is positioned at the lower-left of the whale and Captain Ahab at the lower-right, matching the two highlighted target regions.
+- The buttons are 75% of the previous width and height (`39.5% × 11.6%` to `29.625% × 8.7%`).
+- The ship, whale, bottom controls, image crop and period styling remain unchanged.
 
-The side-by-side comparison shows that the supplied map keeps its parchment edge, dark green chart border, world-map silhouette, and original proportions. The coordinate grid is intentionally layered over the map with translucent cells; this is the requested adaptation rather than an attempt to reproduce the unmodified map. The complete grid and coordinate labels remain readable in the focused comparison, so no smaller detail crop was required.
+**Focused role-control comparison**
 
-## Required fidelity surfaces
+- Both role labels remain fully inside their respective button bounds (`copyInside: true`).
+- The icon, border, copy hierarchy and navy/burgundy role distinction remain intact after scaling.
+- The controls are horizontally symmetrical at `left: 3.3%` and `right: 3.3%`, with a shared `top: 61.5%`.
 
-- Fonts and typography: Passed. The existing Georgia and Courier typography is preserved; the new uppercase chart caption and compact G × 7 readout use the same maritime editorial hierarchy.
-- Spacing and layout rhythm: Passed. The map frame, caption, grid, legend, and action buttons maintain clear vertical separation and balanced insets. No horizontal desktop overflow was detected.
-- Colors and visual tokens: Passed. The map's parchment, ink, and dark green tones sit naturally within the existing paper, brown, sea, and red token system. Hit and miss colors remain visually distinct from the map.
-- Image quality and asset fidelity: Passed. The supplied image is responsively served as an 800 × 554 WebP at 74 KB, retains its aspect ratio, and is not stretched. The 800 px source still exceeds the board's 780 px maximum display width; the small cover crop is limited to the frame edge and does not remove meaningful map content.
-- Copy and content: Passed. “The voyage of the Pequod,” “Choose one square,” and the G × 7 readout accurately orient the player without altering the game rules.
+**Required fidelity surfaces**
 
-## Interaction and accessibility verification
+- Fonts and typography: Georgia display treatment, uppercase hierarchy, line breaks and label containment are preserved; no clipping or overflow is visible.
+- Spacing and layout rhythm: role controls are symmetrically placed beside the whale and no longer obscure the Pequod.
+- Colors and visual tokens: navy, burgundy, cream, brass borders, shadows and selected-state treatment are unchanged.
+- Image quality and asset fidelity: the supplied landing artwork and role icon assets are unchanged and remain sharp at their rendered size.
+- Copy and content: “Play as Moby Dick” and “Play as Captain Ahab” are unchanged.
 
-- Selected Moby Dick and entered gameplay.
-- Confirmed 49 coordinate controls and the map background URL.
-- Plotted A1; the control changed to “Miss,” became disabled, announced “A1: empty water,” reduced chances from five to four, and moved focus to A2.
-- Confirmed the chart and status appear in the semantic reading order with role-specific coordinate labels.
-- Confirmed zero site-origin browser console errors.
-- Automated source and game-engine tests: 11 passed, 0 failed.
+**Interaction verification**
 
-## Findings
+- Moby Dick selection sets `aria-pressed="true"` and enables “Begin the Hunt”.
+- Captain Ahab selection sets `aria-pressed="true"` and enables “Begin the Hunt”.
+- “Begin the Hunt” hides the landing screen, reveals the game, and renders all 49 coordinate controls.
+- No site-origin console errors were present.
+- All 14 automated tests pass.
 
-No actionable P0, P1, or P2 issues remain.
+**Findings**
 
-The map detail is deliberately softened beneath untried squares so coordinate labels and interactive states remain readable. This is an acceptable implementation constraint for a playable background image.
+- No actionable P0, P1 or P2 differences remain for the requested placement and scale change.
 
-## Comparison history
+**Open Questions**
 
-- Initial comparison: no actionable P0/P1/P2 differences. No post-capture visual fixes were required.
+- None.
 
-## Follow-up polish
+**Implementation Checklist**
 
-- P3: A real iPhone VoiceOver/device capture remains useful for hardware-specific confirmation, but the responsive CSS, minimum target sizes, semantic labels, and desktop interaction path are preserved.
+- [x] Move Moby Dick to the lower-left target region.
+- [x] Move Captain Ahab to the lower-right target region.
+- [x] Reduce both buttons to 75% of their former width and height.
+- [x] Preserve role selection, responsive text containment and game entry.
+
+**Follow-up Polish**
+
+- None required for this scoped change.
 
 final result: passed
