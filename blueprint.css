@@ -148,7 +148,13 @@ body:not(.landing-active) {
 
 .coordinate-board {
   border: 3px solid #3c281b;
-  background: rgba(220, 205, 171, .68);
+  background-color: rgba(220, 205, 171, .2);
+  background-image:
+    linear-gradient(rgba(229, 211, 169, .08), rgba(229, 211, 169, .08)),
+    url("assets/images/pequod-voyage-map.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   box-shadow:
     0 0 0 1px #9c7145,
     5px 6px 0 rgba(42, 28, 19, .34);
@@ -162,7 +168,7 @@ body:not(.landing-active) {
 
 .coord-cell {
   border-color: rgba(46, 58, 57, .82);
-  background: rgba(230, 218, 190, .62);
+  background: rgba(230, 218, 190, .2);
 }
 
 .coord-cell:not(:disabled):hover,
