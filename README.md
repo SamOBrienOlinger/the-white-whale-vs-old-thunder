@@ -2,8 +2,6 @@
 
 ## [▶ Play the live interactive game](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/)
 
-## [🦫 beaver-v-otter live site](https://samobrienolinger.github.io/beaver-v-otter/)
-
 <a href="https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/">
   <img src="assets/images/IMG_0904.jpeg" alt="The White Whale versus Old Thunder interactive landing page">
 </a>
