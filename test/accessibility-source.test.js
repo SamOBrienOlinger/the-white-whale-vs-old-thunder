@@ -20,9 +20,9 @@ test("landing controls match the integrated artwork and game states", () => {
   assert.doesNotMatch(landingScript, /document\.createElement\('link'\)/);
   assert.match(landingScript, /button\.disabled = !selectedRole/);
   assert.match(html, /container-type:inline-size/);
-  assert.match(html, /\.landing-role\{top:61\.5%;width:29\.625%;height:8\.7%/);
-  assert.match(html, /\.landing-role\[data-role="moby"\]\{left:3\.3%/);
-  assert.match(html, /\.landing-role\[data-role="ahab"\]\{left:auto;right:3\.3%/);
+  assert.match(html, /\.landing-role\{top:62\.5875%;width:22\.21875%;height:6\.525%/);
+  assert.match(html, /\.landing-role\[data-role="moby"\]\{left:7\.003125%/);
+  assert.match(html, /\.landing-role\[data-role="ahab"\]\{left:auto;right:7\.003125%/);
   assert.match(html, /\.landing-role \.role-copy\{position:absolute;left:42%;right:5%;top:50%/);
   assert.match(html, /font-size:clamp\(\.58rem,2\.35cqi,\.9rem\)/);
 });
