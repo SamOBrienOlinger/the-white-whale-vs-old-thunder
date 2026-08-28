@@ -20,10 +20,11 @@
     .landing-control:focus-visible{outline:3px solid #f0d597;outline-offset:4px;filter:brightness(1.1)}
     .landing-control:not(:disabled):active{transform:translateY(2px);box-shadow:0 0 0 2px #9b7044,0 0 0 4px #25170f,0 2px 5px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,248,226,.6)}
     .landing-control[aria-pressed="true"]{filter:brightness(1.16) saturate(1.15);outline:3px solid #f0d597;outline-offset:3px}
-    .landing-role{left:4.2%;width:39.5%;height:11.6%;padding:.5em .45em .4em 28%;text-align:left;font-size:clamp(.68rem,3.25cqi,1.25rem);line-height:.92;border-radius:2px}
+    .landing-role{left:4.2%;width:39.5%;height:11.6%;padding:0;text-align:left;font-size:clamp(.62rem,2.75cqi,1.05rem);line-height:.92;border-radius:2px}
     .landing-role::before{content:"";position:absolute;left:4%;top:8%;width:22%;aspect-ratio:1;border-radius:50%;background-position:center;background-size:contain;background-repeat:no-repeat;border:2px solid #a77b49;box-shadow:0 0 0 2px #24160f,inset 0 0 12px rgba(0,0,0,.35)}
-    .landing-role small{display:block;margin-bottom:.18em;font-size:.54em;letter-spacing:.07em}
-    .landing-role .role-name{display:block;font-size:1.16em;line-height:.84;letter-spacing:-.025em}
+    .landing-role .role-copy{position:absolute;left:42%;right:5%;top:50%;display:block;transform:translateY(-50%)}
+    .landing-role small{display:block;margin-bottom:.2em;font-size:.58em;letter-spacing:.07em}
+    .landing-role .role-name{display:block;font-size:1.08em;line-height:.86;letter-spacing:-.02em}
     .landing-role[data-role="moby"]{top:4.5%;color:#ead9ad;background:linear-gradient(#263f49,#19303a)}
     .landing-role[data-role="moby"]::before{background-image:url('assets/images/role-icon-moby.png');background-color:#15262d}
     .landing-role[data-role="ahab"]{top:17.1%;color:#ead9ad;background:linear-gradient(#704036,#512b25)}
@@ -41,7 +42,7 @@
     .landing-dialog::backdrop{background:rgba(0,0,0,.74);backdrop-filter:blur(2px)}
     .landing-dialog h2{margin:.1rem 0 .7rem;text-transform:uppercase}.landing-dialog p{line-height:1.55}
     .landing-dialog button{min-height:48px;padding:.7rem 1rem;border:1px solid #5b3a2b;background:#f3ead6;font-weight:800;cursor:pointer}
-    @media(max-width:520px){.landing{padding:0}.landing-stage{width:min(100vw,calc(100dvh*.6765));border-width:3px}.landing-role{font-size:clamp(.65rem,3.25cqi,.98rem)}.landing-how,.landing-about{font-size:clamp(.56rem,3.1vw,.78rem)}.landing-begin{font-size:clamp(.72rem,3.8vw,1rem)}.landing-status{width:76%;font-size:.68rem}}
+    @media(max-width:520px){.landing{padding:0}.landing-stage{width:min(100vw,calc(100dvh*.6765));border-width:3px}.landing-role{font-size:clamp(.6rem,2.75cqi,.88rem)}.landing-how,.landing-about{font-size:clamp(.56rem,3.1vw,.78rem)}.landing-begin{font-size:clamp(.72rem,3.8vw,1rem)}.landing-status{width:76%;font-size:.68rem}}
     @media(prefers-reduced-motion:reduce){.landing-control,.landing-status{transition:none!important}}
   </style>
 </head>
@@ -49,8 +50,8 @@
   <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
     <div class="landing-stage">
       <img src="assets/images/IMG_0954.jpeg" alt="The Pequod sailing through lightning above Moby Dick beneath the sea.">
-      <button class="landing-control landing-role side-choice" type="button" data-role="moby" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Moby Dick, the White Whale"><small>Play as</small><span class="role-name">Moby<br>Dick</span></button>
-      <button class="landing-control landing-role side-choice" type="button" data-role="ahab" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Captain Ahab, Old Thunder"><small>Play as</small><span class="role-name">Captain<br>Ahab</span></button>
+      <button class="landing-control landing-role side-choice" type="button" data-role="moby" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Moby Dick, the White Whale"><span class="role-copy"><small>Play as</small><span class="role-name">Moby<br>Dick</span></span></button>
+      <button class="landing-control landing-role side-choice" type="button" data-role="ahab" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Captain Ahab, Old Thunder"><span class="role-copy"><small>Play as</small><span class="role-name">Captain<br>Ahab</span></span></button>
       <button class="landing-control landing-how" id="how-to-play" type="button" aria-haspopup="dialog">How to<br>Play</button>
       <button class="landing-control landing-begin" type="button" data-enter-hunt disabled aria-describedby="landing-status">Begin<br>the Hunt</button>
       <button class="landing-control landing-about" id="about-tale" type="button" aria-haspopup="dialog">About<br>the Tale</button>
