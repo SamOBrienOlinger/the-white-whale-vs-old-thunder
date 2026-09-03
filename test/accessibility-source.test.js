@@ -38,6 +38,7 @@ test("Sam Tim Solutions is credited from both site states", () => {
   assert.match(css, /@media \(max-width: 370px\)[\s\S]*\.site-credit-bar a \{[\s\S]*min-height: 44px/);
   assert.match(html, /\.landing\{[^}]*display:flex;flex-direction:column/);
   assert.match(html, /\.landing-stage\{[^}]*100svh - 82px/);
+  assert.match(html, /\.landing-footer\{width:min\([^}]*100svh - 82px/);
 });
 
 test("landing information controls map to accessible dialogs", () => {
