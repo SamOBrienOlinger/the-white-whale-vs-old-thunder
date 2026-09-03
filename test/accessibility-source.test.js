@@ -27,6 +27,15 @@ test("landing controls match the integrated artwork and game states", () => {
   assert.match(html, /font-size:clamp\(\.58rem,2\.35cqi,\.9rem\)/);
 });
 
+test("Sam Tim Solutions is credited from both site states", () => {
+  const destination = "https://samobrienolinger.github.io/SamOBrienOlinger/";
+  assert.equal(html.match(new RegExp(`href="${destination}"`, "g"))?.length, 2);
+  assert.match(html, /<footer class="landing-credit">[\s\S]*Sam Tim Solutions[\s\S]*<\/footer>/);
+  assert.match(html, /<footer class="game-footer">[\s\S]*class="site-credit"[\s\S]*Sam Tim Solutions[\s\S]*<\/footer>/);
+  assert.equal(html.match(/target="_blank" rel="noopener noreferrer"/g)?.length, 2);
+  assert.match(css, /\.site-credit a:focus-visible/);
+});
+
 test("landing information controls map to accessible dialogs", () => {
   assert.match(html, /id="how-to-play"[^>]*aria-haspopup="dialog"/);
   assert.match(html, /id="about-tale"[^>]*aria-haspopup="dialog"/);
