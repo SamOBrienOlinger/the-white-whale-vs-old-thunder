@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#11100f">
   <meta name="description" content="Choose Moby Dick or Captain Ahab and take five chances to win the last chase.">
   <title>The White Whale versus Old Thunder</title>
-  <link rel="stylesheet" href="styles.css?v=20260828-2">
+  <link rel="stylesheet" href="styles.css?v=20260903-1">
   <link rel="stylesheet" href="blueprint.css?v=20260828-2">
   <style>
     body.landing-active{background:#0f0f0f;overflow:auto}
@@ -38,6 +38,10 @@
     .landing-begin:disabled{cursor:not-allowed;filter:saturate(.55) brightness(.78);opacity:.88}
     .landing-status{position:absolute;z-index:7;left:50%;bottom:17.7%;transform:translate(-50%,8px);width:68%;margin:0;padding:.42rem .65rem;text-align:center;color:#f5e4bd;background:rgba(20,16,13,.9);border:1px solid rgba(208,164,104,.7);font-size:clamp(.62rem,1.8vw,.86rem);line-height:1.25;opacity:0;visibility:hidden;transition:opacity .15s ease,transform .15s ease,visibility .15s ease;pointer-events:none}
     .landing-status.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+    .landing-credit{position:absolute;z-index:8;left:26%;right:26%;bottom:.42%;margin:0;color:#c9ac78;font-size:clamp(.42rem,1.35cqi,.66rem);line-height:1.1;letter-spacing:.08em;text-align:center;text-transform:uppercase;text-shadow:0 1px 2px #000}
+    .landing-credit a{color:#f2dfb4;font-weight:800;text-decoration-color:#a77b49;text-decoration-thickness:1px;text-underline-offset:2px}
+    .landing-credit a:hover{color:#fff6df}
+    .landing-credit a:focus-visible{outline:2px solid #f0d597;outline-offset:2px}
     .landing-dialog{width:min(560px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;color:#2d211b;background:#e8dfc7;border:3px double #5b3a2b;padding:1.3rem;text-align:center;box-shadow:0 18px 60px rgba(0,0,0,.5)}
     .landing-dialog::backdrop{background:rgba(0,0,0,.74);backdrop-filter:blur(2px)}
     .landing-dialog h2{margin:.1rem 0 .7rem;text-transform:uppercase}.landing-dialog p{line-height:1.55}
@@ -56,6 +60,7 @@
       <button class="landing-control landing-begin" type="button" data-enter-hunt disabled aria-describedby="landing-status">Begin<br>the Hunt</button>
       <button class="landing-control landing-about" id="about-tale" type="button" aria-haspopup="dialog">About<br>the Tale</button>
       <p id="landing-status" class="landing-status mobile-landing-status" aria-live="polite" aria-atomic="true">Choose Moby Dick or Captain Ahab.</p>
+      <footer class="landing-credit">A <a href="https://samobrienolinger.github.io/SamOBrienOlinger/" target="_blank" rel="noopener noreferrer" aria-label="Sam Tim Solutions (opens in a new tab)">Sam Tim Solutions</a> production</footer>
     </div>
   </section>
 
@@ -79,7 +84,7 @@
       <div class="legend" aria-label="Grid legend"><span><i class="legend-hit"></i> Quarry struck</span><span><i class="legend-miss"></i> Empty water</span></div>
       <div class="game-actions"><button class="reset-button" id="reset" type="button" disabled>Call up a new chase</button><button class="change-role-button" id="change-role" type="button">Change side / return to title</button></div>
     </section>
-    <footer><p id="footer-rule">Choose a commander. Two true strikes in five chances decide the chase.</p></footer>
+    <footer class="game-footer"><p id="footer-rule">Choose a commander. Two true strikes in five chances decide the chase.</p><p class="site-credit">Designed and developed by <a href="https://samobrienolinger.github.io/SamOBrienOlinger/" target="_blank" rel="noopener noreferrer" aria-label="Sam Tim Solutions (opens in a new tab)">Sam Tim Solutions</a></p></footer>
   </main>
 
   <dialog id="how-dialog" class="landing-dialog" aria-labelledby="how-dialog-title"><h2 id="how-dialog-title">How to Play</h2><p>Choose Moby Dick or Captain Ahab. You have five chances on the G × 7 sea chart. Two true strikes decide the chase. An empty-water strike gives you a bearing toward your quarry.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
