@@ -35,10 +35,13 @@ test("Sam Tim Solutions is credited from both site states", () => {
   assert.equal(html.match(/target="_blank" rel="noopener noreferrer"/g)?.length, 2);
   assert.match(css, /\.site-credit-bar a:focus-visible/);
   assert.match(css, /\.site-credit-bar a \{[\s\S]*min-height: 40px/);
-  assert.match(css, /@media \(max-width: 370px\)[\s\S]*\.site-credit-bar a \{[\s\S]*min-height: 44px/);
+  assert.match(css, /@media \(max-width: 700px\)[\s\S]*\.site-credit-bar \{[\s\S]*min-height: 32px/);
+  assert.match(css, /\.site-credit-bar a::before \{[\s\S]*inset: -9px -6px/);
+  assert.match(css, /\.game-footer #footer-rule \{[\s\S]*display: none/);
   assert.match(html, /\.landing\{[^}]*display:flex;flex-direction:column/);
   assert.match(html, /\.landing-stage\{[^}]*100svh - 82px/);
   assert.match(html, /\.landing-footer\{width:min\([^}]*100svh - 82px/);
+  assert.match(html, /@media\(max-width:520px\)[\s\S]*100svh - 58px/);
 });
 
 test("landing information controls map to accessible dialogs", () => {
