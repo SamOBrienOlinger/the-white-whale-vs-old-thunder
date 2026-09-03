@@ -30,10 +30,14 @@ test("landing controls match the integrated artwork and game states", () => {
 test("Sam Tim Solutions is credited from both site states", () => {
   const destination = "https://samobrienolinger.github.io/SamOBrienOlinger/";
   assert.equal(html.match(new RegExp(`href="${destination}"`, "g"))?.length, 2);
-  assert.match(html, /<footer class="landing-credit">[\s\S]*Sam Tim Solutions[\s\S]*<\/footer>/);
-  assert.match(html, /<footer class="game-footer">[\s\S]*class="site-credit"[\s\S]*Sam Tim Solutions[\s\S]*<\/footer>/);
+  assert.match(html, /<footer class="landing-footer site-credit-bar">[\s\S]*Sam Tim Solutions[\s\S]*<\/footer>/);
+  assert.match(html, /<footer class="game-footer">[\s\S]*class="site-credit-bar"[\s\S]*Sam Tim Solutions[\s\S]*<\/footer>/);
   assert.equal(html.match(/target="_blank" rel="noopener noreferrer"/g)?.length, 2);
-  assert.match(css, /\.site-credit a:focus-visible/);
+  assert.match(css, /\.site-credit-bar a:focus-visible/);
+  assert.match(css, /\.site-credit-bar a \{[\s\S]*min-height: 40px/);
+  assert.match(css, /@media \(max-width: 370px\)[\s\S]*\.site-credit-bar a \{[\s\S]*min-height: 44px/);
+  assert.match(html, /\.landing\{[^}]*display:flex;flex-direction:column/);
+  assert.match(html, /\.landing-stage\{[^}]*100svh - 82px/);
 });
 
 test("landing information controls map to accessible dialogs", () => {
