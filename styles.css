@@ -605,6 +605,27 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
   border-top: 1px solid rgba(91, 58, 43, .4);
 }
 
+.game-shell footer p { margin: 0; }
+
+.game-shell footer .site-credit {
+  margin-top: .55rem;
+  padding-top: .55rem;
+  border-top: 1px solid rgba(91, 58, 43, .24);
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.site-credit a {
+  color: var(--red-dark);
+  font-weight: 900;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.site-credit a:hover { color: var(--red); }
+.site-credit a:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
 @media (max-width: 700px) {
   .landing { padding: .75rem; }
   .landing-art { width: 100%; }
