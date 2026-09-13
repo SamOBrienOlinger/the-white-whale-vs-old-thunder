@@ -29,6 +29,9 @@ function syncLandingArtwork() {
 
   landingStage.style.width = `${stageWidth}px`;
   if (landingFooter) landingFooter.style.width = `${stageWidth}px`;
+  sideChoices.forEach((button) => {
+    button.style.minHeight = compact ? '44px' : '';
+  });
 }
 
 const canonicalPath = '/the-white-whale-vs-old-thunder/';
