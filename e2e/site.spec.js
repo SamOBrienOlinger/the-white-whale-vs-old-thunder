@@ -5,6 +5,7 @@ test('landing page presents integrated controls over the artwork', async ({ page
 
   await expect(page.locator('.landing-stage')).toBeVisible();
   await expect(page.locator('.landing-artwork img')).toBeVisible();
+  await expect.poll(() => page.locator('.landing-artwork img').evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
   await expect(page.getByRole('button', { name: 'Play as Moby Dick, the White Whale' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Play as Captain Ahab, Old Thunder' })).toBeVisible();
   await expect(page.getByRole('button', { name: /Begin the Hunt/i })).toBeVisible();

@@ -6,8 +6,8 @@ async function noPageOverflow(page) {
   expect(measure.total, JSON.stringify(measure)).toBeLessThanOrEqual(width+1);
 }
 
-test('portrait, landscape, tablet and desktop retain readable non-overlapping controls', async ({ page }) => {
-  for (const [width, height] of [[320,568],[390,844],[844,390],[768,1024],[1440,900]]) {
+for (const [width, height] of [[320,568],[390,844],[844,390],[768,1024],[1440,900]]) {
+  test(`controls and game remain usable at ${width} by ${height}`, async ({ page }) => {
     await page.setViewportSize({ width, height });
     await page.goto('/');
     await noPageOverflow(page);
@@ -43,8 +43,9 @@ test('portrait, landscape, tablet and desktop retain readable non-overlapping co
     expect(cell.height).toBeGreaterThanOrEqual(44);
     await page.locator('#change-role').click();
     await expect(page.locator('#landing')).toBeVisible();
-  }
-});
+    await expect(page.locator('#landing-status')).toHaveText('Choose Moby Dick or Captain Ahab.');
+  });
+}
 
 test('enlarged text, dialog content clicks and keyboard chart navigation remain usable',async ({ page })=>{
   await page.setViewportSize({width:390,height:844});

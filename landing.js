@@ -82,7 +82,7 @@ function returnToLanding() {
   landing.classList.remove('landing--hidden');
   document.body.classList.add('landing-active');
   window.scrollTo({ top: 0, behavior: 'instant' });
-  landingStatuses.forEach((status) => status.classList.remove('show'));
+  announce('Choose Moby Dick or Captain Ahab.');
   window.setTimeout(() => sideChoices[0]?.focus({ preventScroll: true }), 50);
 }
 
