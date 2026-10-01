@@ -7,33 +7,6 @@ const howButton = document.getElementById('how-to-play');
 const aboutButton = document.getElementById('about-tale');
 const howDialog = document.getElementById('how-dialog');
 const aboutDialog = document.getElementById('about-dialog');
-const landingStage = document.querySelector('.landing-stage');
-const landingArtwork = landingStage?.querySelector('img');
-const landingFooter = document.querySelector('.landing-footer');
-const landingArtworkRatio = 450 / 741;
-
-function syncLandingArtwork() {
-  if (!landingStage || !landingArtwork) return;
-
-  landingArtwork.src = 'assets/images/landing-moby-pequod.avif?v=20260913-1';
-  landingArtwork.width = 450;
-  landingArtwork.height = 741;
-  landingStage.style.aspectRatio = '450 / 741';
-
-  const compact = window.matchMedia('(max-width: 520px)').matches;
-  const gutter = compact ? 12 : 20;
-  const reservedHeight = compact ? 58 : 82;
-  const availableWidth = Math.max(0, window.innerWidth - gutter);
-  const availableHeight = Math.max(0, window.innerHeight - reservedHeight);
-  const stageWidth = Math.min(availableWidth, availableHeight * landingArtworkRatio, 820);
-
-  landingStage.style.width = `${stageWidth}px`;
-  if (landingFooter) landingFooter.style.width = `${stageWidth}px`;
-  sideChoices.forEach((button) => {
-    button.style.minHeight = compact ? '44px' : '';
-  });
-}
-
 const canonicalPath = '/the-white-whale-vs-old-thunder/';
 if (window.location.hostname.endsWith('github.io') && window.location.pathname.endsWith('/index.html')) {
   window.history.replaceState(null, '', `${canonicalPath}${window.location.search}${window.location.hash}`);
@@ -109,8 +82,7 @@ function returnToLanding() {
   landing.classList.remove('landing--hidden');
   document.body.classList.add('landing-active');
   window.scrollTo({ top: 0, behavior: 'instant' });
-  landingStatuses.forEach((status) => status.classList.remove('show'));
-  syncLandingArtwork();
+  announce('Choose Moby Dick or Captain Ahab.');
   window.setTimeout(() => sideChoices[0]?.focus({ preventScroll: true }), 50);
 }
 
@@ -132,10 +104,10 @@ howButton?.addEventListener('click', () => openDialog(howDialog));
 aboutButton?.addEventListener('click', () => openDialog(aboutDialog));
 document.querySelectorAll('[data-close-landing-dialog]').forEach((button) => button.addEventListener('click', () => closeDialog(button.closest('dialog'))));
 [howDialog, aboutDialog].forEach((dialog) => dialog?.addEventListener('click', (event) => {
-  if (event.target === dialog) closeDialog(dialog);
+  if (event.target !== dialog) return;
+  const rect = dialog.getBoundingClientRect();
+  if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeDialog(dialog);
 }));
 document.addEventListener('whitewhale:return', returnToLanding);
-window.addEventListener('resize', syncLandingArtwork, { passive: true });
 
-syncLandingArtwork();
 setBeginState();

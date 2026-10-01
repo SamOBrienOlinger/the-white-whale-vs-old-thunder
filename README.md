@@ -59,6 +59,8 @@ Use Node.js and npm for the package commands below. Install the package dependen
 | `npm test` | Run the existing test suite |
 | `npm run test:e2e` | Run browser journey tests |
 
+Before browser checks, run `npx playwright install --with-deps chromium firefox webkit`. The suite covers Chromium, Firefox and WebKit, portrait and landscape layouts, 320px to desktop widths, and 200% text. On narrow screens, the sea chart scrolls independently to keep its 44px targets usable.
+
 For a manual review, follow the main user journey, check keyboard navigation and narrow-screen layouts, and inspect the browser console for missing assets or failed requests.
 
 Supporting notes: [design-qa.md](design-qa.md).

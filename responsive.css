@@ -1,0 +1,58 @@
+/* Responsive overrides shared by the title screen, dialogs and game. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { min-width: 0; }
+button, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+button { white-space: normal; overflow-wrap: anywhere; }
+.landing { min-height: 100vh; min-height: 100svh; padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); justify-content: flex-start; }
+.landing-stage { width: min(100%, 32rem); aspect-ratio: auto; overflow: visible; }
+.landing-artwork { display: block; background: #111; }
+.landing-artwork img { display: block; width: 100%; height: auto; max-height: 62vh; max-height: 62svh; object-fit: contain; filter: grayscale(.95) sepia(.24) contrast(1.15) brightness(.76); }
+.landing-controls { position: relative; z-index: 5; padding: 1rem; background: linear-gradient(#252321, #111); }
+.landing-roles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+.landing-actions { display: grid; grid-template-columns: 1fr 1.35fr 1fr; gap: .85rem; margin-top: 1rem; align-items: stretch; }
+.landing-control { position: relative; inset: auto !important; width: auto; height: auto; min-width: 0; min-height: 48px; padding: .7rem .4rem; font-size: .875rem; line-height: 1.25; border-radius: 3px; }
+.landing-role { display: flex; align-items: center; justify-content: center; gap: .5rem; text-align: left; }
+.landing-role::before { position: static; width: 2rem; height: 2rem; flex: 0 0 2rem; }
+.landing-role .role-copy { position: static; transform: none; }
+.landing-role small { font-size: .75em; line-height: 1.2; }
+.landing-role .role-name { font-size: 1em; line-height: 1.2; }
+.landing-role .role-name br { display: none; }
+.landing-how::before, .landing-about::before, .landing-begin::before { display: none; }
+.landing-begin { font-size: 1rem; }
+.landing-status, .landing-status.show { position: static; transform: none; width: 100%; min-height: 2.75em; margin: 1rem 0 0; padding: .4rem; opacity: 1; visibility: visible; font-size: .875rem; line-height: 1.4; }
+.landing-footer { width: min(100%, 32rem); }
+.site-credit-bar { flex-wrap: wrap; max-width: 100%; gap: .25rem .5rem; }
+.site-credit-bar a { min-height: 44px; display: inline-flex; align-items: center; font-size: .75rem; }
+.site-credit-bar a::before { display: none; }
+.game-shell { overflow: visible; }
+.masthead h1 { line-height: 1.1; overflow-wrap: anywhere; }
+.status-row > *, .board-heading > * { min-width: 0; }
+.status, .prompt, .briefing, .hit-counter, .board-heading { overflow-wrap: anywhere; }
+.game-actions { flex-wrap: wrap; }
+.board-wrap { max-width: 100%; padding: .75rem .5rem 1rem; overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+.board-wrap:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+.coordinate-board { grid-template-columns: 24px repeat(7, minmax(44px, 1fr)); grid-template-rows: 24px repeat(7, minmax(44px, 1fr)); width: min(100%, 600px); min-width: 362px; gap: 2px; margin-inline: auto; }
+.chart-caption { width: min(100%, 600px); min-width: 362px; flex-wrap: wrap; gap: .25rem .75rem; }
+.coord-cell { min-height: 44px; font-size: .625rem; }
+.landing-dialog, .result-dialog { width: min(35rem, calc(100% - 2rem)); max-width: calc(100% - 2rem); max-height: calc(100vh - 2rem); max-height: calc(100dvh - 2rem); margin: auto; padding: 1.25rem; overflow: auto; overscroll-behavior: contain; overflow-wrap: anywhere; }
+.landing-dialog button, .result-dialog button { max-width: 100%; min-height: 48px; }
+@media (max-width: 420px) {
+  .command-panel { padding-inline: .25rem; }
+  .board-wrap { padding-inline: .25rem; }
+  .landing-controls { padding: .75rem; }
+  .landing-role::before { display: none; }
+  .landing-role { text-align: center; }
+}
+@media (max-width: 24rem) {
+  .landing-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .landing-begin { grid-column: 1 / -1; grid-row: 1; }
+}
+@media (forced-colors: active) {
+  .landing-control[aria-pressed="true"], .coord-cell.hit { outline: 3px solid Highlight; }
+}
+@media (max-width: 40rem) {
+  .status-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  .hit-counter { min-width: 0; padding: .65rem 0 0; text-align: left; border-left: 0; border-top: 1px solid var(--line); }
+  .board-heading { flex-wrap: wrap; }
+}
+.game-footer-inner, .site-credit-bar, .site-credit-bar a { min-width: 0; overflow-wrap: anywhere; }
