@@ -46,7 +46,7 @@
     @media(max-width:520px){.landing{padding:max(env(safe-area-inset-top),6px) max(env(safe-area-inset-right),6px) max(env(safe-area-inset-bottom),6px) max(env(safe-area-inset-left),6px);gap:.4rem}.landing-stage,.landing-footer{width:min(calc(100vw - 12px),calc((100svh - 58px)*.6765))}.landing-stage{border-width:3px}.landing-role{font-size:clamp(.52rem,2.35cqi,.76rem)}.landing-how,.landing-about{font-size:clamp(.56rem,3.1vw,.78rem)}.landing-begin{font-size:clamp(.72rem,3.8vw,1rem)}.landing-status{width:76%;font-size:.68rem}}
     @media(prefers-reduced-motion:reduce){.landing-control,.landing-status{transition:none!important}}
   </style>
-  <link rel="stylesheet" href="responsive.css?v=20261001-1">
+  <link rel="stylesheet" href="responsive.css?v=20261001-2">
 </head>
 <body class="landing-active">
   <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
@@ -93,9 +93,9 @@
 
   <dialog id="how-dialog" class="landing-dialog" aria-labelledby="how-dialog-title"><h2 id="how-dialog-title">HOW TO PLAY</h2><p>Choose Moby Dick or Captain Ahab. You have five chances to decide the chase.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
   <dialog id="about-dialog" class="landing-dialog" aria-labelledby="about-dialog-title"><h2 id="about-dialog-title">About the Tale</h2><p>Moby Dick and Captain Ahab meet in the final chase of Herman Melville’s <em>Moby-Dick</em>. This game turns that confrontation into a short coordinate hunt of vengeance, survival and fate.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
-  <dialog id="result-dialog" class="result-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message"><p class="dialog-kicker" id="dialog-kicker"></p><h2 id="dialog-title"></h2><p id="dialog-message"></p><button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button></dialog>
+  <dialog id="result-dialog" class="result-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message"><p class="dialog-kicker" id="dialog-kicker"></p><h2 id="dialog-title"></h2><p id="dialog-message"></p><img id="victory-artwork" class="victory-artwork" src="assets/images/moby-victory.jpeg" alt="A white whale beneath the waves as the wrecked Pequod sinks above it." width="570" height="726" hidden><button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button></dialog>
 
   <script src="landing.js?v=20261001-1"></script>
-  <script type="module" src="script.js?v=20260824-2"></script>
+  <script type="module" src="script.js?v=20261001-2"></script>
 </body>
 </html>

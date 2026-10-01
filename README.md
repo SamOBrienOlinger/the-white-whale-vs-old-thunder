@@ -81,6 +81,7 @@ Design decisions, original feature notes, historical testing evidence and detail
 - Character background: [Captain Ahab](https://en.wikipedia.org/wiki/Captain_Ahab).
 - Pequod design reference: [ship artwork by Lars Platoon on Instagram](https://www.instagram.com/p/DSiOfq8jwdM/?igsi=cGFmcmR4bmg3MHBk).
 - Additional Moby Dick and Pequod visual reference: [Moby Dick Large on Storenvy](https://www.storenvy.com/products/17731562-moby-dick-large).
+- Moby Dick victory illustration (`assets/images/moby-victory.jpeg`): user-provided image from [White Whale / Herman Melville / Moby Dick on Etsy](https://www.etsy.com/uk/listing/157550948/white-whale-herman-melville-moby-dick?ref=share_v4_lx). Displayed when Moby Dick wins, including when Captain Ahab loses.
 - Several interface illustrations and role icons were generated or refined with OpenAI image tools from user-approved visual references.
 
 This project is not affiliated with the creators, publishers or sellers linked above. Referenced third-party material remains subject to its original owner's terms.

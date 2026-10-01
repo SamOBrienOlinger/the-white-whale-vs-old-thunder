@@ -120,3 +120,37 @@ test('Ahab loss copy consistently describes the destruction of the Pequod', asyn
   await expect(page.locator('#dialog-message')).toHaveText('The Pequod is smashed into smithereens and The White Whale drags Old Thunder to the bottom of the sea.');
   await expect(page.locator('#prompt')).toContainText('breaks the ship');
 });
+
+for (const role of ['Moby Dick, the White Whale', 'Captain Ahab, Old Thunder']) {
+  test(`victory illustration follows the winner and resets for ${role}`, async ({ page }) => {
+    await page.addInitScript(() => { Math.random = () => 0; });
+    await page.goto('/');
+    await page.getByRole('button', { name: `Play as ${role}` }).click();
+    await page.getByRole('button', { name: /Begin the Hunt/i }).click();
+    const artwork = page.locator('#victory-artwork');
+    for (const won of [true, false]) {
+      await expect(artwork).toBeHidden();
+      const coordinates = won ? ['A1', 'A2'] : ['G7', 'G6', 'G5', 'G4', 'G3'];
+      for (const coordinate of coordinates) {
+        await page.locator(`.coord-cell[data-coordinate="${coordinate}"]`).click();
+      }
+      await expect(page.locator('#result-dialog')).toBeVisible();
+      const mobyWins = role.startsWith('Moby') ? won : !won;
+      if (mobyWins) {
+        await expect(artwork).toBeVisible();
+        await expect.poll(() => artwork.evaluate(img => img.naturalWidth)).toBe(570);
+        const fits = await artwork.evaluate(img => {
+          const image = img.getBoundingClientRect();
+          const dialog = img.closest('dialog').getBoundingClientRect();
+          return image.width > 0 && image.left >= dialog.left && image.right <= dialog.right && image.height <= window.innerHeight * .46;
+        });
+        expect(fits).toBe(true);
+      } else {
+        await expect(artwork).toBeHidden();
+      }
+      await page.getByRole('button', { name: 'Take up the chase again' }).click();
+      await expect(page.locator('#result-dialog')).toBeHidden();
+      await expect(artwork).toBeHidden();
+    }
+  });
+}
