@@ -136,18 +136,15 @@ for (const role of ['Moby Dick, the White Whale', 'Captain Ahab, Old Thunder']) 
       }
       await expect(page.locator('#result-dialog')).toBeVisible();
       const mobyWins = role.startsWith('Moby') ? won : !won;
-      if (mobyWins) {
-        await expect(artwork).toBeVisible();
-        await expect.poll(() => artwork.evaluate(img => img.naturalWidth)).toBe(570);
-        const fits = await artwork.evaluate(img => {
-          const image = img.getBoundingClientRect();
-          const dialog = img.closest('dialog').getBoundingClientRect();
-          return image.width > 0 && image.left >= dialog.left && image.right <= dialog.right && image.height <= window.innerHeight * .46;
-        });
-        expect(fits).toBe(true);
-      } else {
-        await expect(artwork).toBeHidden();
-      }
+      await expect(artwork).toBeVisible();
+      await expect(artwork).toHaveAttribute('src', mobyWins ? 'assets/images/moby-victory.jpeg' : 'assets/images/ahab-victory.png');
+      await expect.poll(() => artwork.evaluate(img => img.naturalWidth)).toBe(mobyWins ? 570 : 300);
+      const fits = await artwork.evaluate(img => {
+        const image = img.getBoundingClientRect();
+        const dialog = img.closest('dialog').getBoundingClientRect();
+        return image.width > 0 && image.left >= dialog.left && image.right <= dialog.right && image.height <= window.innerHeight * .46;
+      });
+      expect(fits).toBe(true);
       await page.getByRole('button', { name: 'Take up the chase again' }).click();
       await expect(page.locator('#result-dialog')).toBeHidden();
       await expect(artwork).toBeHidden();

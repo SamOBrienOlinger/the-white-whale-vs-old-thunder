@@ -248,7 +248,13 @@ function endGame(won) {
   dialogTitle.textContent = result.title;
   dialogMessage.textContent = result.message;
   const mobyWins = game.role === "moby" ? won : !won;
-  victoryArtwork.hidden = !mobyWins;
+  victoryArtwork.src = mobyWins ? "assets/images/moby-victory.jpeg" : "assets/images/ahab-victory.png";
+  victoryArtwork.alt = mobyWins
+    ? "A white whale beneath the waves as the wrecked Pequod sinks above it."
+    : "Captain Ahab raises his arm, holding a harpoon amid rough seas.";
+  victoryArtwork.width = mobyWins ? 570 : 300;
+  victoryArtwork.height = mobyWins ? 726 : 368;
+  victoryArtwork.hidden = false;
   window.setTimeout(() => {
     if (!dialog.open) dialog.showModal();
   }, 650);
