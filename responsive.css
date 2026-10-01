@@ -56,3 +56,7 @@ button { white-space: normal; overflow-wrap: anywhere; }
   .board-heading { flex-wrap: wrap; }
 }
 .game-footer-inner, .site-credit-bar, .site-credit-bar a { min-width: 0; overflow-wrap: anywhere; }
+
+/* Keep the complete victory illustration visible without crowding small screens. */
+.victory-artwork { display: block; width: auto; height: auto; max-width: 100%; max-height: 45vh; max-height: 45dvh; margin: 1rem auto; object-fit: contain; border-radius: .35rem; }
+.victory-artwork[hidden] { display: none; }

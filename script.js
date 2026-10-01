@@ -18,6 +18,7 @@ const dialog = document.querySelector("#result-dialog");
 const dialogKicker = document.querySelector("#dialog-kicker");
 const dialogTitle = document.querySelector("#dialog-title");
 const dialogMessage = document.querySelector("#dialog-message");
+const victoryArtwork = document.querySelector("#victory-artwork");
 const ship = document.querySelector(".pequod");
 const whale = document.querySelector(".whale");
 const damageTrack = document.querySelector(".damage-track");
@@ -246,6 +247,8 @@ function endGame(won) {
   dialogKicker.textContent = result.kicker;
   dialogTitle.textContent = result.title;
   dialogMessage.textContent = result.message;
+  const mobyWins = game.role === "moby" ? won : !won;
+  victoryArtwork.hidden = !mobyWins;
   window.setTimeout(() => {
     if (!dialog.open) dialog.showModal();
   }, 650);
@@ -272,6 +275,7 @@ function startGame(role) {
   damageTrack.setAttribute("aria-valuenow", "0");
   damageTrack.setAttribute("aria-valuetext", "No wounds landed");
   if (dialog.open) dialog.close();
+  victoryArtwork.hidden = true;
   buildBoard();
   window.setTimeout(() => {
     status.focus({ preventScroll: true });
@@ -300,6 +304,7 @@ function chooseRole() {
   damageTrack.setAttribute("aria-valuenow", "0");
   damageTrack.setAttribute("aria-valuetext", "No wounds landed");
   if (dialog.open) dialog.close();
+  victoryArtwork.hidden = true;
   buildBoard();
   document.dispatchEvent(new Event("whitewhale:return"));
 }
