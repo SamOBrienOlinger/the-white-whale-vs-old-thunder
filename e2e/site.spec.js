@@ -4,7 +4,7 @@ test('landing page presents integrated controls over the artwork', async ({ page
   await page.goto('/index.html');
 
   await expect(page.locator('.landing-stage')).toBeVisible();
-  await expect(page.locator('.landing-stage > img')).toBeVisible();
+  await expect(page.locator('.landing-artwork img')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Play as Moby Dick, the White Whale' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Play as Captain Ahab, Old Thunder' })).toBeVisible();
   await expect(page.getByRole('button', { name: /Begin the Hunt/i })).toBeVisible();
@@ -16,7 +16,7 @@ test('landing page presents integrated controls over the artwork', async ({ page
 test('landing information panels open and close as dialogs', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: /How to Play/i }).click();
-  await expect(page.getByRole('dialog').filter({ hasText: 'How to Play' })).toBeVisible();
+  await expect(page.getByRole('dialog').filter({ hasText: /How to Play/i })).toBeVisible();
   await page.getByRole('button', { name: 'Return to the Hunt' }).click();
   await expect(page.locator('#how-dialog')).not.toBeVisible();
 
@@ -58,7 +58,7 @@ test('the sea chart displays the Pequod voyage map behind a usable grid', async 
 
   await expect(page.getByText('The voyage of the Pequod')).toBeVisible();
   await expect(page.getByLabel('Search chart with seven rows and seven columns')).toBeVisible();
-  await expect(page.locator('.board-wrap')).toHaveCSS('background-image', /assets\/images\/pequod-voyage-map\.webp/);
+  await expect(page.locator('.coordinate-board')).toHaveCSS('background-image', /assets\/images\/pequod-voyage-map\.webp/);
   await expect(page.locator('.coord-cell[data-coordinate="A1"]')).toBeVisible();
 });
 
@@ -80,8 +80,8 @@ test('the integrated landing screen is responsive on a mobile viewport', async (
     expect(box.height).toBeGreaterThanOrEqual(44);
   }
 
-  await page.getByRole('button', { name: /Moby Dick/ }).tap();
-  await page.getByRole('button', { name: /Begin the Hunt/i }).tap();
+  await page.getByRole('button', { name: /Moby Dick/ }).click();
+  await page.getByRole('button', { name: /Begin the Hunt/i }).click();
   await expect(page.locator('#game')).toBeVisible();
   await expect(page.locator('#landing')).toHaveAttribute('hidden', '');
   await expect(page.locator('.coord-cell')).toHaveCount(49);

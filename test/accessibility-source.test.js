@@ -12,8 +12,8 @@ test("landing controls match the integrated artwork and game states", () => {
   assert.match(html, /class="landing-stage"/);
   assert.match(html, /class="landing-control landing-role side-choice"[^>]*data-role="moby"[^>]*aria-pressed="false"/);
   assert.match(html, /class="landing-control landing-role side-choice"[^>]*data-role="ahab"[^>]*aria-pressed="false"/);
-  assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Moby<br>Dick<\/span>/);
-  assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Captain<br>Ahab<\/span>/);
+  assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Moby<br>\s*Dick<\/span>/);
+  assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Captain<br>\s*Ahab<\/span>/);
   assert.match(html, /class="landing-control landing-begin"[^>]*data-enter-hunt disabled/);
   assert.match(html, />Begin<br>the Hunt<\/button>/);
   assert.match(html, /href="blueprint\.css\?v=20260828-2"/);
@@ -84,7 +84,7 @@ test("gameplay keeps the illustrated scene visible and supports keyboard plottin
 });
 
 test("the coordinate grid uses the supplied Pequod voyage map without losing its labels", () => {
-  assert.match(html, /<figure class="board-wrap">/);
+  assert.match(html, /<figure class="board-wrap"[^>]*>/);
   assert.match(html, /The voyage of the <em>Pequod<\/em>/);
   assert.match(html, /aria-label="Search chart with seven rows and seven columns"/);
   assert.match(css, /\.coordinate-board \{[\s\S]*background-image:[\s\S]*url\("assets\/images\/pequod-voyage-map\.webp"\)/);

@@ -35,8 +35,8 @@ jobs:
           node-version: 24
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+      - name: Install browser engines
+        run: npx playwright install --with-deps chromium firefox webkit
       - name: Run browser tests
         run: npm run test:e2e
       - name: Upload Playwright report on failure

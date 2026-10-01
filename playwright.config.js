@@ -2,7 +2,8 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
-  timeout: 30000,
+  timeout: 60000,
+  workers: 2,
   expect: { timeout: 5000 },
   use: {
     baseURL: 'http://127.0.0.1:4173',
@@ -15,6 +16,8 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium-desktop', use: { ...devices['Desktop Chrome'] } },
-    { name: 'chromium-mobile', use: { ...devices['iPhone 13'] } }
+    { name: 'chromium-mobile', use: { ...devices['iPhone 13'], defaultBrowserType: 'chromium', browserName: 'chromium' } },
+    { name: 'firefox-desktop', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit-mobile', use: { ...devices['iPhone 13'], browserName: 'webkit' } }
   ]
 });

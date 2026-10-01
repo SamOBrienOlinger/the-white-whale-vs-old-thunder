@@ -46,17 +46,24 @@
     @media(max-width:520px){.landing{padding:max(env(safe-area-inset-top),6px) max(env(safe-area-inset-right),6px) max(env(safe-area-inset-bottom),6px) max(env(safe-area-inset-left),6px);gap:.4rem}.landing-stage,.landing-footer{width:min(calc(100vw - 12px),calc((100svh - 58px)*.6765))}.landing-stage{border-width:3px}.landing-role{font-size:clamp(.52rem,2.35cqi,.76rem)}.landing-how,.landing-about{font-size:clamp(.56rem,3.1vw,.78rem)}.landing-begin{font-size:clamp(.72rem,3.8vw,1rem)}.landing-status{width:76%;font-size:.68rem}}
     @media(prefers-reduced-motion:reduce){.landing-control,.landing-status{transition:none!important}}
   </style>
+  <link rel="stylesheet" href="responsive.css?v=20261001-1">
 </head>
 <body class="landing-active">
   <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
     <div class="landing-stage">
-      <img src="assets/images/IMG_0954.jpeg" alt="The Pequod sailing through lightning above Moby Dick beneath the sea.">
-      <button class="landing-control landing-role side-choice" type="button" data-role="moby" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Moby Dick, the White Whale"><span class="role-copy"><small>Play as</small><span class="role-name">Moby<br>Dick</span></span></button>
-      <button class="landing-control landing-role side-choice" type="button" data-role="ahab" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Captain Ahab, Old Thunder"><span class="role-copy"><small>Play as</small><span class="role-name">Captain<br>Ahab</span></span></button>
+      <picture class="landing-artwork"><source srcset="assets/images/landing-moby-pequod.avif?v=20260913-1" type="image/avif"><img src="assets/images/IMG_0954.jpeg" width="450" height="741" alt="The Pequod sailing through lightning above Moby Dick beneath the sea."></picture>
+      <div class="landing-controls">
+      <div class="landing-roles" role="group" aria-label="Choose your side">
+      <button class="landing-control landing-role side-choice" type="button" data-role="moby" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Moby Dick, the White Whale"><span class="role-copy"><small>Play as</small><span class="role-name">Moby<br> Dick</span></span></button>
+      <button class="landing-control landing-role side-choice" type="button" data-role="ahab" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Captain Ahab, Old Thunder"><span class="role-copy"><small>Play as</small><span class="role-name">Captain<br> Ahab</span></span></button>
+      </div>
+      <div class="landing-actions">
       <button class="landing-control landing-how" id="how-to-play" type="button" aria-haspopup="dialog">How to<br>Play</button>
       <button class="landing-control landing-begin" type="button" data-enter-hunt disabled aria-describedby="landing-status">Begin<br>the Hunt</button>
       <button class="landing-control landing-about" id="about-tale" type="button" aria-haspopup="dialog">About<br>the Tale</button>
+      </div>
       <p id="landing-status" class="landing-status mobile-landing-status" aria-live="polite" aria-atomic="true">Choose Moby Dick or Captain Ahab.</p>
+      </div>
     </div>
     <footer class="landing-footer site-credit-bar"><span>Created by</span><a href="https://samobrienolinger.github.io/SamOBrienOlinger/" target="_blank" rel="noopener noreferrer" aria-label="Sam Tim Solutions (opens in a new tab)">Sam Tim Solutions</a></footer>
   </section>
@@ -77,7 +84,7 @@
       <div class="damage-track" role="progressbar" aria-labelledby="damage-label" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" aria-valuetext="No wounds landed"><span aria-hidden="true"></span><span aria-hidden="true"></span></div>
       <div class="board-heading"><div><p class="label">The sea-chart</p><p id="board-instruction">Choose a commander before plotting the first coordinate.</p></div><p class="chart-size" aria-label="Search chart with seven rows and seven columns"><span>Chart</span><strong>G × 7</strong></p></div>
       <p class="visually-hidden" id="board-keyboard-help">Use the arrow keys to move between untried coordinates. Press Enter or Space to strike.</p>
-      <figure class="board-wrap"><figcaption class="chart-caption"><span>The voyage of the <em>Pequod</em></span><span>Choose one square</span></figcaption><div class="coordinate-board" id="board" aria-label="Search grid" aria-describedby="board-instruction board-keyboard-help"></div></figure>
+      <figure class="board-wrap" tabindex="0" role="group" aria-label="Sea chart. Scroll horizontally if needed to reach every coordinate."><figcaption class="chart-caption"><span>The voyage of the <em>Pequod</em></span><span>Choose one square</span></figcaption><div class="coordinate-board" id="board" aria-label="Search grid" aria-describedby="board-instruction board-keyboard-help"></div></figure>
       <div class="legend" aria-label="Grid legend"><span><i class="legend-hit"></i> Quarry struck</span><span><i class="legend-miss"></i> Empty water</span></div>
       <div class="game-actions"><button class="reset-button" id="reset" type="button" disabled>Call up a new chase</button><button class="change-role-button" id="change-role" type="button">Change side / return to title</button></div>
     </section>
@@ -88,7 +95,7 @@
   <dialog id="about-dialog" class="landing-dialog" aria-labelledby="about-dialog-title"><h2 id="about-dialog-title">About the Tale</h2><p>Moby Dick and Captain Ahab meet in the final chase of Herman Melville’s <em>Moby-Dick</em>. This game turns that confrontation into a short coordinate hunt of vengeance, survival and fate.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
   <dialog id="result-dialog" class="result-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message"><p class="dialog-kicker" id="dialog-kicker"></p><h2 id="dialog-title"></h2><p id="dialog-message"></p><button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button></dialog>
 
-  <script src="landing.js?v=20260828-1"></script>
+  <script src="landing.js?v=20261001-1"></script>
   <script type="module" src="script.js?v=20260824-2"></script>
 </body>
 </html>
