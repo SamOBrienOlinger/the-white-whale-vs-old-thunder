@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 async function noPageOverflow(page) {
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  const width=page.viewportSize().width;
+  const measure=await page.evaluate(width => ({total:document.documentElement.scrollWidth, offenders:[...document.querySelectorAll('body *')].filter(e => !e.closest('.board-wrap')).map(e=>({tag:e.tagName,class:e.className,right:e.getBoundingClientRect().right,scroll:e.scrollWidth,client:e.clientWidth})).filter(e=>e.right>width+1)}),width);
+  expect(measure.total, JSON.stringify(measure)).toBeLessThanOrEqual(width+1);
 }
 
 test('portrait, landscape, tablet and desktop retain readable non-overlapping controls', async ({ page }) => {

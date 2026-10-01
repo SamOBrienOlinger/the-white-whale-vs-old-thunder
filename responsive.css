@@ -50,3 +50,9 @@ button { white-space: normal; overflow-wrap: anywhere; }
 @media (forced-colors: active) {
   .landing-control[aria-pressed="true"], .coord-cell.hit { outline: 3px solid Highlight; }
 }
+@media (max-width: 40rem) {
+  .status-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  .hit-counter { min-width: 0; padding: .65rem 0 0; text-align: left; border-left: 0; border-top: 1px solid var(--line); }
+  .board-heading { flex-wrap: wrap; }
+}
+.game-footer-inner, .site-credit-bar, .site-credit-bar a { min-width: 0; overflow-wrap: anywhere; }
