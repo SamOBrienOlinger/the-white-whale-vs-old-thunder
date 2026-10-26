@@ -12,15 +12,20 @@ A literary coordinate-hunt game inspired by the final chase in Moby-Dick. Choose
 
 - Two playable roles with distinct narratives and outcomes.
 - A 7 × 7 chart, five chances and two hits needed to win.
-- Directional and proximity clues after misses.
-- Keyboard board navigation, live status feedback and replay.
+- Directional and proximity clues after misses, with a visual compass indicating the latest bearing.
+- An expandable Captain’s log recording each shot and its clue.
+- Optional guided first-hunt prompts to help new players learn the chart.
+- Clearer landing instructions, illustrated strike feedback and winner/loser result summaries.
+- Keyboard board navigation, accessible live status feedback, reduced-motion support and replay.
 
 ## Using the project
 
 1. Choose Moby Dick or Captain Ahab, then select **Begin the Hunt**.
 2. Choose coordinates from A1 to G7.
-3. Use the direction and proximity clues after a miss.
+3. Follow the **compass bearing** after a miss; use the **Captain’s log** to review earlier attempts.
 4. Land two hits within five chances, then replay or change sides.
+
+Select **Guide my first hunt** on the title screen if you want short hints while playing. The guide is optional and does not change the game rules.
 
 ## Getting started
 
@@ -59,7 +64,7 @@ Use Node.js and npm for the package commands below. Install the package dependen
 | `npm test` | Run the existing test suite |
 | `npm run test:e2e` | Run browser journey tests |
 
-Before browser checks, run `npx playwright install --with-deps chromium firefox webkit`. The suite covers Chromium, Firefox and WebKit, portrait and landscape layouts, 320px to desktop widths, and 200% text. On narrow screens, the sea chart scrolls independently to keep its 44px targets usable.
+Before browser checks, run `npx playwright install --with-deps chromium firefox webkit`. The suite covers Chromium, Firefox and WebKit, portrait and landscape layouts, 320px to desktop widths, 200% text, the compass and Captain’s log, result-timer cancellation and reduced-motion feedback. On narrow screens, the sea chart scrolls independently to keep its 44px targets usable.
 
 For a manual review, follow the main user journey, check keyboard navigation and narrow-screen layouts, and inspect the browser console for missing assets or failed requests.
 

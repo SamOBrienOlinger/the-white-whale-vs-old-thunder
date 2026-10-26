@@ -47,21 +47,28 @@
     @media(prefers-reduced-motion:reduce){.landing-control,.landing-status{transition:none!important}}
   </style>
   <link rel="stylesheet" href="responsive.css?v=20261001-4">
+  <link rel="stylesheet" href="ux-enhancements.css?v=20261026-1">
 </head>
 <body class="landing-active">
   <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
     <div class="landing-stage">
       <picture class="landing-artwork"><source srcset="assets/images/landing-moby-pequod.avif?v=20260913-1" type="image/avif"><img src="assets/images/IMG_0954.jpeg" width="450" height="741" alt="The Pequod sailing through lightning above Moby Dick beneath the sea."></picture>
       <div class="landing-controls">
+      <div class="landing-introduction">
+        <p class="landing-kicker">The last chase</p>
+        <h1>The White Whale <span>versus Old Thunder</span></h1>
+        <p>Choose your side. Find your rival on the sea chart. Two strikes win, but you have only five chances.</p>
+      </div>
       <div class="landing-roles" role="group" aria-label="Choose your side">
-      <button class="landing-control landing-role side-choice" type="button" data-role="moby" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Moby Dick, the White Whale"><span class="role-copy"><small>Play as</small><span class="role-name">Moby<br> Dick</span></span></button>
-      <button class="landing-control landing-role side-choice" type="button" data-role="ahab" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Captain Ahab, Old Thunder"><span class="role-copy"><small>Play as</small><span class="role-name">Captain<br> Ahab</span></span></button>
+      <button class="landing-control landing-role side-choice" type="button" data-role="moby" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Moby Dick, the White Whale"><span class="role-copy"><small>Play as</small><span class="role-name">Moby<br> Dick</span><span class="role-objective">Sink the Pequod</span></span></button>
+      <button class="landing-control landing-role side-choice" type="button" data-role="ahab" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Captain Ahab, Old Thunder"><span class="role-copy"><small>Play as</small><span class="role-name">Captain<br> Ahab</span><span class="role-objective">Hunt the White Whale</span></span></button>
       </div>
       <div class="landing-actions">
       <button class="landing-control landing-how" id="how-to-play" type="button" aria-haspopup="dialog">How to<br>Play</button>
       <button class="landing-control landing-begin" type="button" data-enter-hunt disabled aria-describedby="landing-status">Begin<br>the Hunt</button>
       <button class="landing-control landing-about" id="about-tale" type="button" aria-haspopup="dialog">About<br>the Tale</button>
       </div>
+      <label class="guided-choice"><input id="guided-mode" type="checkbox"><span><strong>Guide my first hunt</strong><small>Helpful prompts while you learn the chart</small></span></label>
       <p id="landing-status" class="landing-status mobile-landing-status" aria-live="polite" aria-atomic="true">Choose Moby Dick or Captain Ahab.</p>
       </div>
     </div>
@@ -82,18 +89,42 @@
     <section class="command-panel" aria-labelledby="orders-title">
       <div class="status-row"><div><p class="label" id="orders-title">The quarter-deck</p><p id="status" class="status" tabindex="-1" aria-live="polite" aria-atomic="true" aria-describedby="prompt">Choose Moby Dick or Captain Ahab to begin the chase.</p><p id="prompt" class="prompt">Each commander has five chances. Two true strikes win.</p></div><div class="hit-counter" aria-label="Enemy damage"><span class="label" id="damage-label">Enemy wounds</span><strong><span id="hit-count">0</span> / <span id="required-hits">2</span></strong><span class="attempts-left"><span id="attempt-count">5</span> chances left</span></div></div>
       <div class="damage-track" role="progressbar" aria-labelledby="damage-label" aria-valuemin="0" aria-valuemax="2" aria-valuenow="0" aria-valuetext="No wounds landed"><span aria-hidden="true"></span><span aria-hidden="true"></span></div>
+      <section class="bearing-report" aria-labelledby="bearing-title">
+        <div class="compass-dial" aria-hidden="true">
+          <span class="compass-n">N</span><span class="compass-e">E</span><span class="compass-s">S</span><span class="compass-w">W</span>
+          <span class="compass-needle is-idle" id="compass-needle"></span>
+        </div>
+        <div class="bearing-copy">
+          <p class="bearing-kicker">Latest bearing</p>
+          <h2 id="bearing-title">No bearing yet</h2>
+          <p id="bearing-description">Choose a coordinate. If you miss, the sea reveals a direction and distance.</p>
+        </div>
+      </section>
+      <aside class="guided-tip" id="guided-tip" aria-label="Guided hunt tip" hidden></aside>
       <div class="board-heading"><div><p class="label">The sea-chart</p><p id="board-instruction">Choose a commander before plotting the first coordinate.</p></div><p class="chart-size" aria-label="Search chart with seven rows and seven columns"><span>Chart</span><strong>G × 7</strong></p></div>
       <p class="visually-hidden" id="board-keyboard-help">Use the arrow keys to move between untried coordinates. Press Enter or Space to strike.</p>
+      <p class="board-scroll-hint" id="board-scroll-hint" hidden><span aria-hidden="true">↔</span> Swipe or scroll the chart sideways to reach every coordinate.</p>
       <figure class="board-wrap" tabindex="0" role="group" aria-label="Sea chart. Scroll horizontally if needed to reach every coordinate."><figcaption class="chart-caption"><span>The voyage of the <em>Pequod</em></span><span>Choose one square</span></figcaption><div class="coordinate-board" id="board" aria-label="Search grid" aria-describedby="board-instruction board-keyboard-help"></div></figure>
-      <div class="legend" aria-label="Grid legend"><span><i class="legend-hit"></i> Quarry struck</span><span><i class="legend-miss"></i> Empty water</span></div>
+      <div class="legend" aria-label="Grid legend"><span class="legend-untried">Untried water</span><span><i class="legend-hit"></i> Quarry struck</span><span><i class="legend-miss"></i> Empty water</span></div>
+      <details class="attempt-log" id="attempt-log">
+        <summary>Captain’s log <span class="log-count" id="log-count">0 of 5 attempts</span></summary>
+        <p class="history-empty" id="history-empty">Your coordinates and the clues you uncover will appear here.</p>
+        <ol class="attempt-history" id="attempt-history" aria-label="Attempts and clues"></ol>
+      </details>
       <div class="game-actions"><button class="reset-button" id="reset" type="button" disabled>Call up a new chase</button><button class="change-role-button" id="change-role" type="button">Change side / return to title</button></div>
     </section>
     <footer class="game-footer"><div class="game-footer-inner"><p id="footer-rule">Choose a commander. Two true strikes in five chances decide the chase.</p><p class="site-credit-bar"><span>© 2026</span><a href="https://samobrienolinger.github.io/SamOBrienOlinger/" target="_blank" rel="noopener noreferrer" aria-label="Sam Tim Solutions (opens in a new tab)">Sam Tim Solutions</a></p></div></footer>
   </main>
 
-  <dialog id="how-dialog" class="landing-dialog" aria-labelledby="how-dialog-title"><h2 id="how-dialog-title">HOW TO PLAY</h2><p>Choose Moby Dick or Captain Ahab. You have five chances to decide the chase.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
+  <dialog id="how-dialog" class="landing-dialog" aria-labelledby="how-dialog-title"><h2 id="how-dialog-title">How to Play</h2>
+    <ol class="how-steps">
+      <li><strong>Choose a commander.</strong> Moby Dick hunts the Pequod; Captain Ahab hunts the White Whale.</li>
+      <li><strong>Strike a coordinate.</strong> Select one square from A1 to G7. Each choice uses one of your five chances.</li>
+      <li><strong>Read the sea.</strong> After a miss, follow the compass direction and proximity clue. Land two hits to win.</li>
+    </ol>
+    <p>The chart marks every attempted square. Open the Captain’s log to review previous clues.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
   <dialog id="about-dialog" class="landing-dialog" aria-labelledby="about-dialog-title"><h2 id="about-dialog-title">About the Tale</h2><p>Moby Dick and Captain Ahab meet in the final chase of Herman Melville’s <em>Moby-Dick</em>. This game turns that confrontation into a short coordinate hunt of vengeance, survival and fate.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
-  <dialog id="result-dialog" class="result-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message"><p class="dialog-kicker" id="dialog-kicker"></p><h2 id="dialog-title"></h2><p id="dialog-message"></p><img id="victory-artwork" class="victory-artwork" src="assets/images/moby-victory.jpeg" alt="A white whale beneath the waves as the wrecked Pequod sinks above it." width="570" height="726" hidden><button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button></dialog>
+  <dialog id="result-dialog" class="result-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message"><p class="dialog-kicker" id="dialog-kicker"></p><h2 id="dialog-title"></h2><p id="dialog-message"></p><p id="result-statline" class="result-statline"></p><img id="victory-artwork" class="victory-artwork" src="assets/images/moby-victory.jpeg" alt="A white whale beneath the waves as the wrecked Pequod sinks above it." width="570" height="726" hidden><button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button></dialog>
 
   <script src="landing.js?v=20261001-1"></script>
   <script type="module" src="script.js?v=20261001-3"></script>
