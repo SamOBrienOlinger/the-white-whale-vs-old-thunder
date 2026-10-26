@@ -65,6 +65,22 @@
 .scene.impact-miss::after { background: radial-gradient(ellipse at 50% 78%, rgba(204,231,229,.24), transparent 47%); animation: whale-impact-miss .55s ease-out both; }
 @keyframes whale-impact-hit { 0% { opacity: 0; transform: scale(.98); } 20% { opacity: .95; } 100% { opacity: 0; transform: scale(1.05); } }
 @keyframes whale-impact-miss { 0% { opacity: 0; } 30% { opacity: .7; } 100% { opacity: 0; } }
+/* Keep the entire landing panel visible on typical 390×844 phones without
+   changing, cropping or replacing the approved artwork asset. */
+@media (max-width: 520px) {
+  .landing-artwork img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: min(43svh, 400px);
+    margin-inline: auto;
+  }
+  .landing-controls { padding: .65rem; }
+  .landing-introduction { margin-bottom: .65rem; }
+  .landing-actions { gap: .65rem; margin-top: .7rem; }
+  .guided-choice { margin-top: .5rem; padding: .4rem .6rem; }
+  .landing-status, .landing-status.show { margin-top: .5rem; }
+}
 @media (max-width: 560px) {
   .landing-introduction h1 { font-size: 1.2rem; }
   .landing-introduction > p:last-child { font-size: .82rem; }
