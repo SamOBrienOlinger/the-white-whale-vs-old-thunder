@@ -50,8 +50,8 @@ const roleCopy = {
     ],
     win: {
       kicker: "The last chase",
-      title: "The Pequod founders",
-      status: "The second blow lands. The Pequod founders.",
+      title: "The Pequod spirals to the bottom of the ocean",
+      status: "The second blow lands. The Pequod spirals to the bottom of the ocean.",
       prompt: "Ahab’s chase is ended: the ship turns into its wooden hearse beneath the sea.",
       message: "Two true breaches tear through the hull. The Pequod becomes the wreck that Ahab’s chase foretold."
     },
