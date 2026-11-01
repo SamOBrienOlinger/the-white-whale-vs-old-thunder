@@ -205,8 +205,8 @@ body.landing-active { background: #151917; }
 .landing-control:focus-visible { outline: 3px solid #74422c; outline-offset: 4px; }
 .landing-control[aria-pressed="true"] { outline: 2px solid #5b4430; outline-offset: 3px; box-shadow: none; }
 .landing-role {
-  --role-ink: #344650;
-  --role-paper: #b7cfec;
+  --role-ink: #f6ebd6;
+  --role-paper: #704336;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -277,6 +277,9 @@ body.landing-active { background: #151917; }
 .landing-role small { margin: 0; color: #67543b; font-size: .59rem; font-weight: 400; letter-spacing: .2em; line-height: 1.4; text-transform: uppercase; }
 .landing-role .role-name { font-size: 1.18rem; font-weight: 600; font-variant-caps: small-caps; letter-spacing: .015em; line-height: 1.25; }
 .landing-role .role-objective { margin: .15rem auto 0; padding-top: .4rem; border-top: 1px solid rgb(125 100 64 / .4); color: #59472f; font-size: .74rem; font-style: italic; font-weight: 400; line-height: 1.4; }
+.landing-role[data-role="moby"] small, .landing-role[data-role="moby"] .role-objective { color: #f3e4c9; }
+.landing-role[data-role="moby"] .role-objective { border-top-color: rgb(243 228 201 / .35); }
+.landing-role[data-role="moby"]:focus-visible { outline-color: #5b3a2b; }
 
 .landing-status, .landing-status.show {
   position: static;
