@@ -2,6 +2,14 @@
 
 Updated 1 November 2026.
 
+## Character-button paper
+
+The Moby Dick button has a pale sea-green wash and Captain Ahab a complementary warm rose-brown wash. Both retain the original torn-paper silhouette and layer a small, deterministic SVG fibre texture over the existing parchment. Slightly stronger texture contrast makes the aged paper more visible, while the engraved icons and dark labels remain clear. Selection darkens the paper gently and retains the explicit checkmark. Forced-colour mode removes the decorative tint and grain.
+
+## Title and illustration order
+
+The hero leaf now reads in this order: “The Last Chase”, the centred three-line title, the illustration, and “The Pequod & the White Whale”. The caption sits directly beneath the image with a small gap and shares its figure. Decorative book text is anchored to the illustration, keeping it away from the title and caption. The second leaf contains the introduction and game controls. This order is preserved on phones.
+
 ## Begin the Hunt button
 
 The main action is a worn parchment label with larger, spaced small capitals and softly irregular edges. It reuses the book-leaf texture with a deep umber tint once a character is selected, giving the ivory lettering a clear contrast. Before selection it remains a muted paper label. A slight lift on hover, a pressed state and the existing keyboard focus outline clarify interaction. The button retains its native disabled behaviour and full rectangular hit area; the irregular clipping affects only its decorative background. Forced-colour mode uses system button colours, and reduced-motion mode removes transitions.
@@ -38,7 +46,7 @@ Generation prompt:
 
 Use case: illustration-story. Asset type: small transparent icon for the Captain Ahab character-choice button in an antique-book-themed Moby-Dick browser game. Generate one original, refined nineteenth-century woodcut / engraved ink portrait of Captain Ahab: an older, stern, weather-beaten whaling captain, strong aquiline nose, furrowed brow, restrained short beard and sideburns, a subtle old facial scar, plain dark short-brim seafarer's hat and a high-collared heavy coat. Head and shoulders only, compact three-quarter profile facing slightly left. No actor likeness. The character should read immediately as a formidable old maritime captain rather than a generic weapon. Use a single dark warm sepia ink close to #704735, confident clear outer contours, bold shadow masses and a few broad engraved hatching cuts. Simplify facial detail so this remains crisp and recognisable at 48 to 64 pixels on a cream parchment button. Centred square composition; head and shoulders fill about 88 percent of the canvas; entire hat and bust visible with a small clean margin. True transparent background outside the portrait, with no rectangular background, no paper, no badge, no circle, no border, no lettering, no words, no watermark. No ship, no whale, no harpoon, no skull, no eyepatch, no pirate costume, no modern peaked naval uniform. No photographic shading, no 3D, no gradients, no ornamental clutter. This is an understated printed book illustration icon, not a logo with text and not a complete button mockup.
 
-The former layered rectangular frame is replaced with a decorative paper leaf. A second leaf holds the title and game controls. Fine horizontal rules, restrained brown spotting (foxing), softly creased corners and small edge nicks suggest an old illustrated book. The layout uses adjacent leaves on wider screens and one continuous, naturally scrolling leaf on phones. The hero illustration and its existing tonal treatment are preserved.
+The former layered rectangular frame is replaced with a decorative paper leaf. The hero leaf holds the title and illustration; a second leaf holds the introduction and game controls. Fine horizontal rules, restrained brown spotting (foxing), softly creased corners and small edge nicks suggest an old illustrated book. The layout uses adjacent leaves on wider screens and one continuous, naturally scrolling leaf on phones. The hero illustration and its existing tonal treatment are preserved.
 
 The primary action follows the role selector and its live status. Help and story dialogs sit beneath the optional guided-hunt control. Text remains selectable HTML; paper is a decorative CSS background. A plain ivory background beneath the texture keeps text legible if the image cannot load. All actions retain their keyboard and screen-reader semantics.
 

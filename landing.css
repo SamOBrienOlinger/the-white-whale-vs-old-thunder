@@ -72,10 +72,12 @@ body.landing-active { background: #151917; }
 }
 
 /* Faded printing belongs to the paper beneath the illustration. */
+.landing-plate { margin: 0; min-width: 0; }
+.landing-illustration { position: relative; }
 .landing-page-text {
   position: absolute;
   z-index: 0;
-  inset: 5.3rem 1.2rem 3.8rem;
+  inset: -.3rem -1.8rem 0;
   overflow: hidden;
   background: url("assets/images/hero-book-text.svg") top center / 100% auto no-repeat;
   opacity: .3;
@@ -85,7 +87,7 @@ body.landing-active { background: #151917; }
   pointer-events: none;
   user-select: none;
 }
-.plate-heading, .landing-artwork, .landing-leaf figcaption { position: relative; z-index: 1; }
+.plate-heading, .landing-title, .landing-artwork, .landing-leaf figcaption { position: relative; z-index: 1; }
 
 .plate-heading {
   position: relative;
@@ -116,9 +118,9 @@ body.landing-active { background: #151917; }
 }
 
 .landing-leaf figcaption {
-  margin: 0;
-  padding-top: .7rem;
-  border-top: 1px solid var(--leaf-rule);
+  margin: .4rem 0 0;
+  padding: 0;
+  border: 0;
   color: #61513c;
   text-align: center;
   font-size: .8rem;
@@ -145,17 +147,20 @@ body.landing-active { background: #151917; }
   line-height: 1.6;
 }
 
-.landing-introduction h1 {
-  margin: 0 0 1.15rem;
+.landing-title {
+  margin: .15rem 0 .45rem;
+  color: var(--leaf-ink);
+  font-family: Georgia, "Times New Roman", "Noto Serif", "DejaVu Serif", serif;
   font-size: clamp(1.9rem, 3.5vw, 2.8rem);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -.035em;
+  text-align: center;
   text-wrap: balance;
 }
 
-.landing-introduction h1 span { display: block; color: #643d30; }
-.landing-introduction h1 em {
+.landing-title span { display: block; color: #643d30; }
+.landing-title em {
   display: block;
   margin: .45rem 0;
   color: #75634a;
@@ -201,6 +206,7 @@ body.landing-active { background: #151917; }
 .landing-control[aria-pressed="true"] { outline: 2px solid #5b4430; outline-offset: 3px; box-shadow: none; }
 .landing-role {
   --role-ink: #3e514c;
+  --role-paper: #cee8e9;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -214,6 +220,7 @@ body.landing-active { background: #151917; }
   box-shadow: none;
   text-align: center;
   isolation: isolate;
+  filter: drop-shadow(0 2px 2px rgb(61 43 23 / .28));
 }
 
 /* The same worn paper silhouette gives each choice a naturally aged edge. */
@@ -223,8 +230,15 @@ body.landing-active { background: #151917; }
   z-index: -1;
   inset: 0;
   border: 0;
-  background: url("assets/images/antique-book-leaf.webp") center / 100% 100% no-repeat;
-  filter: drop-shadow(0 2px 2px rgb(61 43 23 / .28));
+  background-color: var(--role-paper);
+  background-image: url("assets/images/paper-fibres.svg"), url("assets/images/antique-book-leaf.webp");
+  background-position: center;
+  background-size: 160px 160px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+  background-blend-mode: soft-light, multiply;
+  -webkit-mask: url("assets/images/antique-book-leaf.webp") center / 100% 100% no-repeat;
+  mask: url("assets/images/antique-book-leaf.webp") center / 100% 100% no-repeat;
+  filter: contrast(1.08);
   pointer-events: none;
 }
 
@@ -243,11 +257,11 @@ body.landing-active { background: #151917; }
 
 .landing-role[data-role="moby"] { --role-icon: url("assets/images/role-icon-moby-engraved.webp"); }
 .landing-role[data-role="moby"]::before { width: 6rem; }
-.landing-role[data-role="ahab"] { --role-ink: #704735; --role-icon: url("assets/images/role-icon-ahab-engraved.webp"); }
-.landing-role:not(:disabled):hover { background: transparent; }
-.landing-role:not(:disabled):hover::after { filter: brightness(1.04) drop-shadow(0 3px 3px rgb(61 43 23 / .35)); }
+.landing-role[data-role="ahab"] { --role-ink: #704735; --role-paper: #efdbd4; --role-icon: url("assets/images/role-icon-ahab-engraved.webp"); }
+.landing-role:not(:disabled):hover { background: transparent; filter: drop-shadow(0 3px 3px rgb(61 43 23 / .35)); }
+.landing-role:not(:disabled):hover::after { filter: contrast(1.08) brightness(1.04); }
 .landing-role[aria-pressed="true"] { background: transparent; outline: none; }
-.landing-role[aria-pressed="true"]::after { filter: brightness(.95) drop-shadow(0 0 1px var(--role-ink)) drop-shadow(0 2px 2px rgb(61 43 23 / .3)); }
+.landing-role[aria-pressed="true"]::after { filter: contrast(1.12) brightness(.94); }
 .landing-role:focus-visible { outline: 3px solid var(--role-ink); outline-offset: 5px; }
 .landing-role .role-name::after {
   content: "✓";
@@ -386,15 +400,15 @@ body.landing-active { background: #151917; }
   .landing-stage::after { content: ""; position: absolute; inset: 4% 5%; z-index: -2; background: #eadfc6; pointer-events: none; }
   .landing-leaf::before, .landing-leaf::after, .landing-controls::before, .landing-controls::after { content: none; }
   .landing-leaf { padding: 2rem 1.65rem .7rem; gap: .4rem; }
-  .landing-page-text { inset: 4rem 1.15rem 2.45rem; }
+  .landing-page-text { inset: -.2rem -.5rem 0; }
   .plate-heading { padding-bottom: .35rem; font-size: 1.14rem; }
   .landing-artwork img { width: auto; max-height: min(44svh, 25rem); max-width: 100%; height: auto; }
-  .landing-leaf figcaption { padding-top: .4rem; font-size: .7rem; }
+  .landing-leaf figcaption { margin-top: .35rem; font-size: .7rem; }
   .landing-controls { padding: .8rem 1.65rem 2.1rem; }
   .landing-introduction { margin-bottom: .9rem; }
   .landing-kicker { margin-bottom: .75rem; padding-bottom: .4rem; font-size: .57rem; }
-  .landing-introduction h1 { margin-bottom: .6rem; font-size: 1.85rem; }
-  .landing-introduction h1 em { margin: .2rem 0; }
+  .landing-title { margin: .3rem 0 .6rem; font-size: 1.85rem; }
+  .landing-title em { margin: .2rem 0; }
   .landing-introduction > p:last-child { font-size: .79rem; line-height: 1.5; }
   .landing-introduction > p:last-child br { display: none; }
   .landing-roles { gap: .65rem; }
@@ -424,7 +438,8 @@ body.landing-active { background: #151917; }
   .landing-control { border: 1px solid ButtonText; }
   .landing-control[aria-pressed="true"] { outline: 3px solid Highlight; }
   .landing-role::before { background: CanvasText; forced-color-adjust: none; }
-  .landing-role::after { background: Canvas; border: 1px solid ButtonText; filter: none; }
+  .landing-role, .landing-role:not(:disabled):hover { filter: none; }
+  .landing-role::after, .landing-role:not(:disabled):hover::after, .landing-role[aria-pressed="true"]::after { background: Canvas; border: 1px solid ButtonText; filter: none; -webkit-mask: none; mask: none; }
   .landing-begin, .landing-begin:not(:disabled):hover, .landing-begin:not(:disabled):active { background: ButtonFace; color: ButtonText; border: 2px solid ButtonText; filter: none; text-shadow: none; }
   .landing-begin:disabled { color: GrayText; border-color: GrayText; }
   .landing-begin::before { display: none; }
