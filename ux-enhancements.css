@@ -8,7 +8,7 @@
 .landing-introduction { margin: 0 auto .85rem; max-width: 35rem; color: #f3e7ce; text-align: center; }
 .landing-kicker, .bearing-kicker { margin: 0 0 .25rem; font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .landing-kicker { color: #d7bc8a; }
-.landing-introduction h1 { margin: .15rem 0 .5rem; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.15rem, 3.6vw, 1.65rem); line-height: 1.17; }
+.landing-introduction h1 { margin: .15rem 0 .5rem; font-family: Georgia, "Times New Roman", "Noto Serif", "DejaVu Serif", serif; font-size: clamp(1.15rem, 3.6vw, 1.65rem); line-height: 1.17; }
 .landing-introduction h1 span { color: #d5b18b; }
 .landing-introduction > p:last-child { margin: .4rem auto 0; max-width: 33rem; font-size: .9rem; line-height: 1.5; color: #eee1c7; }
 .landing-roles { align-items: stretch; }
@@ -25,7 +25,7 @@
 .how-steps li::marker { color: var(--ux-accent); font-weight: 800; }
 .bearing-report { display: flex; align-items: center; gap: 1.1rem; width: min(100%,780px); margin: .5rem auto 1.2rem; padding: .85rem 1rem; border: 1px solid rgba(86,58,35,.55); border-radius: 4px; background: linear-gradient(120deg,#efe2c8,#d9c8a7); color: var(--ux-ink); }
 .compass-dial { width: 84px; height: 84px; position: relative; flex: 0 0 84px; border: 3px solid #614a36; border-radius: 50%; background: radial-gradient(circle,#f6ecd7,#c6ac7d); box-shadow: inset 0 0 0 3px #e0cfa8, 0 2px 4px rgba(0,0,0,.15); }
-.compass-dial > span:not(.compass-needle) { position: absolute; font: 900 .6rem/1 "Courier New",monospace; color: #583e2b; }
+.compass-dial > span:not(.compass-needle) { position: absolute; font: 900 .6rem/1 "Courier New", "DejaVu Sans Mono", monospace; color: #583e2b; }
 .compass-n { top: 5px; left: 50%; transform: translateX(-50%); }
 .compass-e { top: 50%; right: 5px; transform: translateY(-50%); }
 .compass-s { bottom: 5px; left: 50%; transform: translateX(-50%); }
@@ -52,14 +52,14 @@
 .history-empty { margin: .15rem 1rem 1rem; line-height: 1.5; }
 .attempt-history { margin: .25rem 1rem 1rem; padding-left: 1.4rem; }
 .attempt-history li { margin-bottom: .7rem; padding-left: .15rem; line-height: 1.4; }
-.attempt-history .log-coord { display: inline-block; min-width: 2rem; margin-right: .3rem; font-family: "Courier New", monospace; font-weight: 900; }
+.attempt-history .log-coord { display: inline-block; min-width: 2rem; margin-right: .3rem; font-family: "Courier New", "DejaVu Sans Mono", monospace; font-weight: 900; }
 .attempt-history .log-result { font-weight: 800; }
 .attempt-history .log-result.hit { color: #782d27; }
 .attempt-history .log-result.miss { color: #254954; }
 .attempt-history .log-detail { display: block; margin-top: .15rem; color: #5a4a3a; font-size: .84rem; }
 .result-dialog[data-result="win"] { border-color: #436450; }
 .result-dialog[data-result="loss"] { border-color: #7d332e; }
-.result-dialog .result-statline { margin: .65rem auto; padding: .4rem .6rem; max-width: 20rem; text-align: center; border-block: 1px solid #937a57; font: 800 .86rem "Courier New", monospace; }
+.result-dialog .result-statline { margin: .65rem auto; padding: .4rem .6rem; max-width: 20rem; text-align: center; border-block: 1px solid #937a57; font: 800 .86rem "Courier New", "DejaVu Sans Mono", monospace; }
 .scene.impact-hit::after, .scene.impact-miss::after { position: absolute; z-index: 5; inset: 0; content: ""; pointer-events: none; transform-origin: center; }
 .scene.impact-hit::after { background: radial-gradient(circle at 50% 55%, rgba(244,224,183,.3), transparent 40%), linear-gradient(95deg, transparent 30%, rgba(255,231,189,.3) 52%, transparent 72%); animation: whale-impact-hit .65s ease-out both; }
 .scene.impact-miss::after { background: radial-gradient(ellipse at 50% 78%, rgba(204,231,229,.24), transparent 47%); animation: whale-impact-miss .55s ease-out both; }

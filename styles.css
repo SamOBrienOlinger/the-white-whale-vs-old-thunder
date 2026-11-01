@@ -11,7 +11,7 @@
   --sea: #356571;
   --sea-dark: #183c46;
   --gold: #a87932;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", "Noto Serif", "DejaVu Serif", serif;
 }
 
 * { box-sizing: border-box; }
@@ -408,7 +408,7 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
   display: block;
   margin-top: .35rem;
   color: var(--muted);
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Courier New", Courier, "DejaVu Sans Mono", monospace;
   font-size: .7rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -455,7 +455,7 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
 .chart-size span,
 .chart-size strong { display: block; }
 .chart-size span { font-size: .58rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
-.chart-size strong { color: var(--ink); font-family: "Courier New", Courier, monospace; font-size: .82rem; }
+.chart-size strong { color: var(--ink); font-family: "Courier New", Courier, "DejaVu Sans Mono", monospace; font-size: .82rem; }
 
 .board-wrap {
   position: relative;
@@ -524,7 +524,7 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
   display: grid;
   place-items: center;
   color: var(--ink);
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Courier New", Courier, "DejaVu Sans Mono", monospace;
   font-size: .76rem;
   font-weight: 900;
   border: 1px solid rgba(91, 58, 43, .3);
@@ -632,7 +632,7 @@ button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
   margin: 0;
   padding: .3rem .4rem .3rem .75rem;
   color: var(--ink);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", "Noto Serif", "DejaVu Serif", serif;
   font-size: clamp(.68rem, 1.8vw, .78rem);
   font-weight: 900;
   letter-spacing: .08em;

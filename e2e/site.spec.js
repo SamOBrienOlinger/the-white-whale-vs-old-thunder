@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('landing page presents integrated controls over the artwork', async ({ page }) => {
+test('landing page presents the illustration and accessible controls', async ({ page }) => {
   await page.goto('/index.html');
 
   await expect(page.locator('.landing-stage')).toBeVisible();
@@ -71,7 +71,10 @@ test('the integrated landing screen is responsive on a mobile viewport', async (
   await expect(stage).toBeVisible();
   const stageBox = await stage.boundingBox();
   expect(stageBox.width).toBeLessThanOrEqual(390);
-  expect(stageBox.height).toBeLessThanOrEqual(844);
+  // The book leaf scrolls naturally so its illustration and text stay readable.
+  const artwork = await page.locator('.landing-artwork img').boundingBox();
+  const panel = await page.locator('.landing-controls').boundingBox();
+  expect(artwork.y + artwork.height).toBeLessThanOrEqual(panel.y);
 
   const controls = page.locator('.landing-control');
   await expect(controls).toHaveCount(5);

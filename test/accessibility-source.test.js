@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const css = await readFile(new URL("../styles.css", import.meta.url), "utf8");
 const blueprintCss = await readFile(new URL("../blueprint.css", import.meta.url), "utf8");
+const landingCss = await readFile(new URL("../landing.css", import.meta.url), "utf8");
 const script = await readFile(new URL("../script.js", import.meta.url), "utf8");
 const landingScript = await readFile(new URL("../landing.js", import.meta.url), "utf8");
 
@@ -12,19 +13,13 @@ test("landing controls match the integrated artwork and game states", () => {
   assert.match(html, /class="landing-stage"/);
   assert.match(html, /class="landing-control landing-role side-choice"[^>]*data-role="moby"[^>]*aria-pressed="false"/);
   assert.match(html, /class="landing-control landing-role side-choice"[^>]*data-role="ahab"[^>]*aria-pressed="false"/);
-  assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Moby<br>\s*Dick<\/span>/);
-  assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Captain<br>\s*Ahab<\/span>/);
+  assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Moby Dick<\/span>/);
+  assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Captain Ahab<\/span>/);
   assert.match(html, /class="landing-control landing-begin"[^>]*data-enter-hunt disabled/);
-  assert.match(html, />Begin<br>the Hunt<\/button>/);
+  assert.match(html, />Begin the Hunt<\/button>/);
   assert.match(html, /href="blueprint\.css\?v=20260828-2"/);
   assert.doesNotMatch(landingScript, /document\.createElement\('link'\)/);
   assert.match(landingScript, /button\.disabled = !selectedRole/);
-  assert.match(html, /container-type:inline-size/);
-  assert.match(html, /\.landing-role\{top:62\.5875%;width:22\.21875%;height:6\.525%/);
-  assert.match(html, /\.landing-role\[data-role="moby"\]\{left:7\.003125%/);
-  assert.match(html, /\.landing-role\[data-role="ahab"\]\{left:auto;right:7\.003125%/);
-  assert.match(html, /\.landing-role \.role-copy\{position:absolute;left:42%;right:5%;top:50%/);
-  assert.match(html, /font-size:clamp\(\.58rem,2\.35cqi,\.9rem\)/);
 });
 
 test("Sam Tim Solutions is credited from both site states", () => {
@@ -38,10 +33,6 @@ test("Sam Tim Solutions is credited from both site states", () => {
   assert.match(css, /@media \(max-width: 700px\)[\s\S]*\.site-credit-bar \{[\s\S]*min-height: 32px/);
   assert.match(css, /\.site-credit-bar a::before \{[\s\S]*inset: -9px -6px/);
   assert.match(css, /\.game-footer #footer-rule \{[\s\S]*display: none/);
-  assert.match(html, /\.landing\{[^}]*display:flex;flex-direction:column/);
-  assert.match(html, /\.landing-stage\{[^}]*100svh - 82px/);
-  assert.match(html, /\.landing-footer\{width:min\([^}]*100svh - 82px/);
-  assert.match(html, /@media\(max-width:520px\)[\s\S]*100svh - 58px/);
 });
 
 test("landing information controls map to accessible dialogs", () => {
@@ -54,9 +45,9 @@ test("landing information controls map to accessible dialogs", () => {
 });
 
 test("disabled and selected controls have truthful visual states", () => {
-  assert.match(html, /\.landing-control:not\(:disabled\):hover/);
-  assert.match(html, /\.landing-control\[aria-pressed="true"\]/);
-  assert.match(html, /\.landing-begin:disabled/);
+  assert.match(landingCss, /\.landing-control:not\(:disabled\):hover/);
+  assert.match(landingCss, /\.landing-control\[aria-pressed="true"\]/);
+  assert.match(landingCss, /\.landing-begin:disabled/);
   assert.match(blueprintCss, /\.reset-button:not\(:disabled\):hover/);
 });
 

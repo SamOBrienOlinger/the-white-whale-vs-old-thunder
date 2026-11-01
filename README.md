@@ -16,6 +16,7 @@ A literary coordinate-hunt game inspired by the final chase in Moby-Dick. Choose
 - An expandable Captain’s log recording each shot and its clue.
 - Optional guided first-hunt prompts to help new players learn the chart.
 - Clearer landing instructions, illustrated strike feedback and winner/loser result summaries.
+- A book-inspired title screen, with the original illustration on weathered paper, fine printed rules and an adjacent choice panel that stacks on phones.
 - Keyboard board navigation, accessible live status feedback, reduced-motion support and replay.
 
 ## Using the project
@@ -52,6 +53,7 @@ The repository also provides a development-server script. Install its developmen
 | [game-engine.js](game-engine.js) | Game rules and state transitions |
 | [script.js](script.js) | Page interaction and state rendering |
 | [styles.css](styles.css) | Page layout and visual styling |
+| [landing.css](landing.css) | Responsive antique-book title screen |
 | [.github/workflows/](.github/workflows/) | Build, test or deployment workflows |
 | [package.json](package.json) | Package dependencies and available commands |
 
@@ -89,6 +91,7 @@ Design decisions, original feature notes, historical testing evidence and detail
 - Moby Dick victory illustration (`assets/images/moby-victory.jpeg`): user-provided image from [White Whale / Herman Melville / Moby Dick on Etsy](https://www.etsy.com/uk/listing/157550948/white-whale-herman-melville-moby-dick?ref=share_v4_lx). Displayed when Moby Dick wins, including when Captain Ahab loses.
 - Captain Ahab victory illustration (`assets/images/ahab-victory.png`): user-provided image from [Captain Ahab (Ahab Ceeley) on Comic Book Religion](http://www.comicbookreligion.com/?c=29046&Captain_Ahab_Ahab_Ceeley). Displayed when Captain Ahab wins, including when Moby Dick loses.
 - Several interface illustrations and role icons were generated or refined with OpenAI image tools from user-approved visual references.
+- The decorative [antique book leaf](assets/images/antique-book-leaf.webp) was created with OpenAI's built-in image generator on 1 November 2026. It surrounds the existing hero artwork without replacing or cropping it. See the [design notes and generation prompt](docs/landing-design.md). Book-history references informed the treatment; no reference photograph was copied into the site.
 
 This project is not affiliated with the creators, publishers or sellers linked above. Referenced third-party material remains subject to its original owner's terms.
 
