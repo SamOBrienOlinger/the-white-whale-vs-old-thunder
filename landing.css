@@ -264,12 +264,15 @@ body.landing-active { background: #151917; }
 .landing-role[aria-pressed="true"]::after { filter: contrast(1.12) brightness(.94); }
 .landing-role:focus-visible { outline: 3px solid var(--role-ink); outline-offset: 5px; }
 .landing-role .role-name::after {
-  content: "✓";
+  content: "";
   position: absolute;
   top: .75rem;
   right: .85rem;
-  font-size: .8rem;
-  line-height: 1;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: currentColor;
+  -webkit-mask: url("assets/images/role-icon-ahab.png") center / contain no-repeat;
+  mask: url("assets/images/role-icon-ahab.png") center / contain no-repeat;
   opacity: 0;
 }
 .landing-role[aria-pressed="true"] .role-name::after { opacity: 1; }
@@ -366,21 +369,23 @@ body.landing-active { background: #151917; }
   color: #463c2e;
   font-size: .81rem;
 }
-.guided-choice input {
+input[type="checkbox"] {
   -webkit-appearance: none;
   appearance: none;
   display: grid;
   place-items: center;
   width: 1.5rem;
   height: 1.5rem;
+  margin: 0;
   padding: 0;
+  flex: 0 0 auto;
   border: 1px solid #806447;
   border-radius: 2px;
   background: #f0e3c9;
   color: #fff0d2;
   cursor: pointer;
 }
-.guided-choice input::before {
+input[type="checkbox"]::before {
   content: "";
   width: 1.2rem;
   height: 1.2rem;
@@ -389,8 +394,9 @@ body.landing-active { background: #151917; }
   mask: url("assets/images/role-icon-ahab.png") center / contain no-repeat;
   opacity: 0;
 }
-.guided-choice input:checked { background: #704336; border-color: #5b3a2b; }
-.guided-choice input:checked::before { opacity: 1; }
+input[type="checkbox"]:checked { background: #704336; border-color: #5b3a2b; }
+input[type="checkbox"]:checked::before { opacity: 1; }
+input[type="checkbox"]:focus-visible { outline: 2px solid #74422c; outline-offset: 3px; }
 .guided-choice strong { font-weight: 400; }
 .guided-choice small { color: #665944; font-size: .67rem; }
 .guided-choice:focus-within { outline: 2px solid #74422c; outline-offset: 4px; }
@@ -461,8 +467,10 @@ body.landing-active { background: #151917; }
 }
 
 @media (forced-colors: active) {
-  .guided-choice input { forced-color-adjust: none; background: Canvas; border-color: ButtonText; color: CanvasText; }
-  .guided-choice input:checked { background: Highlight; border-color: Highlight; color: HighlightText; }
+  input[type="checkbox"] { forced-color-adjust: none; background: Canvas; border-color: ButtonText; color: CanvasText; }
+  input[type="checkbox"]:checked { background: Highlight; border-color: Highlight; color: HighlightText; }
+  input[type="checkbox"]:focus-visible { outline-color: Highlight; }
+  .landing-role .role-name::after { background: CanvasText; forced-color-adjust: none; }
   .landing-stage::before, .landing-leaf::before, .landing-controls::before, .landing-page-text { display: none; }
   .landing-control { border: 1px solid ButtonText; }
   .landing-control[aria-pressed="true"] { outline: 3px solid Highlight; }
