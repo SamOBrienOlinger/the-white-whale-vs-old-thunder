@@ -4,7 +4,7 @@ Updated 1 November 2026.
 
 ## Character-button paper
 
-The Moby Dick button has a pale sea-green wash and Captain Ahab a complementary warm rose-brown wash. Both retain the original torn-paper silhouette and layer a small, deterministic SVG fibre texture over the existing parchment. Slightly stronger texture contrast makes the aged paper more visible, while the engraved icons and dark labels remain clear. Selection darkens the paper gently and retains the explicit checkmark. Forced-colour mode removes the decorative tint and grain.
+The Moby Dick button has a pale sea-green wash and Captain Ahab a complementary warm rose-brown wash. Both layer a small, deterministic SVG fibre texture over the existing parchment. The texture is enlarged to sample inside the book leaf, removing the pale backing-page edges. A single irregular clipped outline and restrained inner shading retain the worn-paper feel, with colour extending to every edge. Slightly stronger texture contrast makes the aged paper more visible, while the engraved icons and dark labels remain clear. Selection darkens the paper gently and retains the explicit checkmark. Forced-colour mode removes the decorative tint, grain and clipping.
 
 ## Title and illustration order
 
@@ -12,7 +12,7 @@ The hero leaf now reads in this order: “The Last Chase”, the centred three-l
 
 ## Begin the Hunt button
 
-The main action is a worn parchment label with larger, spaced small capitals and softly irregular edges. It reuses the book-leaf texture with a deep umber tint once a character is selected, giving the ivory lettering a clear contrast. Before selection it remains a muted paper label. A slight lift on hover, a pressed state and the existing keyboard focus outline clarify interaction. The button retains its native disabled behaviour and full rectangular hit area; the irregular clipping affects only its decorative background. Forced-colour mode uses system button colours, and reduced-motion mode removes transitions.
+The main action is a worn parchment label with larger, spaced small capitals and softly irregular edges. It samples inside the book-leaf texture to remove the pale rim and uses a deep umber tint once a character is selected, giving the ivory lettering a clear contrast. Before selection it remains a muted paper label. A slight lift on hover, a pressed state and the existing keyboard focus outline clarify interaction. The button retains its native disabled behaviour and full rectangular hit area; the irregular clipping affects only its decorative background. Forced-colour mode uses system button colours, and reduced-motion mode removes transitions.
 
 ## Faded book text behind the hero
 
@@ -53,10 +53,10 @@ The primary action follows the role selector and its live status. Help and story
 ## Validation
 
 - All 15 unit/source checks passed.
-- All 66 browser checks passed across desktop Chromium, mobile Chromium and desktop Firefox. These include 320px, 390px, landscape, tablet and desktop viewports, 200% text, keyboard controls, dialogs and game outcomes.
-- Desktop (1440 × 900) and phone (390 × 844) screenshots reviewed visually.
+- All 32 focused browser checks passed across desktop and mobile Chromium. These include 320px, 390px, landscape, tablet and desktop viewports, 200% text, keyboard controls, dialogs and game outcomes.
+- Desktop (1440 × 1000), phone (390 × 844), and button close-ups reviewed visually, including the disabled and enabled main action. Forced-colour role outlines remain unclipped.
 - The original hero AVIF and JPEG files have no changes.
-- WebKit is covered by the existing GitHub Actions workflow; its local runtime could not start because system libraries were unavailable.
+- Firefox and WebKit are covered by the existing GitHub Actions workflow.
 
 ## Asset and reference notes
 
