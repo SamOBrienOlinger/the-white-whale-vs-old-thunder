@@ -2,6 +2,12 @@
 
 Updated 1 November 2026.
 
+## Faded book text behind the hero
+
+Original maritime paragraphs are typeset on the hero's paper leaf, beneath the existing illustration, with justified lines, indented paragraphs, muted sepia ink, 30% opacity and a restrained 0.4px blur. Old Standard TT revives the Modern serif printing styles used in late nineteenth-century books; see the [typeface documentation](https://ctan.org/pkg/oldstandard). Its letter outlines are embedded in `assets/images/hero-book-text.svg`, so the exact typography displays consistently without a webfont request. The source font and its SIL Open Font License are retained in `assets/fonts/old-standard-tt/`.
+
+The text is decorative, hidden from assistive technology, non-interactive, and clipped to the hero leaf. The heading and caption remain clear above it. It scales down on phones and disappears in forced-colour mode. The illustration itself is unchanged. The prose is original interface decoration, not an excerpt from *Moby-Dick*.
+
 ## Moby Dick button engraving
 
 The Moby Dick choice now uses a pale sperm whale with sepia contours and engraved hatching to match Captain Ahab's portrait. The existing whale icon supplied the subject and the Ahab portrait supplied the style reference. Both passes used the built-in OpenAI image-generation tool. The transparent result is encoded as a 384 × 256 WebP at `assets/images/role-icon-moby-engraved.webp`.

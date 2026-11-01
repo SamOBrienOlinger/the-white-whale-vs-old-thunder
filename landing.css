@@ -71,6 +71,22 @@ body.landing-active { background: #151917; }
   gap: .8rem;
 }
 
+/* Faded printing belongs to the paper beneath the illustration. */
+.landing-page-text {
+  position: absolute;
+  z-index: 0;
+  inset: 5.3rem 1.2rem 3.8rem;
+  overflow: hidden;
+  background: url("assets/images/hero-book-text.svg") top center / 100% auto no-repeat;
+  opacity: .3;
+  filter: blur(.4px);
+  -webkit-mask-image: linear-gradient(transparent, #000 3%, #000 97%, transparent);
+  mask-image: linear-gradient(transparent, #000 3%, #000 97%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+.plate-heading, .landing-artwork, .landing-leaf figcaption { position: relative; z-index: 1; }
+
 .plate-heading {
   position: relative;
   display: grid;
@@ -319,6 +335,7 @@ body.landing-active { background: #151917; }
   .landing-stage::after { content: ""; position: absolute; inset: 4% 5%; z-index: -2; background: #eadfc6; pointer-events: none; }
   .landing-leaf::before, .landing-leaf::after, .landing-controls::before, .landing-controls::after { content: none; }
   .landing-leaf { padding: 2rem 1.65rem .7rem; gap: .4rem; }
+  .landing-page-text { inset: 4rem 1.15rem 2.45rem; }
   .plate-heading { padding-bottom: .35rem; font-size: 1.14rem; }
   .landing-artwork img { width: auto; max-height: min(44svh, 25rem); max-width: 100%; height: auto; }
   .landing-leaf figcaption { padding-top: .4rem; font-size: .7rem; }
@@ -352,7 +369,7 @@ body.landing-active { background: #151917; }
 }
 
 @media (forced-colors: active) {
-  .landing-stage::before, .landing-leaf::before, .landing-controls::before { display: none; }
+  .landing-stage::before, .landing-leaf::before, .landing-controls::before, .landing-page-text { display: none; }
   .landing-control { border: 1px solid ButtonText; }
   .landing-control[aria-pressed="true"] { outline: 3px solid Highlight; }
   .landing-role::before { background: CanvasText; forced-color-adjust: none; }
