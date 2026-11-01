@@ -41,8 +41,8 @@ const roleCopy = {
     target: "the Pequod",
     targetShort: "Pequod",
     damage: "Pequod’s wounds",
-    briefing: "You are Moby Dick. Ahab—Old Thunder—has bent the Pequod’s voyage to revenge. Find the ship, ram its hull, and leave its chase beneath the waves.",
-    instruction: "Tap a coordinate—or use the arrow keys and Enter—to direct the White Whale’s next breach.",
+    briefing: "You are Moby Dick. Ahab, known as Old Thunder, has bent the Pequod’s voyage to revenge. Find the ship, ram its hull, and leave its chase beneath the waves.",
+    instruction: "Tap a coordinate or use the arrow keys and Enter to direct the White Whale’s next breach.",
     startStatus: "The Pequod keeps to the fog. Choose a quarter of the sea.",
     startPrompt: "Two true breaches within five chances sink the ship. Empty water reveals the quarry’s bearing.",
     hitPrompts: [
@@ -67,8 +67,8 @@ const roleCopy = {
     target: "Moby Dick",
     targetShort: "Moby Dick",
     damage: "Moby Dick’s wounds",
-    briefing: "You are Captain Ahab—Old Thunder. The White Whale moves beneath the charted sea. Read the water, cast true, and take your vengeance before he escapes.",
-    instruction: "Tap a coordinate—or use the arrow keys and Enter—to cast Ahab’s next harpoon.",
+    briefing: "You are Captain Ahab, known as Old Thunder. The White Whale moves beneath the charted sea. Read the water, cast true, and take your vengeance before he escapes.",
+    instruction: "Tap a coordinate or use the arrow keys and Enter to cast Ahab’s next harpoon.",
     startStatus: "The White Whale slips beneath the fog. Choose a quarter of the sea.",
     startPrompt: "Two true harpoons within five chances bring Moby Dick down. Empty water reveals the quarry’s bearing.",
     hitPrompts: [
