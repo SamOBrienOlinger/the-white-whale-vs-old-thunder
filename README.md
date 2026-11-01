@@ -1,6 +1,6 @@
 # The White Whale versus Old Thunder
 
-A literary coordinate-hunt game inspired by the final chase in Moby-Dick. Choose Moby Dick or Captain Ahab and follow clues across a maritime chart.
+A literary coordinate game inspired by the final chase in Moby-Dick. Choose Moby Dick or Captain Ahab and follow clues across a maritime chart.
 
 **HTML · CSS · JavaScript**
 
@@ -13,20 +13,33 @@ A literary coordinate-hunt game inspired by the final chase in Moby-Dick. Choose
 - Two playable roles with distinct narratives and outcomes.
 - A 7 × 7 chart, five chances and two hits needed to win.
 - Directional and proximity clues after misses, with a visual compass indicating the latest bearing.
-- An expandable Captain’s log recording each shot and its clue.
-- Optional guided first-hunt prompts to help new players learn the chart.
+- A Chase record for Moby Dick and Captain’s log for Ahab, recording each attempt and its clue.
+- Optional guided first-chase prompts to help new players learn the chart.
 - Clearer landing instructions, illustrated strike feedback and winner/loser result summaries.
 - A book-inspired title screen, with the original illustration on weathered paper, fine printed rules and an adjacent choice panel that stacks on phones.
 - Keyboard board navigation, accessible live status feedback, reduced-motion support and replay.
 
 ## Using the project
 
-1. Choose Moby Dick or Captain Ahab, then select **Begin the Hunt**.
+1. Choose Moby Dick or Captain Ahab, then select **Begin the Chase**.
 2. Choose coordinates from A1 to G7.
-3. Follow the **compass bearing** after a miss; use the **Captain’s log** to review earlier attempts.
+3. Follow the **compass bearing** after a miss; use the **Chase record** as Moby Dick or **Captain’s log** as Ahab to review earlier attempts.
 4. Land two hits within five chances, then replay or change sides.
 
-Select **Guide my first hunt** on the title screen if you want short hints while playing. The guide is optional and does not change the game rules.
+Select **Guide my first chase** on the title screen if you want short hints while playing. The guide is optional and does not change the game rules.
+
+## Terminology for each role
+
+| Gameplay element | Moby Dick | Captain Ahab |
+| --- | --- | --- |
+| Status area | Beneath the waves | The quarter-deck |
+| Attempt history | Chase record | Captain’s log |
+| Opponent named in hints | The Pequod | Moby Dick |
+| Action | Ram the Pequod | Cast a harpoon |
+| Successful strikes | Hull strikes | Harpoon strikes |
+| Damage counter | Hull damage | Moby Dick’s wounds |
+
+Shared controls use “chase” and “side”. The character-specific text in `role-copy.js` supplies labels, compass clues, guided prompts, accessible descriptions and result summaries. Replays and side changes refresh these labels along with the game state.
 
 ## Getting started
 
@@ -51,6 +64,7 @@ The repository also provides a development-server script. Install its developmen
 | [test/](test/) | Automated test source |
 | [e2e/](e2e/) | Browser journey tests |
 | [game-engine.js](game-engine.js) | Game rules and state transitions |
+| [role-copy.js](role-copy.js) | Shared character terminology and narrative text |
 | [script.js](script.js) | Page interaction and state rendering |
 | [styles.css](styles.css) | Page layout and visual styling |
 | [landing.css](landing.css) | Responsive antique-book title screen |
@@ -66,7 +80,7 @@ Use Node.js and npm for the package commands below. Install the package dependen
 | `npm test` | Run the existing test suite |
 | `npm run test:e2e` | Run browser journey tests |
 
-Before browser checks, run `npx playwright install --with-deps chromium firefox webkit`. The suite covers Chromium, Firefox and WebKit, portrait and landscape layouts, 320px to desktop widths, 200% text, the compass and Captain’s log, result-timer cancellation and reduced-motion feedback. On narrow screens, the sea chart scrolls independently to keep its 44px targets usable.
+Before browser checks, run `npx playwright install --with-deps chromium firefox webkit`. The suite covers Chromium, Firefox and WebKit, portrait and landscape layouts, 320px to desktop widths, 200% text, the compass and both characters’ attempt histories, result-timer cancellation and reduced-motion feedback. On narrow screens, the sea chart scrolls independently to keep its 44px targets usable.
 
 For a manual review, follow the main user journey, check keyboard navigation and narrow-screen layouts, and inspect the browser console for missing assets or failed requests.
 

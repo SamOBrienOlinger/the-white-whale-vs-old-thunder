@@ -1,3 +1,5 @@
+import { ROLE_COPY } from "./role-copy.js?v=20261101-1";
+
 export const GRID_SIZE = 7;
 export const REQUIRED_HITS = 2;
 export const MAX_ATTEMPTS = 5;
@@ -73,12 +75,12 @@ export function getSearchHint(game, coordinate) {
   }
 
   const proximity = nearest.distance <= 1 ? "very close" : nearest.distance <= 3 ? "nearby" : "distant";
-  const lead = proximity === "very close" ? "The quarry’s wake is very close" : proximity === "nearby" ? "The quarry’s wake is nearby" : "The quarry is still distant";
+  const copy = ROLE_COPY[game.role] ?? ROLE_COPY.moby;
 
   return {
     ...nearest,
     proximity,
-    message: `${lead}. Steer ${nearest.direction} from ${coordinate}.`
+    message: `${copy.targetTitle} is ${proximity}. Search ${nearest.direction} from ${coordinate}.`
   };
 }
 

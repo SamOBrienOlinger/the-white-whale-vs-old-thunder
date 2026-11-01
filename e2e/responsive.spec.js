@@ -32,7 +32,7 @@ for (const [width, height] of [[320,568],[390,844],[844,390],[768,1024],[1440,90
     expect(dialog.x).toBeGreaterThanOrEqual(0);
     expect(dialog.y).toBeGreaterThanOrEqual(0);
     expect(dialog.y+dialog.height).toBeLessThanOrEqual(height+1);
-    await page.getByRole('button',{name:'Return to the Hunt'}).click();
+    await page.getByRole('button',{name:'Return to the Chase'}).click();
     await page.locator('[data-role="moby"]').click();
     await page.locator('[data-enter-hunt]').click();
     await noPageOverflow(page);

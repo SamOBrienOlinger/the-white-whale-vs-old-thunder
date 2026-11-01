@@ -7,7 +7,7 @@ test("the board is seven by seven from A1 to G7", () => {
   assert.deepEqual(ROWS, ["A", "B", "C", "D", "E", "F", "G"]);
 });
 
-test("the quarry occupies a contiguous five-cell run", () => {
+test("the target occupies a contiguous five-cell run", () => {
   const horizontal = createPequod(() => 0);
   const vertical = createPequod(() => 0.9);
   assert.equal(horizontal.length, TARGET_LENGTH);
@@ -24,17 +24,21 @@ test("two true strikes win within five chances", () => {
   assert.equal(game.status, "won");
 });
 
-test("empty water gives a directional proximity hint", () => {
-  const game = createGame(() => 0);
-  const close = getSearchHint(game, "B1");
-  const distant = getSearchHint(game, "G7");
-
-  assert.equal(close.proximity, "very close");
-  assert.equal(close.direction, "north");
-  assert.match(close.message, /Steer north from B1/);
-  assert.equal(distant.proximity, "distant");
-  assert.equal(distant.direction, "north-west");
-});
+for (const [role, opponent] of [["moby", "The Pequod"], ["ahab", "Moby Dick"]]) {
+  test(`${role} receives distance and direction clues naming the correct opponent`, () => {
+    const game = createGame(role, () => 0);
+    for (const [coordinate, proximity, direction] of [
+      ["B1", "very close", "north"],
+      ["C1", "nearby", "north"],
+      ["G7", "distant", "north-west"]
+    ]) {
+      const hint = getSearchHint(game, coordinate);
+      assert.equal(hint.proximity, proximity);
+      assert.equal(hint.direction, direction);
+      assert.equal(hint.message, `${opponent} is ${proximity}. Search ${direction} from ${coordinate}.`);
+    }
+  });
+}
 
 test("a player gets all five chances before losing", () => {
   let game = createGame(() => 0);

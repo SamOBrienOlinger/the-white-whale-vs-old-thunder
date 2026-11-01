@@ -29,7 +29,7 @@ test("miss gives a real compass bearing and a nonduplicated status prompt", asyn
   await expect(page.locator("#bearing-description")).toContainText("distant");
   await expect(page.locator("#compass-needle")).not.toHaveClass(/is-idle/);
   await expect(page.locator("#compass-needle")).toHaveAttribute("style", /315deg/);
-  await expect(page.locator("#prompt")).not.toContainText("Steer north-west");
+  await expect(page.locator("#prompt")).not.toContainText("Search north-west");
   await expect(page.locator("#guided-tip")).toContainText("north-west");
   await page.locator("#attempt-log summary").click();
   await expect(page.locator("#attempt-history li")).toHaveCount(1);
@@ -47,7 +47,7 @@ test("hit history and result summary reflect actual play", async ({ page }) => {
   const result = page.locator("#result-dialog");
   await expect(result).toBeVisible();
   await expect(result).toHaveAttribute("data-result", "win");
-  await expect(page.locator("#result-statline")).toHaveText("2 of 2 strikes · 2 of 5 chances used");
+  await expect(page.locator("#result-statline")).toHaveText("2 of 2 harpoon strikes · 2 of 5 chances used");
   await page.getByRole("button", { name: "Take up the chase again" }).click();
   await expect(result).toBeHidden();
   await expect(page.locator("#bearing-title")).toHaveText("No bearing yet");

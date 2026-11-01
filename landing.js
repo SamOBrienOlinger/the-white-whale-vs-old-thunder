@@ -43,7 +43,7 @@ function selectRole(role) {
     button.classList.remove('attention');
   });
   setBeginState();
-  announce(role === 'moby' ? 'Moby Dick selected. Begin the hunt.' : 'Captain Ahab selected. Begin the hunt.', true);
+  announce(role === 'moby' ? 'Moby Dick selected. Begin the chase.' : 'Captain Ahab selected. Begin the chase.', true);
 }
 
 function requestGameStart(role) {

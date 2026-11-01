@@ -1,4 +1,5 @@
-import { GRID_SIZE, MAX_ATTEMPTS, REQUIRED_HITS, ROWS, createGame, getSearchHint, strike } from "./game-engine.js?v=20260824-1";
+import { GRID_SIZE, MAX_ATTEMPTS, REQUIRED_HITS, ROWS, createGame, getSearchHint, strike } from "./game-engine.js?v=20261101-1";
+import { ROLE_COPY as roleCopy } from "./role-copy.js?v=20261101-1";
 
 const board = document.querySelector("#board");
 const status = document.querySelector("#status");
@@ -7,6 +8,11 @@ const briefing = document.querySelector("#briefing");
 const boardInstruction = document.querySelector("#board-instruction");
 const footerRule = document.querySelector("#footer-rule");
 const damageLabel = document.querySelector("#damage-label");
+const ordersTitle = document.querySelector("#orders-title");
+const logTitle = document.querySelector("#log-title");
+const legendHitLabel = document.querySelector("#legend-hit-label");
+const boardKeyboardHelp = document.querySelector("#board-keyboard-help");
+const hitCounter = document.querySelector(".hit-counter");
 const hitCount = document.querySelector("#hit-count");
 const requiredHits = document.querySelector("#required-hits");
 const attemptCount = document.querySelector("#attempt-count");
@@ -36,61 +42,6 @@ const sceneElement = document.querySelector(".scene");
 const chartViewport = document.querySelector(".board-wrap");
 const boardScrollHint = document.querySelector("#board-scroll-hint");
 
-const roleCopy = {
-  moby: {
-    target: "the Pequod",
-    targetShort: "Pequod",
-    damage: "Pequod’s wounds",
-    briefing: "You are Moby Dick. Ahab, known as Old Thunder, has bent the Pequod’s voyage to revenge. Find the ship, ram its hull, and leave its chase beneath the waves.",
-    instruction: "Tap a coordinate or use the arrow keys and Enter to direct the White Whale’s next breach.",
-    startStatus: "The Pequod keeps to the fog. Choose a quarter of the sea.",
-    startPrompt: "Two true breaches within five chances sink the ship. Empty water reveals the quarry’s bearing.",
-    hitPrompts: [
-      "A splintered plank! The White Whale has found timber; one decisive blow remains."
-    ],
-    win: {
-      kicker: "The last chase",
-      title: "The Pequod spirals to the bottom of the ocean",
-      status: "The second blow lands. The Pequod spirals to the bottom of the ocean.",
-      prompt: "Ahab’s chase is ended: the ship turns into its wooden hearse beneath the sea.",
-      message: "Two true breaches tear through the hull. The Pequod becomes the wreck that Ahab’s chase foretold."
-    },
-    loss: {
-      kicker: "Old Thunder’s vengeance",
-      title: "The White Whale falls",
-      status: "Your five chances are spent. Old Thunder’s harpoon finds the White Whale.",
-      prompt: "Moby Dick is slain; the Pequod, wounded but afloat, sails on.",
-      message: "The sea yielded no final breach. Ahab takes his vengeance, and the Pequod remains afloat."
-    }
-  },
-  ahab: {
-    target: "Moby Dick",
-    targetShort: "Moby Dick",
-    damage: "Moby Dick’s wounds",
-    briefing: "You are Captain Ahab, known as Old Thunder. The White Whale moves beneath the charted sea. Read the water, cast true, and take your vengeance before he escapes.",
-    instruction: "Tap a coordinate or use the arrow keys and Enter to cast Ahab’s next harpoon.",
-    startStatus: "The White Whale slips beneath the fog. Choose a quarter of the sea.",
-    startPrompt: "Two true harpoons within five chances bring Moby Dick down. Empty water reveals the quarry’s bearing.",
-    hitPrompts: [
-      "A harpoon bites white flesh. One decisive blow remains."
-    ],
-    win: {
-      kicker: "Old Thunder’s vengeance",
-      title: "Moby Dick falls",
-      status: "The second harpoon lands. The White Whale falls.",
-      prompt: "Ahab’s vengeance has found its mark; the Pequod rides on above the dark water.",
-      message: "Two true harpoons find the White Whale. Ahab has won the last chase."
-    },
-    loss: {
-      kicker: "The White Whale",
-      title: "The Pequod is smashed",
-      status: "Your five chances are spent. Moby Dick turns upon the Pequod.",
-      prompt: "The White Whale breaks the ship and drags Old Thunder beneath the sea.",
-      message: "The Pequod is smashed into smithereens and The White Whale drags Old Thunder to the bottom of the sea."
-    }
-  }
-};
-
 let game = null;
 let guidedMode = false;
 let resultRevealTimer = null;
@@ -119,14 +70,15 @@ function updateScrollHint() {
 
 function renderNavigationFeedback() {
   if (!game) return;
+  const copy = activeCopy();
   const lastMiss = game.misses.at(-1);
   const clue = lastMiss ? getSearchHint(game, lastMiss) : null;
   compassTitle.textContent = clue
     ? `${clue.direction.replace(/(^|-)\w/g, (match) => match.toUpperCase())} from ${lastMiss}`
     : "No bearing yet";
   compassDescription.textContent = clue
-    ? `The quarry is ${clue.proximity} from ${lastMiss}. Use this direction for your next search.`
-    : "Choose a coordinate. A miss reveals your quarry’s direction and distance.";
+    ? `${copy.targetTitle} is ${clue.proximity} from ${lastMiss}. Use this direction for your next search.`
+    : `Choose a coordinate. A miss reveals the direction and distance to ${copy.target}.`;
   compassNeedle.classList.toggle("is-idle", !clue);
   compassNeedle.style.setProperty("--needle-angle", `${bearingDegrees[clue?.direction] ?? 0}deg`);
 
@@ -142,7 +94,7 @@ function renderNavigationFeedback() {
     outcome.textContent = hit ? "Hit" : "Miss";
     const detail = document.createElement("span");
     detail.className = "log-detail";
-    detail.textContent = hit ? `A strike against ${activeCopy().targetShort}.` : getSearchHint(game, coordinate).message;
+    detail.textContent = hit ? copy.hitDetail : getSearchHint(game, coordinate).message;
     entry.append(label, outcome, detail);
     attemptHistory.append(entry);
   }
@@ -152,11 +104,11 @@ function renderNavigationFeedback() {
   guidedTip.hidden = !guidedMode || game.status !== "playing";
   if (!guidedTip.hidden) {
     if (!game.attempts.length) guidedTip.textContent =
-      "Guided hunt · Begin anywhere on the chart. A1 is top left; G7 is bottom right. Every choice uses one chance.";
+      `Guided chase · Search for ${copy.target} on the chart. A1 is top left; G7 is bottom right. Every choice uses one chance.`;
     else if (game.lastWasHit) guidedTip.textContent =
-      "Guided hunt · A direct hit! The target spans neighbouring squares along a straight line. Try another nearby coordinate.";
+      `Guided chase · A hit on ${copy.target}! ${copy.targetTitle} spans neighbouring squares along a straight line. Try another nearby coordinate.`;
     else guidedTip.textContent =
-      `Guided hunt · ${game.lastAttempt} was empty water. Look ${getSearchHint(game, game.lastAttempt).direction} and use the compass above to narrow your search.`;
+      `Guided chase · ${game.lastAttempt} was empty water. Search ${getSearchHint(game, game.lastAttempt).direction} for ${copy.target}, using the compass above.`;
   }
 }
 
@@ -188,6 +140,20 @@ function coordinateLabel(row, column) {
 
 function activeCopy() {
   return roleCopy[game?.role ?? "moby"];
+}
+
+function renderRoleLabels(copy = null) {
+  ordersTitle.textContent = copy?.heading ?? "The last chase";
+  logTitle.textContent = copy?.logTitle ?? "Chase record";
+  damageLabel.textContent = copy?.damage ?? "Damage dealt";
+  hitCounter.setAttribute("aria-label", copy?.damage ?? "Damage dealt");
+  legendHitLabel.textContent = copy?.hitLabel ?? "Target struck";
+  historyEmpty.textContent = copy
+    ? `Your attempts and clues for finding ${copy.target} will appear here.`
+    : "Your attempts and clues will appear here.";
+  attemptHistory.setAttribute("aria-label", copy ? `${copy.targetTitle} search attempts and clues` : "Attempts and clues");
+  board.setAttribute("aria-label", copy ? `${copy.targetTitle} search grid` : "Search grid");
+  boardKeyboardHelp.textContent = `Use the arrow keys to move between untried coordinates. Press Enter or Space to ${copy?.action ?? "strike"}.`;
 }
 
 function buildBoard() {
@@ -222,8 +188,8 @@ function buildBoard() {
       cell.dataset.column = column;
       cell.disabled = !game || game.status !== "playing";
       cell.setAttribute("aria-label", game
-        ? `${game.role === "moby" ? "Direct the White Whale" : "Cast Ahab’s harpoon"} to coordinate ${coordinate}, untried`
-        : `Choose a commander before selecting coordinate ${coordinate}`);
+        ? `${coordinate}, untried. Select to ${activeCopy().action}.`
+        : `Choose a side before selecting coordinate ${coordinate}`);
       cell.addEventListener("click", () => chooseCoordinate(cell, coordinate));
       board.append(cell);
     }
@@ -313,7 +279,7 @@ function render() {
   requiredHits.textContent = REQUIRED_HITS;
   attemptCount.textContent = chancesLeft;
   damageTrack.setAttribute("aria-valuenow", game.hits.length);
-  damageTrack.setAttribute("aria-valuetext", `${game.hits.length} of ${REQUIRED_HITS} wounds landed`);
+  damageTrack.setAttribute("aria-valuetext", `${game.hits.length} of ${REQUIRED_HITS} ${copy.hitPlural} landed`);
   damageSegments.forEach((segment, index) => segment.classList.toggle("active", index < game.hits.length));
   renderNavigationFeedback();
 
@@ -336,12 +302,13 @@ function render() {
   }
 
   if (game.lastWasHit) {
-    status.textContent = `${copy.targetShort} struck. ${REQUIRED_HITS - game.hits.length} decisive blow${REQUIRED_HITS - game.hits.length === 1 ? "" : "s"} remain.`;
+    const remaining = REQUIRED_HITS - game.hits.length;
+    status.textContent = `${copy.hitLabel}. ${remaining} more ${remaining === 1 ? copy.hitSingular : copy.hitPlural} needed.`;
     prompt.textContent = copy.hitPrompts[game.hits.length - 1];
   } else if (game.lastAttempt) {
     const hint = getSearchHint(game, game.lastAttempt);
-    status.textContent = `${game.lastAttempt} is empty water. ${chancesLeft} chance${chancesLeft === 1 ? "" : "s"} remain. ${hint.message}`;
-    prompt.textContent = "Follow the compass bearing to choose the next untried square. Open the Captain’s log to review previous clues.";
+    status.textContent = `${game.lastAttempt} is empty water. ${chancesLeft} chance${chancesLeft === 1 ? " remains" : "s remain"}. ${hint.message}`;
+    prompt.textContent = `Follow the compass bearing to choose the next untried square. Open your ${copy.logReference} to review previous clues.`;
   }
 }
 
@@ -351,7 +318,7 @@ function endGame(won) {
   dialogKicker.textContent = result.kicker;
   dialogTitle.textContent = result.title;
   dialogMessage.textContent = result.message;
-  resultStatline.textContent = `${game.hits.length} of ${REQUIRED_HITS} strikes · ${game.attempts.length} of ${MAX_ATTEMPTS} chances used`;
+  resultStatline.textContent = `${game.hits.length} of ${REQUIRED_HITS} ${activeCopy().hitPlural} · ${game.attempts.length} of ${MAX_ATTEMPTS} chances used`;
   dialog.dataset.result = won ? "win" : "loss";
   const mobyWins = game.role === "moby" ? won : !won;
   victoryArtwork.src = mobyWins ? "assets/images/moby-victory.jpeg" : "assets/images/ahab-victory.png";
@@ -380,9 +347,8 @@ function startGame(role) {
   whale.dataset.whaleState = "ready";
   briefing.textContent = copy.briefing;
   boardInstruction.textContent = copy.instruction;
-  footerRule.textContent = `You command ${role === "moby" ? "Moby Dick" : "Captain Ahab"}. Two true strikes in five chances decide the chase.`;
-  damageLabel.textContent = copy.damage;
-  board.setAttribute("aria-label", `${copy.target} search grid`);
+  footerRule.textContent = `You are ${copy.name}. Two ${copy.hitPlural} in five chances decide the chase.`;
+  renderRoleLabels(copy);
   status.textContent = copy.startStatus;
   prompt.textContent = copy.startPrompt;
   hitCount.textContent = "0";
@@ -390,7 +356,7 @@ function startGame(role) {
   attemptCount.textContent = MAX_ATTEMPTS;
   damageSegments.forEach((segment) => segment.classList.remove("active"));
   damageTrack.setAttribute("aria-valuenow", "0");
-  damageTrack.setAttribute("aria-valuetext", "No wounds landed");
+  damageTrack.setAttribute("aria-valuetext", `0 of ${REQUIRED_HITS} ${copy.hitPlural} landed`);
   if (dialog.open) dialog.close();
   victoryArtwork.hidden = true;
   dialog.removeAttribute("data-result");
@@ -412,23 +378,23 @@ function chooseRole() {
   resetButton.disabled = true;
   ship.dataset.shipState = "intact";
   whale.dataset.whaleState = "ready";
-  briefing.textContent = "Choose which side of the last chase you command. Whether you are Moby Dick or Captain Ahab, you have five chances to decide the sea.";
-  boardInstruction.textContent = "Choose a commander before plotting the first coordinate.";
-  footerRule.textContent = "Choose a commander. Two true strikes in five chances decide the chase.";
-  damageLabel.textContent = "Enemy wounds";
+  briefing.textContent = "Choose your side in the last chase. Whether you are Moby Dick or Captain Ahab, you have five chances to decide the outcome.";
+  boardInstruction.textContent = "Choose a side before selecting the first coordinate.";
+  footerRule.textContent = "Choose a side. Two true strikes in five chances decide the chase.";
+  renderRoleLabels();
   status.textContent = "Choose Moby Dick or Captain Ahab to begin the chase.";
-  prompt.textContent = "Each commander has five chances. Two true strikes win.";
+  prompt.textContent = "Each side has five chances. Two true strikes win.";
   hitCount.textContent = "0";
   requiredHits.textContent = REQUIRED_HITS;
   attemptCount.textContent = MAX_ATTEMPTS;
   damageSegments.forEach((segment) => segment.classList.remove("active"));
   damageTrack.setAttribute("aria-valuenow", "0");
-  damageTrack.setAttribute("aria-valuetext", "No wounds landed");
+  damageTrack.setAttribute("aria-valuetext", "No hits landed");
   if (dialog.open) dialog.close();
   victoryArtwork.hidden = true;
   buildBoard();
   compassTitle.textContent = "No bearing yet";
-  compassDescription.textContent = "Choose a coordinate. A miss reveals your quarry’s direction and distance.";
+  compassDescription.textContent = "Choose a coordinate. A miss reveals your opponent’s direction and distance.";
   compassNeedle.classList.add("is-idle");
   compassNeedle.style.setProperty("--needle-angle", "0deg");
   guidedTip.hidden = true;

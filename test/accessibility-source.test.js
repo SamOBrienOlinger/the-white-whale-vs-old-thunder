@@ -16,7 +16,7 @@ test("landing controls match the integrated artwork and game states", () => {
   assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Moby Dick<\/span>/);
   assert.match(html, /class="role-copy"><small>Play as<\/small><span class="role-name">Captain Ahab<\/span>/);
   assert.match(html, /class="landing-control landing-begin"[^>]*data-enter-hunt disabled/);
-  assert.match(html, />Begin the Hunt<\/button>/);
+  assert.match(html, />Begin the Chase<\/button>/);
   assert.match(html, /href="blueprint\.css\?v=20260828-2"/);
   assert.doesNotMatch(landingScript, /document\.createElement\('link'\)/);
   assert.match(landingScript, /button\.disabled = !selectedRole/);

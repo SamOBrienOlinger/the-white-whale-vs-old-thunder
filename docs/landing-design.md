@@ -8,13 +8,13 @@ The Moby Dick button uses the deep brown (#704336) from the earlier landing-butt
 
 ## Checkboxes and selection marks
 
-Every native checkbox uses the shared styling and displays the existing antique harpoon silhouette (`assets/images/role-icon-ahab.png`) instead of a tick when checked. The ivory harpoon sits on a deep brown square; unchecked paper remains empty. The selected Moby Dick and Captain Ahab buttons use the same harpoon in place of their former ticks, coloured to contrast with each button. Only the checkbox appearance changes, preserving the label, checked state, Space-key behaviour and guided-hunt logic. The whole label remains a touch target of at least 44px, and the focus outline remains visible. Forced-colour mode uses system colours while retaining the harpoon shape on checkboxes and character choices.
+Every native checkbox uses the shared styling and displays the existing antique harpoon silhouette (`assets/images/role-icon-ahab.png`) instead of a tick when checked. The ivory harpoon sits on a deep brown square; unchecked paper remains empty. The selected Moby Dick and Captain Ahab buttons use the same harpoon in place of their former ticks, coloured to contrast with each button. Only the checkbox appearance changes, preserving the label, checked state, Space-key behaviour and guided-play logic. The whole label remains a touch target of at least 44px, and the focus outline remains visible. Forced-colour mode uses system colours while retaining the harpoon shape on checkboxes and character choices.
 
 ## Title and illustration order
 
 The hero leaf now reads in this order: “The Last Chase”, the centred three-line title, the illustration, and “The Pequod & the White Whale”. The caption sits directly beneath the image with a small gap and shares its figure. Decorative book text is anchored to the illustration, keeping it away from the title and caption. The second leaf contains the introduction and game controls. This order is preserved on phones.
 
-## Begin the Hunt button
+## Begin the Chase button
 
 The main action is a worn parchment label with larger, spaced small capitals and softly irregular edges. It samples inside the book-leaf texture to remove the pale rim and uses a deep umber tint once a character is selected, giving the ivory lettering a clear contrast. Before selection it remains a muted paper label. A slight lift on hover, a pressed state and the existing keyboard focus outline clarify interaction. The button retains its native disabled behaviour and full rectangular hit area; the irregular clipping affects only its decorative background. Forced-colour mode uses system button colours, and reduced-motion mode removes transitions.
 
