@@ -72,16 +72,20 @@ body.landing-active { background: #151917; }
 }
 
 .plate-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding-inline: 1.5rem;
   padding-bottom: .7rem;
   border-bottom: 1px solid var(--leaf-rule);
   color: #61513c;
-  font-size: .65rem;
+  font-size: 1.3rem;
+  line-height: 1.4;
   letter-spacing: .15em;
+  text-align: center;
   text-transform: uppercase;
 }
+.plate-heading > span:last-child { position: absolute; top: .7em; right: 0; font-size: .5em; }
 
 .landing-artwork { display: block; background: transparent; }
 .landing-artwork img {
@@ -186,24 +190,25 @@ body.landing-active { background: #151917; }
   align-items: center;
   justify-content: center;
   gap: .7rem;
-  padding: 1.15rem .75rem 1rem;
-  border: 1px solid #9b8360;
-  border-radius: 1px;
+  padding: 1.25rem .9rem 1.15rem;
+  border: 0;
+  border-radius: 0;
   color: var(--role-ink);
-  background:
-    linear-gradient(145deg, rgb(255 247 221 / .65), rgb(204 180 136 / .24)),
-    repeating-linear-gradient(0deg, rgb(96 69 33 / .025) 0 1px, transparent 1px 4px);
-  background-color: #e8dabd;
-  box-shadow: 0 2px 4px rgb(61 43 23 / .12);
+  background: transparent;
+  box-shadow: none;
   text-align: center;
+  isolation: isolate;
 }
 
-/* Fine printer's rules and ink silhouettes echo the surrounding book leaves. */
+/* The same worn paper silhouette gives each choice a naturally aged edge. */
 .landing-role::after {
   content: "";
   position: absolute;
-  inset: 5px;
-  border: 1px solid rgb(125 100 64 / .45);
+  z-index: -1;
+  inset: 0;
+  border: 0;
+  background: url("assets/images/antique-book-leaf.webp") center / 100% 100% no-repeat;
+  filter: drop-shadow(0 2px 2px rgb(61 43 23 / .28));
   pointer-events: none;
 }
 
@@ -224,14 +229,16 @@ body.landing-active { background: #151917; }
 
 .landing-role[data-role="moby"] { --role-icon: url("assets/images/role-icon-moby.png"); }
 .landing-role[data-role="ahab"] { --role-ink: #704735; --role-icon: url("assets/images/role-icon-ahab.png"); }
-.landing-role:not(:disabled):hover { background-color: #f2e5c8; border-color: var(--role-ink); }
-.landing-role[aria-pressed="true"] { background-color: #decca7; border-color: var(--role-ink); outline: 2px solid var(--role-ink); outline-offset: 3px; }
+.landing-role:not(:disabled):hover { background: transparent; }
+.landing-role:not(:disabled):hover::after { filter: brightness(1.04) drop-shadow(0 3px 3px rgb(61 43 23 / .35)); }
+.landing-role[aria-pressed="true"] { background: transparent; outline: none; }
+.landing-role[aria-pressed="true"]::after { filter: brightness(.95) drop-shadow(0 0 1px var(--role-ink)) drop-shadow(0 2px 2px rgb(61 43 23 / .3)); }
 .landing-role:focus-visible { outline: 3px solid var(--role-ink); outline-offset: 5px; }
 .landing-role .role-name::after {
   content: "✓";
   position: absolute;
-  top: .5rem;
-  right: .65rem;
+  top: .75rem;
+  right: .85rem;
   font-size: .8rem;
   line-height: 1;
   opacity: 0;
@@ -258,6 +265,7 @@ body.landing-active { background: #151917; }
   visibility: visible;
   transform: none;
 }
+.landing .landing-status:empty { min-height: 0; margin: 1rem 0 0; }
 
 .landing-begin { width: 100%; padding: .9rem; background: #2f3830; border-color: #2f3830; color: #fff3db; font-size: 1.06rem; }
 .landing-begin:not(:disabled):hover { background: #455043; }
@@ -312,7 +320,7 @@ body.landing-active { background: #151917; }
   .landing-stage::after { content: ""; position: absolute; inset: 4% 5%; z-index: -2; background: #eadfc6; pointer-events: none; }
   .landing-leaf::before, .landing-leaf::after, .landing-controls::before, .landing-controls::after { content: none; }
   .landing-leaf { padding: 2rem 1.65rem .7rem; gap: .4rem; }
-  .plate-heading { padding-bottom: .35rem; font-size: .57rem; }
+  .plate-heading { padding-bottom: .35rem; font-size: 1.14rem; }
   .landing-artwork img { width: auto; max-height: min(44svh, 25rem); max-width: 100%; height: auto; }
   .landing-leaf figcaption { padding-top: .4rem; font-size: .7rem; }
   .landing-controls { padding: .8rem 1.65rem 2.1rem; }
@@ -323,7 +331,7 @@ body.landing-active { background: #151917; }
   .landing-introduction > p:last-child { font-size: .79rem; line-height: 1.5; }
   .landing-introduction > p:last-child br { display: none; }
   .landing-roles { gap: .65rem; }
-  .landing-role { padding: .95rem .55rem .8rem; gap: .45rem; }
+  .landing-role { padding: 1.05rem .7rem .95rem; gap: .45rem; }
   .landing-role::before { display: block; flex-basis: 1.6rem; width: 2.8rem; height: 1.6rem; }
   .landing-role .role-name { font-size: 1.02rem; }
   .landing-role .role-objective { font-size: .7rem; }
@@ -348,6 +356,6 @@ body.landing-active { background: #151917; }
   .landing-control { border: 1px solid ButtonText; }
   .landing-control[aria-pressed="true"] { outline: 3px solid Highlight; }
   .landing-role::before { background: CanvasText; forced-color-adjust: none; }
-  .landing-role::after { border-color: ButtonText; }
+  .landing-role::after { background: Canvas; border: 1px solid ButtonText; filter: none; }
   .landing-leaf, .landing-controls { background: Canvas; }
 }

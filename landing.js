@@ -53,7 +53,7 @@ function requestGameStart(role) {
 
 function enterGame() {
   if (!selectedRole) {
-    announce('Choose Moby Dick or Captain Ahab first.', true);
+    announce('Choose a side first.', true);
     sideChoices.forEach((button) => button.classList.add('attention'));
     sideChoices[0]?.focus({ preventScroll: true });
     return;
@@ -82,7 +82,7 @@ function returnToLanding() {
   landing.classList.remove('landing--hidden');
   document.body.classList.add('landing-active');
   window.scrollTo({ top: 0, behavior: 'instant' });
-  announce('Choose Moby Dick or Captain Ahab.');
+  announce('');
   window.setTimeout(() => sideChoices[0]?.focus({ preventScroll: true }), 50);
 }
 

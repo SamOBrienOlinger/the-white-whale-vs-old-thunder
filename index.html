@@ -11,7 +11,7 @@
 
   <link rel="stylesheet" href="responsive.css?v=20261001-4">
   <link rel="stylesheet" href="ux-enhancements.css?v=20261101-1">
-  <link rel="stylesheet" href="landing.css?v=20261101-2">
+  <link rel="stylesheet" href="landing.css?v=20261101-3">
 </head>
 <body class="landing-active">
   <section class="landing" id="landing" aria-label="The White Whale versus Old Thunder landing page">
@@ -31,7 +31,7 @@
       <button class="landing-control landing-role side-choice" type="button" data-role="moby" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Moby Dick, the White Whale"><span class="role-copy"><small>Play as</small><span class="role-name">Moby Dick</span><span class="role-objective">Sink the Pequod</span></span></button>
       <button class="landing-control landing-role side-choice" type="button" data-role="ahab" aria-pressed="false" aria-describedby="landing-status" aria-label="Play as Captain Ahab, Old Thunder"><span class="role-copy"><small>Play as</small><span class="role-name">Captain Ahab</span><span class="role-objective">Hunt the White Whale</span></span></button>
       </div>
-      <p id="landing-status" class="landing-status mobile-landing-status" aria-live="polite" aria-atomic="true">Choose Moby Dick or Captain Ahab.</p>
+      <p id="landing-status" class="landing-status mobile-landing-status" aria-live="polite" aria-atomic="true"></p>
       <button class="landing-control landing-begin" type="button" data-enter-hunt disabled aria-describedby="landing-status">Begin the Hunt</button>
       <label class="guided-choice"><input id="guided-mode" type="checkbox"><span><strong>Guide my first hunt</strong><small>Helpful prompts while you learn the chart</small></span></label>
       <div class="landing-actions" aria-label="About the game">
@@ -94,7 +94,7 @@
   <dialog id="about-dialog" class="landing-dialog" aria-labelledby="about-dialog-title"><h2 id="about-dialog-title">About the Tale</h2><p>Moby Dick and Captain Ahab meet in the final chase of Herman Melville’s <em>Moby-Dick</em>. This game turns that confrontation into a short coordinate hunt of vengeance, survival and fate.</p><button type="button" data-close-landing-dialog>Return to the Hunt</button></dialog>
   <dialog id="result-dialog" class="result-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-message"><p class="dialog-kicker" id="dialog-kicker"></p><h2 id="dialog-title"></h2><p id="dialog-message"></p><p id="result-statline" class="result-statline"></p><img id="victory-artwork" class="victory-artwork" src="assets/images/moby-victory.jpeg" alt="A white whale beneath the waves as the wrecked Pequod sinks above it." width="570" height="726" hidden><button id="play-again" type="button">Take up the chase again</button><button class="secondary-dialog-button" id="choose-role" type="button">Choose another commander</button></dialog>
 
-  <script src="landing.js?v=20261001-1"></script>
+  <script src="landing.js?v=20261101-1"></script>
   <script type="module" src="script.js?v=20261001-3"></script>
 </body>
 </html>

@@ -43,7 +43,7 @@ for (const [width, height] of [[320,568],[390,844],[844,390],[768,1024],[1440,90
     expect(cell.height).toBeGreaterThanOrEqual(44);
     await page.locator('#change-role').click();
     await expect(page.locator('#landing')).toBeVisible();
-    await expect(page.locator('#landing-status')).toHaveText('Choose Moby Dick or Captain Ahab.');
+    await expect(page.locator('#landing-status')).toHaveText('');
   });
 }
 
