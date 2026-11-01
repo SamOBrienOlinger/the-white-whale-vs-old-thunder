@@ -282,10 +282,61 @@ body.landing-active { background: #151917; }
 }
 .landing .landing-status:empty { min-height: 0; margin: 1rem 0 0; }
 
-.landing-begin { width: 100%; padding: .9rem; background: #2f3830; border-color: #2f3830; color: #fff3db; font-size: 1.06rem; }
-.landing-begin:not(:disabled):hover { background: #455043; }
-.landing-begin:disabled { background: #dbceb4; border-color: #a7987e; color: #665944; cursor: not-allowed; opacity: 1; filter: none; }
-.landing-begin::before, .landing-how::before, .landing-about::before { content: none; }
+.landing-begin {
+  --hunt-paper: #683d2c;
+  width: 100%;
+  min-height: 4.2rem;
+  padding: 1.15rem 1.4rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #fff4db;
+  font-size: 1.16rem;
+  font-weight: 700;
+  font-variant-caps: small-caps;
+  letter-spacing: .09em;
+  line-height: 1.4;
+  text-shadow: 0 1px 1px rgb(30 16 10 / .4);
+  isolation: isolate;
+  filter: drop-shadow(0 3px 2px rgb(65 40 21 / .25));
+  transition: color .15s ease, transform .15s ease;
+}
+.landing-begin::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--hunt-paper) url("assets/images/antique-book-leaf.webp") center / 100% 100% no-repeat;
+  background-blend-mode: multiply;
+  clip-path: polygon(1.2% 8%, 13% 5%, 25% 7%, 38% 3%, 49% 5%, 64% 2%, 77% 5%, 89% 3%, 98.7% 7%, 100% 40%, 99.3% 70%, 98.4% 94%, 84% 97%, 70% 95%, 56% 98%, 41% 95%, 28% 98%, 14% 95%, 1% 97%, 0% 69%, .7% 35%);
+  box-shadow: inset 0 0 14px rgb(46 24 12 / .2);
+  pointer-events: none;
+  transition: background-color .15s ease;
+}
+.landing-begin:not(:disabled):hover {
+  --hunt-paper: #7b4933;
+  background: transparent;
+  filter: drop-shadow(0 4px 3px rgb(65 40 21 / .3));
+  transform: translateY(-1px);
+}
+.landing-begin:not(:disabled):active {
+  --hunt-paper: #583222;
+  transform: translateY(1px);
+  filter: drop-shadow(0 1px 1px rgb(65 40 21 / .25));
+}
+.landing-begin:disabled {
+  --hunt-paper: #f3ead7;
+  background: transparent;
+  color: #6a5438;
+  text-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+  filter: drop-shadow(0 1px 1px rgb(65 40 21 / .16));
+}
+.landing-how::before, .landing-about::before { content: none; }
 
 .guided-choice {
   min-height: 44px;
@@ -353,7 +404,7 @@ body.landing-active { background: #151917; }
   .landing-role .role-name { font-size: 1.02rem; }
   .landing-role .role-objective { font-size: .7rem; }
   .landing-status, .landing-status.show { margin-top: .6rem; margin-bottom: .35rem; font-size: .73rem; }
-  .landing-begin { grid-column: auto; grid-row: auto; padding: .7rem; font-size: .95rem; }
+  .landing-begin { grid-column: auto; grid-row: auto; min-height: 3.8rem; padding: .9rem 1.1rem; font-size: 1.05rem; }
   .guided-choice { margin-top: .5rem; }
   .landing-actions { margin-top: .6rem; padding-top: .25rem; }
 }
@@ -364,7 +415,7 @@ body.landing-active { background: #151917; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .landing, .landing-control, .landing-status { transition: none; }
+  .landing, .landing-control, .landing-status, .landing-begin::before { transition: none; }
   .landing .side-choice.attention { animation: none; }
 }
 
@@ -374,5 +425,8 @@ body.landing-active { background: #151917; }
   .landing-control[aria-pressed="true"] { outline: 3px solid Highlight; }
   .landing-role::before { background: CanvasText; forced-color-adjust: none; }
   .landing-role::after { background: Canvas; border: 1px solid ButtonText; filter: none; }
+  .landing-begin, .landing-begin:not(:disabled):hover, .landing-begin:not(:disabled):active { background: ButtonFace; color: ButtonText; border: 2px solid ButtonText; filter: none; text-shadow: none; }
+  .landing-begin:disabled { color: GrayText; border-color: GrayText; }
+  .landing-begin::before { display: none; }
   .landing-leaf, .landing-controls { background: Canvas; }
 }

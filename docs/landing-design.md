@@ -2,6 +2,10 @@
 
 Updated 1 November 2026.
 
+## Begin the Hunt button
+
+The main action is a worn parchment label with larger, spaced small capitals and softly irregular edges. It reuses the book-leaf texture with a deep umber tint once a character is selected, giving the ivory lettering a clear contrast. Before selection it remains a muted paper label. A slight lift on hover, a pressed state and the existing keyboard focus outline clarify interaction. The button retains its native disabled behaviour and full rectangular hit area; the irregular clipping affects only its decorative background. Forced-colour mode uses system button colours, and reduced-motion mode removes transitions.
+
 ## Faded book text behind the hero
 
 Original maritime paragraphs are typeset on the hero's paper leaf, beneath the existing illustration, with justified lines, indented paragraphs, muted sepia ink, 30% opacity and a restrained 0.4px blur. Old Standard TT revives the Modern serif printing styles used in late nineteenth-century books; see the [typeface documentation](https://ctan.org/pkg/oldstandard). Its letter outlines are embedded in `assets/images/hero-book-text.svg`, so the exact typography displays consistently without a webfont request. The source font and its SIL Open Font License are retained in `assets/fonts/old-standard-tt/`.
