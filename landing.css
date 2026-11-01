@@ -366,7 +366,31 @@ body.landing-active { background: #151917; }
   color: #463c2e;
   font-size: .81rem;
 }
-.guided-choice input { accent-color: #3e5146; }
+.guided-choice input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 1px solid #806447;
+  border-radius: 2px;
+  background: #f0e3c9;
+  color: #fff0d2;
+  cursor: pointer;
+}
+.guided-choice input::before {
+  content: "";
+  width: 1.2rem;
+  height: 1.2rem;
+  background: currentColor;
+  -webkit-mask: url("assets/images/role-icon-ahab.png") center / contain no-repeat;
+  mask: url("assets/images/role-icon-ahab.png") center / contain no-repeat;
+  opacity: 0;
+}
+.guided-choice input:checked { background: #704336; border-color: #5b3a2b; }
+.guided-choice input:checked::before { opacity: 1; }
 .guided-choice strong { font-weight: 400; }
 .guided-choice small { color: #665944; font-size: .67rem; }
 .guided-choice:focus-within { outline: 2px solid #74422c; outline-offset: 4px; }
@@ -437,6 +461,8 @@ body.landing-active { background: #151917; }
 }
 
 @media (forced-colors: active) {
+  .guided-choice input { forced-color-adjust: none; background: Canvas; border-color: ButtonText; color: CanvasText; }
+  .guided-choice input:checked { background: Highlight; border-color: Highlight; color: HighlightText; }
   .landing-stage::before, .landing-leaf::before, .landing-controls::before, .landing-page-text { display: none; }
   .landing-control { border: 1px solid ButtonText; }
   .landing-control[aria-pressed="true"] { outline: 3px solid Highlight; }

@@ -6,6 +6,10 @@ Updated 1 November 2026.
 
 The Moby Dick button uses the deep brown (#704336) from the earlier landing-button palette with warm ivory lettering, and Captain Ahab a complementary warm rose-brown wash. Moby Dick retains a dark brown keyboard focus outline against the surrounding pale parchment. Both layer a small, deterministic SVG fibre texture over the existing parchment. The texture is enlarged to sample inside the book leaf, removing the pale backing-page edges. A single irregular clipped outline and restrained inner shading retain the worn-paper feel, with colour extending to every edge. Slightly stronger texture contrast makes the aged paper more visible, while the engraved icons and lettering remain clear. Selection darkens the paper gently and retains the explicit checkmark. Forced-colour mode removes the decorative tint, grain and clipping.
 
+## Guided-hunt checkbox
+
+The native checkbox displays the existing antique harpoon silhouette (`assets/images/role-icon-ahab.png`) instead of a tick when checked. The ivory harpoon sits on a deep brown square; unchecked paper remains empty. Only the checkbox appearance changes, preserving the label, checked state, Space-key behaviour and guided-hunt logic. The whole label remains a touch target of at least 44px, and the focus outline remains visible. Forced-colour mode uses system colours while retaining the harpoon shape.
+
 ## Title and illustration order
 
 The hero leaf now reads in this order: “The Last Chase”, the centred three-line title, the illustration, and “The Pequod & the White Whale”. The caption sits directly beneath the image with a small gap and shares its figure. Decorative book text is anchored to the illustration, keeping it away from the title and caption. The second leaf contains the introduction and game controls. This order is preserved on phones.
