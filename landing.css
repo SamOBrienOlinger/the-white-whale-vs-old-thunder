@@ -221,19 +221,13 @@ body.landing-active { background: #151917; }
   height: 4rem;
   border: 0;
   border-radius: 0;
-  background: var(--role-ink);
-  -webkit-mask: var(--role-icon) center / auto 2.2rem no-repeat;
-  mask: var(--role-icon) center / auto 2.2rem no-repeat;
+  background: var(--role-icon) center / contain no-repeat;
   box-shadow: none;
 }
 
-.landing-role[data-role="moby"] { --role-icon: url("assets/images/role-icon-moby.png"); }
-.landing-role[data-role="ahab"] { --role-ink: #704735; }
-.landing-role[data-role="ahab"]::before {
-  background: url("assets/images/role-icon-ahab-engraved.webp") center / contain no-repeat;
-  -webkit-mask: none;
-  mask: none;
-}
+.landing-role[data-role="moby"] { --role-icon: url("assets/images/role-icon-moby-engraved.webp"); }
+.landing-role[data-role="moby"]::before { width: 6rem; }
+.landing-role[data-role="ahab"] { --role-ink: #704735; --role-icon: url("assets/images/role-icon-ahab-engraved.webp"); }
 .landing-role:not(:disabled):hover { background: transparent; }
 .landing-role:not(:disabled):hover::after { filter: brightness(1.04) drop-shadow(0 3px 3px rgb(61 43 23 / .35)); }
 .landing-role[aria-pressed="true"] { background: transparent; outline: none; }
@@ -337,7 +331,8 @@ body.landing-active { background: #151917; }
   .landing-introduction > p:last-child br { display: none; }
   .landing-roles { gap: .65rem; }
   .landing-role { padding: 1.05rem .7rem .95rem; gap: .45rem; }
-  .landing-role::before { display: block; flex-basis: 3.5rem; width: 3.5rem; height: 3.5rem; -webkit-mask-size: auto 1.6rem; mask-size: auto 1.6rem; }
+  .landing-role::before { display: block; flex-basis: 3.5rem; width: 3.5rem; height: 3.5rem; }
+  .landing-role[data-role="moby"]::before { width: 5.25rem; }
   .landing-role .role-name { font-size: 1.02rem; }
   .landing-role .role-objective { font-size: .7rem; }
   .landing-status, .landing-status.show { margin-top: .6rem; margin-bottom: .35rem; font-size: .73rem; }

@@ -2,9 +2,27 @@
 
 Updated 1 November 2026.
 
+## Moby Dick button engraving
+
+The Moby Dick choice now uses a pale sperm whale with sepia contours and engraved hatching to match Captain Ahab's portrait. The existing whale icon supplied the subject and the Ahab portrait supplied the style reference. Both passes used the built-in OpenAI image-generation tool. The transparent result is encoded as a 384 × 256 WebP at `assets/images/role-icon-moby-engraved.webp`.
+
+The whale uses a 96 × 64px icon area on desktop and 84 × 56px on phones, keeping the character labels aligned with Ahab's icon. Both illustrations are decorative CSS images; the existing button labels provide their accessible names. The original hero illustration remains unchanged.
+
+Initial style-transfer prompt:
+
+Use case: style-transfer. Asset type: transparent Moby Dick character-choice button icon for an antique-book-themed browser game.
+Input image 1 is the existing sperm-whale icon to redraw. Input image 2 is the Captain Ahab portrait and is the STYLE REFERENCE ONLY.
+Replace the flat whale silhouette with one original nineteenth-century engraved / woodcut illustration of Moby Dick that looks printed by exactly the same artist as the Ahab reference: the same warm dark sepia ink, cream highlights, decisive contours, fine but readable curved hatching, and restrained antique maritime-book character. Keep only the whale subject from image 1; do not copy its simplified cartoon proportions.
+Draw an anatomically credible adult white sperm whale in a clean side view, facing right: enormous long blunt rectangular head taking about one third of its total length, tiny low-set eye, narrow underslung lower jaw, long body tapering smoothly toward a narrow tail stock, small pectoral flipper, a low dorsal hump rather than a tall dorsal fin, and broad two-lobed tail flukes. The back and tail may curve upward gently for a compact icon, but preserve a natural elongated body. Make Moby Dick visibly pale through generous light cream highlights, with sepia contour lines and engraved shadows. No smiling expression, no cartoon eye, no humpback throat grooves, no dolphin snout, no oversized belly.
+Landscape composition approximately 3:2, the full whale including the entire tail and head visible, centred and filling about 90 percent of the canvas width. Strong readable silhouette and simplified hatching that will remain recognisable in a button at roughly 90 by 60 pixels. Transparent background outside the whale; real alpha, not a checkerboard. No paper rectangle, no circle, no badge, no border, no lettering, no words, no watermark, no waves, no spout, no ship, no human, no harpoon, no decorative clutter. Output only the redrawn whale icon, not the portrait and not a UI mockup.
+
+Final edge-refinement prompt:
+
+Use case: background-extraction. Edit the provided engraved Moby Dick icon. Preserve the whale's existing shape, full anatomy, cream highlights and sepia engraved details exactly. Remove the brown glow / soft shadow / haze around it completely. The output must be a clean cutout: every pixel OUTSIDE the whale's precise outer contour is fully transparent; the whale itself is opaque cream and dark brown with only the boundary antialiased. Do not add any background, ambient shading, halo, drop shadow, checkerboard, text or other object. Keep the whole head and both tail flukes visible. Crop away excess empty margins while retaining a small transparent margin around the whale. This is an icon to place directly over parchment, so transparent areas must show the page without any tint or glow.
+
 ## Captain Ahab button portrait
 
-The Ahab choice uses an original sepia engraved head-and-shoulders portrait, replacing the earlier harpoon symbol. It was generated using the built-in OpenAI image-generation tool and encoded as a 256 × 256 WebP with alpha transparency. The shipped asset is `assets/images/role-icon-ahab-engraved.webp` (approximately 28 KiB). It displays in a 64px icon area on desktop and a 56px area on phones. The shared icon area keeps both character names aligned; the whale silhouette retains its previous displayed size. The portrait is decorative because the button already has an accessible character label.
+The Ahab choice uses an original sepia engraved head-and-shoulders portrait, replacing the earlier harpoon symbol. It was generated using the built-in OpenAI image-generation tool and encoded as a 256 × 256 WebP with alpha transparency. The shipped asset is `assets/images/role-icon-ahab-engraved.webp` (approximately 28 KiB). It displays in a 64px icon area on desktop and a 56px area on phones. The shared icon area keeps both character names aligned. The portrait is decorative because the button already has an accessible character label.
 
 Generation prompt:
 
