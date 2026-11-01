@@ -4,7 +4,7 @@ Updated 1 November 2026.
 
 ## Character-button paper
 
-The Moby Dick button has a pale sea-green wash and Captain Ahab a complementary warm rose-brown wash. Both layer a small, deterministic SVG fibre texture over the existing parchment. The texture is enlarged to sample inside the book leaf, removing the pale backing-page edges. A single irregular clipped outline and restrained inner shading retain the worn-paper feel, with colour extending to every edge. Slightly stronger texture contrast makes the aged paper more visible, while the engraved icons and dark labels remain clear. Selection darkens the paper gently and retains the explicit checkmark. Forced-colour mode removes the decorative tint, grain and clipping.
+The Moby Dick button has a muted storm-blue wash with slate-blue lettering, and Captain Ahab a complementary warm rose-brown wash. Both layer a small, deterministic SVG fibre texture over the existing parchment. The texture is enlarged to sample inside the book leaf, removing the pale backing-page edges. A single irregular clipped outline and restrained inner shading retain the worn-paper feel, with colour extending to every edge. Slightly stronger texture contrast makes the aged paper more visible, while the engraved icons and dark labels remain clear. Selection darkens the paper gently and retains the explicit checkmark. Forced-colour mode removes the decorative tint, grain and clipping.
 
 ## Title and illustration order
 
