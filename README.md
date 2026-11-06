@@ -4,7 +4,7 @@ A literary coordinate game inspired by the final chase in Moby-Dick. Choose Moby
 
 **HTML · CSS · JavaScript**
 
-[Visit the website](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/) · [Getting started](#getting-started) · [Repository guide](#repository-guide) · [Checks](#checks-and-review) · [Credits](#credits-and-reuse)
+[Visit the website](https://samobrienolinger.github.io/the-white-whale-vs-old-thunder/) · [Getting started](#getting-started) · [Data model](#entity-relationship-diagram) · [Repository guide](#repository-guide) · [Checks](#checks-and-review) · [Credits](#credits-and-reuse)
 
 <img src="assets/images/IMG_0954.jpeg" alt="The Pequod above Moby Dick in a stormy sea" width="880">
 
@@ -40,6 +40,36 @@ Select **Guide my first chase** on the title screen if you want short hints whil
 | Damage counter | Hull damage | Moby Dick’s wounds |
 
 Shared controls use “chase” and “side”. The character-specific text in `role-copy.js` supplies labels, compass clues, guided prompts, accessible descriptions and result summaries. Replays and side changes refresh these labels along with the game state.
+
+## Entity relationship diagram
+
+A hunt assigns one playable role and one hidden target. Playing as Moby Dick means targeting the Pequod, and playing as Ahab means targeting the white whale. The target occupies five contiguous cells on the 7 × 7 chart. The game keeps up to five unique attempted coordinates in memory and ends in victory on the second hit. [Hunt engine](game-engine.js) · [Role definitions and terminology](role-copy.js)
+
+```mermaid
+erDiagram
+    accTitle: Hunt roles, hidden target and guesses
+    accDescr: Each hunt is played as one role, has one hidden five-cell target, and records up to five distinct guesses.
+    "Playable Role" ||..o{ Hunt : "played in"
+    Hunt ||--|| Target : hides
+    Hunt ||--o{ Guess : records
+    Target ||--|{ "Target Cell" : occupies
+
+    "Playable Role" {
+        string key "Moby or Ahab"
+        string targetTitle
+    }
+    Hunt {
+        string status
+        list hits
+        list misses
+    }
+    Guess {
+        string coordinate
+    }
+    "Target Cell" {
+        string coordinate
+    }
+```
 
 ## Getting started
 
